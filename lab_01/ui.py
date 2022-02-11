@@ -5,6 +5,8 @@
 
 from tkinter import *
 import ui_func
+import func
+import draw
 
 window=Tk()
 window.title('Lab 1')
@@ -146,7 +148,7 @@ clean_button.place(x=400, y=450)
 ## Решение
 ##
 
-solve_button=Button(font='Helvetica 12 bold', text = 'Решить задачу')
+solve_button=Button(font='Helvetica 12 bold', text = 'Решить задачу', command= lambda: func.find_min_circle()) #func.find_min_distance(), 
 solve_button.place(x=400, y=500)
 
 ##

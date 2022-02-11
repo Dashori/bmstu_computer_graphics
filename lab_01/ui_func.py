@@ -1,11 +1,12 @@
-from multiprocessing import Condition
+from tkinter import messagebox
 import ui
 from tkinter import *
-from tkinter import Canvas, messagebox
-
+from tkinter import messagebox
+import func
 from prettytable import PrettyTable
 
 points=[]
+min_distance=[]
 count = 0
 
 ## функция для проверки количества точек и изменения статуса полей для ввода
@@ -56,7 +57,6 @@ def read_points(count_input):
     count += count_input
 
     print(points)
-
     
 ## функция для добавления точки
 def add_point():
@@ -73,6 +73,7 @@ def add_point():
 
     print(points)
     print(count)
+
 
 ## функция для печати таблицы
 def print_table():
@@ -97,6 +98,7 @@ def print_table():
     tb.pack()
     table.mainloop()
 
+
 ## функция для проверки номера точки
 def check_point(number):
     try:
@@ -117,6 +119,7 @@ def check_point(number):
         return 1
 
     return 0
+
 
 ## фукция для удаления точки
 def del_point(number):
@@ -144,6 +147,7 @@ def change_point(number):
         return
 
     points[int(number) - 1] = [num_x, num_y]
+
 
 ## функция для очистки всех полей и массива
 def clean_all():
