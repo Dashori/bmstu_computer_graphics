@@ -1,5 +1,5 @@
 from math import sqrt
-from re import X
+from tkinter import messagebox
 import ui_func
 import draw
 
@@ -7,6 +7,8 @@ radius = -1
 x = 0
 y = 0
 need_point_1 = []
+need_point_2 = []
+need_point_3 = []
 
 
 def find_distance(point_1, point_2):
@@ -15,7 +17,6 @@ def find_distance(point_1, point_2):
 def find_min_distance():
     print(ui_func.count)
     for i in range(ui_func.count):
-        ui_func.min_distance.append(0)
         for j in range(ui_func.count):
             x = find_distance(ui_func.points[i], ui_func.points[j])
             ui_func.min_distance[i] += x 
@@ -24,7 +25,9 @@ def find_min_distance():
 def find_square(a,b,c):
     p = (a + b + c)/2
     square = sqrt(p*(p-a)*(p-b)*(p-c))
+    
     print("SQUARE", square)
+    print("\n")
     return square
 
 def find_radius(a,b,c):
@@ -34,18 +37,19 @@ def find_radius(a,b,c):
         r = (a*b*c)/(4*square)
     return r
 
-
 def find_center(x1, y1, x2, y2, x3, y3):
-    ka = (y2-y1)/(x2-x1)
-    kb = (y3-y2)/(x3-x2)
+    e = (x2**2 - x1**2) + (y2**2 - y1**2)
+    f = (x3**2 - x1**2) + (y3**2 - y1**2)
+    g = (x2-x1)*(y3-y1) - (x3-x1)*(y2-y1)
     global x
+    x = (y3-y1)*e-(y2-y1)*f
+    x /= (2*g)
+
     global y
-    global radius
-    x = ka*kb*(y1-y3) + kb*(x1+x2) - ka*(x2+x3)
-    x /= (2*(kb - ka))
-    y = ka*(x-x1) + y1
-    # y4 = sqrt((radius**2 - x**2))
-    print(" y y4", y, y4)
+    y = (x2-x1)*f-(x3-x1)*e
+    y /=(2*g)
+
+    print(x,y)
 
 
 def find_min_circle():
@@ -68,7 +72,7 @@ def find_min_circle():
     print("Min distance", ui_func.min_distance)
 
     global radius
-    global need_point_1
+    global need_point_1, need_point_2, need_point_3
     need_point_1 = ui_func.points[0]
 
     for i in range(1, ui_func.count):
@@ -76,6 +80,8 @@ def find_min_circle():
             a = find_distance(ui_func.points[0], ui_func.points[i])
             b = find_distance(ui_func.points[0], ui_func.points[j])
             c = find_distance(ui_func.points[i], ui_func.points[j])
+            print("точки", ui_func.points[0], ui_func.points[i], ui_func.points[j])
+
             print("стороны ",a,b,c)
             r = find_radius(a,b,c)
             print(r)
@@ -93,7 +99,3 @@ def find_min_circle():
     draw.draw_circle()
 
         
-
-
-
-    

@@ -37,6 +37,7 @@ def draw_circle():
     
     canv.create_oval(func.x - func.radius + 400, func.y + func.radius + 400, func.x + func.radius + 400, func.y - func.radius + 400, outline = 'red')    
 
+    canv.create_oval(func.x  + 400, func.y + 400, func.x + 5 + 400, func.y + 5 + 400, fill = 'green')
     canv.pack()	
     window.resizable(width=False, height=False)
     window.mainloop()

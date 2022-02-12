@@ -71,6 +71,9 @@ def add_point():
     global count
     count += 1
 
+    global min_distance
+    min_distance.append(0)
+
     print(points)
     print(count)
 
@@ -126,10 +129,16 @@ def del_point(number):
     if (check_point(number) == 1):
         return
     
+    global min_distance
+    min_distance.pop(int(number) - 1)
+
+    global points
     points.pop(int(number) - 1)
+
     global count
     count -= 1
-
+    print("Точки после удаления", points)
+    print("Расстояния после удаления", min_distance)
 
 ## функция для изменения координат точки
 def change_point(number):
@@ -151,9 +160,17 @@ def change_point(number):
 
 ## функция для очистки всех полей и массива
 def clean_all():
+    global points
     points.clear()
+
+    global min_distance
+    min_distance.clear()
+
     global count
     count = 0
+
+    # global func.radius
+    func.radius = -1
 
     for i in range(10):
         ui.name_entry_x[i].config(state='normal')
