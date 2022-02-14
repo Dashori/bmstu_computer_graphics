@@ -7,75 +7,40 @@ from tkinter import *
 import ui_func
 import func
 import draw
+from prettytable import PrettyTable
 
 window=Tk()
 window.title('Lab 1')
-window.geometry('800x600')
+window.geometry('1400x800')
 
 ##
 ## Условие
 ##
 
 task_label=Label(font='Helvetica 12 bold', text='Условие задачи:')
-task_label.place(x=50, y=15)
+task_label.place(x=20, y=15)
 
 task_text_label=Label(font='Helvetica', justify=LEFT, text='Определить радиус и центр окружности минимального радиуса, проходящей хотя бы\n\
 через три различные точки заданного множества точек на плоскости, притом, одна из точек\n\
 является такой, что сумма расстояний от неѐ до остальных точек всего множества минимальна.')
-task_text_label.place(x=50,y=37)
+task_text_label.place(x=20,y=45)
 
 ##
-## Количество точек множества
+## Таблица точек
 ##
 
-count_points_label=Label(font='Helvetica 12 bold', text='Введите количество точек множества: ')
-count_points_label.place(x=50, y=110)
+mytable = PrettyTable()
+mytable.field_names = [' Номер ', '     X     ', '     Y     ']
 
-input_count=Entry(font='Helvetica')
-input_count.place(x=370, y=107, width=50)
+tb = Text(width=40, height=36, background='light grey')
+# scroll_bar = Scrollbar(window, command = tb.yview)
+# scroll_bar.pack(side = RIGHT, fill = Y)
+# tb.config(yscrollcommand=scroll_bar.set)
+tb.config(state='disable')
+tb.place(x=20,y=150)
+# tb.pack(side=tkinter.RIGHT)
+tb.insert(INSERT, mytable)
 
-count_points_button=Button(text='Ввод',font='Helvetica', command = lambda: ui_func.check_count(input_count.get()))
-count_points_button.place(x=430, y=107, width=55, height=25)
-
-
-##
-## Таблица из 10 точек
-##
-
-table_points_label=Label(font='Helvetica 12 bold', text='Таблица точек:')
-table_points_label.place(x=50, y=150)
-
-coordinate_table_label=Label(font='Helvetica', text='X                  Y')
-coordinate_table_label.place(x=85, y=170)
-
-for i in range(10):
-    name_label='point_label_'+str(i + 1)
-    name_label=Label(font='Helvetica', justify=LEFT, text=str(i + 1))
-    name_label.place(x=50, y=200+i*30)
-
-## массивы для полей первых 10 точек таблицы
-name_entry_x = [] 
-name_entry_y = []
-
-for i in range(10):
-    name_entry_x.append(Entry(font='Helvetica'))
-    name_entry_x[i].place(x=72, y=198+i*30, width=50)
-    name_entry_x[i].config(state='readonly')
-
-    name_entry_y.append(Entry(font='Helvetica'))
-    name_entry_y[i].place(x=150, y=198+i*30, width=50)
-    name_entry_y[i].config(state='readonly')
-   
-input_table_button=Button(font='Helvetica', text='Добавить', command=lambda: ui_func.read_points(input_count.get()))
-input_table_button.place(x=220, y=468, width=80, height=27) 
-input_table_button.config(state='disable')
-
-##
-## Вывод таблицы точек
-##
-
-view_table_button=Button(font='Helvetica 12 bold', text='Вывести таблицу', command = lambda: ui_func.print_table())
-view_table_button.place(x=50, y=520)
 
 ##
 ## Добавление новой точки
@@ -157,6 +122,12 @@ solve_button.place(x=400, y=500)
 
 exit_button=Button(font='Helvetica 12 bold', text='Выход', command= lambda: window.destroy())
 exit_button.place(x=560, y=500)
+
+
+canv = Canvas(window, bg = "white")
+canv.place(x = 750, y = 150, width = 640, height = 640)
+
+draw.input_points_canvas()
 
 window.resizable(width=False, height=False)
 window.mainloop()
