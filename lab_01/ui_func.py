@@ -17,11 +17,13 @@ def add_point_field():
     except:
         messagebox.showerror('Ошибка','Координаты точки- вещественные числа')
         return 
+    
 
     add_point(x, y)
     
 ## функция для добавления точки в таблицу
 def add_point(x, y):
+
     points.append([x,y])
     global count
     count += 1
@@ -33,6 +35,7 @@ def add_point(x, y):
     print(points)
     print(count)
 
+    draw.print_points()
 
 ## функция для обновления таблицы
 def update_table():
@@ -41,7 +44,6 @@ def update_table():
     ui.tb.delete(0.0, END)
     ui.mytable.clear()
     ui.mytable.field_names = [' Номер ', '     X     ', '     Y     ']
-
 
     for i in range(count):
         x = str(points[i][0]) 
@@ -86,8 +88,10 @@ def del_point(number):
 
     global count
     count -= 1
+
     print("Точки после удаления", points)
     print("Расстояния после удаления", min_distance)
+    draw.print_points()
     update_table()
 
 
@@ -109,6 +113,7 @@ def change_point(number):
     points[int(number) - 1] = [num_x, num_y]
 
     update_table()
+    draw.print_points()
 
 
 ## функция для очистки всех полей и массива
@@ -141,3 +146,4 @@ def clean_all():
 
     ui.canv.delete("all")
     draw.print_arrows()
+    

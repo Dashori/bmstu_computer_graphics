@@ -34,6 +34,7 @@ def find_square(a,b,c):
 def find_radius(a,b,c):
     square = find_square(a,b,c)
     r = 0
+
     if (square != 0):
         r = (a*b*c)/(4*square)
     return r
@@ -59,6 +60,7 @@ def find_min_circle():
     if (ui_func.count < 3):
         messagebox.showerror("Ошибка", "Для решения задачи необходимо минимум 3 точки.")
         return
+        
     find_min_distance()
     min_point = min(ui_func.min_distance)
     print(min_point)
