@@ -9,6 +9,10 @@ points=[]
 min_distance=[]
 count = 0
 
+points_back=[]
+count_back=[]
+min_distance_back=[]
+
 ## функция для считывания точки из полей ввода
 def add_point_field():
     try:
@@ -35,6 +39,9 @@ def add_point(x, y):
     print(points)
     print(count)
 
+    if (abs(x) > 320 or abs(y) > 320):
+        func.scale_axis()
+    
     draw.print_points()
 
 ## функция для обновления таблицы
@@ -147,3 +154,6 @@ def clean_all():
     ui.canv.delete("all")
     draw.print_arrows()
     
+    ui.solve_text.config(state='normal')
+    ui.solve_text.delete(0.0, END)
+    ui.solve_text.config(state='disable')

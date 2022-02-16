@@ -1,3 +1,4 @@
+from ctypes import pointer
 from math import sqrt
 from tkinter import messagebox
 import ui_func
@@ -14,6 +15,7 @@ need_point_3 = []
 def find_distance(point_1, point_2):
     return sqrt((point_1[1]-point_2[1])**2 + (point_1[0]-point_2[0])**2)
 
+
 def find_min_distance():
     print(ui_func.count)
     for i in range(ui_func.count):
@@ -23,6 +25,7 @@ def find_min_distance():
             ui_func.min_distance[i] += x 
     print(ui_func.min_distance)
 
+
 def find_square(a,b,c):
     p = (a + b + c)/2
     square = sqrt(p*(p-a)*(p-b)*(p-c))
@@ -31,6 +34,7 @@ def find_square(a,b,c):
     
     return square
 
+
 def find_radius(a,b,c):
     square = find_square(a,b,c)
     r = 0
@@ -38,6 +42,7 @@ def find_radius(a,b,c):
     if (square != 0):
         r = (a*b*c)/(4*square)
     return r
+
 
 def find_center(x1, y1, x2, y2, x3, y3):
 
@@ -111,4 +116,25 @@ def find_min_circle():
     else:
        draw.draw_circle()
 
-        
+def back():
+    pass
+
+def scale_axis():
+    max_x = abs(ui_func.points[0][0])
+    max_y = abs(ui_func.points[0][1])
+    for i in range(ui_func.count):
+        if (abs(ui_func.points[i][0]) > max_x):
+            max_x = abs(ui_func.points[i][0])
+        if (abs(ui_func.points[i][1] > max_y)):
+            max_y = abs(ui_func.points[i][1])
+
+    print(max_x, max_y)
+
+    draw.const = max(int(max_x), int(max_y)) + 10
+
+    print("draw const = ", draw.const)
+
+
+
+    
+    

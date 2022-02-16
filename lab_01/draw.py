@@ -1,29 +1,32 @@
-from ctypes.wintypes import PINT
-from os import stat
 from tkinter import *
 import ui_func
 import ui
 import func
 
 const = 320
+const_circle = 320
+const_cutoff = 80
 
 def print_arrows():
-    ui.canv.create_line(const,const * 2,const,0,width=2,arrow=LAST) 
-    ui.canv.create_line(0,const,const * 2,const,width=2,arrow=LAST)
+    ui.canv.create_line(const_circle,const_circle * 2,const_circle,0,width=2,arrow=LAST) 
+    ui.canv.create_line(0,const_circle,const_circle * 2,const_circle,width=2,arrow=LAST)
 
-    for line in range(0, const * 2, 80):
-        ui.canv.create_line([(line, const - 4), (line, const + 4)], width = 3, fill='black')
+    for line in range(0, const_circle * 2 , const_cutoff):
+        ui.canv.create_line([(line, const_circle - 4), (line, const_circle + 4)], width = 3, fill='black')
     
-    for line in range(0, const * 2, 80):
-        ui.canv.create_line([(const - 4, line), (const + 4,line)], width = 3, fill='black')
+    for line in range(0, const_circle * 2, const_cutoff):
+        ui.canv.create_line([(const_circle - 4, line), (const_circle + 4,line)], width = 3, fill='black')
 
-    for line in range(0, const * 2, 80):
-        ui.canv.create_text(line - 15,const - 10, 
-        text=str(line - const), justify=LEFT, font=('Helvetica 10'))
+    for line in range(0, const_circle * 2, const_cutoff):
+
+        text = str(int((line * const)/const_circle - const))
+
+        ui.canv.create_text(line - 15, const_circle - 10, 
+        text=text, justify=LEFT, font=('Helvetica 10'))
         
-        ui.canv.create_text(const - 15,line - 10, 
-        text=str((-1)*(line - const)), justify=LEFT, font=('Helvetica 10'))
-        
+        ui.canv.create_text(const_circle - 15,line - 10, 
+        text=text, justify=LEFT, font=('Helvetica 10'))
+
         
 def input_points(event):
     x = event.x
@@ -43,6 +46,7 @@ def input_points_canvas():
 def print_res_text():
     ui.solve_text.config(state='normal')
 
+    ui.solve_text.delete(0.0, END)
     # ui.solve_text.delete(0,'end')
 
     text_1 = 'Построена окружность с радуисом ' + str(round(func.radius,2)) + '\n'
@@ -51,10 +55,10 @@ def print_res_text():
     text_1 += '(' + str(func.need_point_3[0]) + ',' + str (func.need_point_3[1]) + ')\n'
     text_1 += 'И с центром в точке (' + str(round(func.x,2)) + ',' + str(round(func.y,2)) + ')'
     ui.solve_text.insert(INSERT, text_1)
+    ui.solve_text.config(state='disable')
     # ui.solve_text.insert('end', text_2)
 
     # ui.solve_text.config(state='disable')
-
 
 
 def print_points():
@@ -97,11 +101,11 @@ def fix_points(new_point, radius):
     ## растяжение окружности на большую с радиусом 300
     new_point_1 = [(x * radius)/func.radius, (y * radius)/func.radius] 
 
-    ui.canv.create_oval(new_point_1[0] - 2.5 + const , new_point_1[1] - 2.5 + const,
-    new_point_1[0] + 2.5 + const, new_point_1[1] + 2.5 + const, fill = 'blue')
+    ui.canv.create_oval(new_point_1[0] - 2.5 + const_circle , new_point_1[1] - 2.5 + const_circle,
+    new_point_1[0] + 2.5 + const_circle, new_point_1[1] + 2.5 + const_circle, fill = 'blue')
 
     text = '(' + str(new_point[0]) + ',\n' + str(new_point[1]) + ')'
-    ui.canv.create_text(new_point_1[0] + const, new_point_1[1] + const, text = text)
+    ui.canv.create_text(new_point_1[0] + const_circle, new_point_1[1] + const_circle, text = text)
 
     ui.canv
 
@@ -119,14 +123,14 @@ def scaling():
     fix_points(func.need_point_2, radius)
     fix_points(func.need_point_3, radius) 
 
-    ui.canv.create_oval(func.x - radius + const - difference_x, (-1)*(func.y) + radius + const - difference_y,
-    func.x + radius + const - difference_x, (-1)*(func.y) - radius + const - difference_y, outline = 'black')
+    ui.canv.create_oval(func.x - radius + const_circle - difference_x, (-1)*(func.y) + radius + const_circle - difference_y,
+    func.x + radius + const_circle - difference_x, (-1)*(func.y) - radius + const_circle - difference_y, outline = 'black')
 
-    ui.canv.create_oval(-2.5  + const, -2.5 + const,
-    2.5 + const, 2.5 + const, fill = 'green')
+    ui.canv.create_oval(-2.5  + const_circle, -2.5 + const_circle,
+    2.5 + const_circle, 2.5 + const_circle, fill = 'green')
 
     text = '(' + str(round(func.x,2)) + ',' + str(round(func.y,2)) + ')'
 
-    ui.canv.create_text(const - 10, const - 10, text = text)
+    ui.canv.create_text(const_circle - 10, const_circle - 10, text = text)
 
     
