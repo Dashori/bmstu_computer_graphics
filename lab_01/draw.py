@@ -3,9 +3,10 @@ import ui_func
 import ui
 import func
 
-const = 320
-const_circle = 320
-const_cutoff = 80
+const_x = 300
+const_y = 300
+const_circle = 300
+const_cutoff = 50
 
 def print_arrows():
     ui.canv.create_line(const_circle,const_circle * 2,const_circle,0,width=2,arrow=LAST) 
@@ -69,11 +70,15 @@ def print_points():
         ui.canv.create_oval(x - 2.5, y - 2.5, x + 2.5, y + 2.5, fill = 'red')
     print_arrows()
 
+    if (func.radius > 0):
+        ui.canv.create_oval(func.x - func.radius + const, -func.y - func.radius + const, func.x + func.radius + const, -func.y + func.radius + const, outline = 'red')
+
+
 
 def draw_circle():
     ui.canv.delete("all")
     print_points()
-    
+
     ## точка с наим расстоянием до неё
     ui.canv.create_oval(func.need_point_1[0] + const - 2.5, (-1)*(func.need_point_1[1]) + const - 2.5,
     func.need_point_1[0] + const + 2.5, (-1)*(func.need_point_1[1]) + const + 2.5, fill = 'blue')

@@ -4,7 +4,6 @@
 # множества минимальна.
 
 from tkinter import *
-from turtle import left
 import ui_func
 import func
 import draw
@@ -18,75 +17,75 @@ def config(event):
     if event.widget == window:
 
         window_size_X=window.winfo_width()/1400
-        window_size_Y=window.winfo_height()
+        window_size_Y=window.winfo_height()/800
 
         ## условие
-        task_label.place(x=20* window_size_X, y=30,  width=event.width/6, height=event.height/19)
-        task_text_label.place(x=10* window_size_X, y=60, width=event.width/1.8, height=event.height/16)
+        task_label.place(x=20 * window_size_X, y=30 * window_size_Y)
+        task_text_label.place(x=20* window_size_X, y=60* window_size_Y)
 
-        ## примечание
-        notice_name_label.place(x=760* window_size_X, y=30, width=event.width - 1290, height=event.height - 750)
-        notice_text_label.place(x=760* window_size_X, y=60, width=event.width/1.8, height=event.height/12)
+        ## примечаниe
+        notice_name_label.place(x=750 * window_size_X, y=30 * window_size_Y) #, width = 120 * window_size_X, height = 30 * window_size_Y)
+        notice_text_label.place(x=750 * window_size_X, y=60 * window_size_Y) #, width = 750 * window_size_X, height = 100 * window_size_Y)
 
 
         ## таблица
-
-        tb.place(x=20,y=150, width=event.width/4.4, height=event.height - 200)
+        tb.place(x=20 * window_size_X, y=150 * window_size_Y, width=350 * window_size_X, height = 600 * window_size_Y)
         
         ## добавить точку
-        add_point_label.place(x=455* window_size_X, y=130, width=event.width/10, height=event.height/25)
+        add_point_label.place(x=400 * window_size_X, y=150 * window_size_Y)
 
-        coordinate_new_label_x.place(x=455 * window_size_X, y=174, width=event.width/37, height=event.height/25)
-        coordinate_new_label_y.place(x=585 * window_size_X, y=174, width=event.width/37, height=event.height/25)
+        coordinate_new_label_x.place(x=400 * window_size_X, y=174  * window_size_Y)
+        coordinate_new_label_y.place(x=540 * window_size_X, y=174 * window_size_Y)
 
-        add_point_entry_x.place(x=520, y=177, width=event.width/29, height=event.height/36)
-        add_point_entry_y.place(x=650, y=177, width=event.width/29, height=event.height/36)
+        add_point_entry_x.place(x=460 * window_size_X, y=170 * window_size_Y, width=50 * window_size_X)
+        add_point_entry_y.place(x=600 * window_size_X, y=170 * window_size_Y, width=50 * window_size_X)
 
-        add_point_button.place(x=740, y=174, width=event.width/18, height=event.height/30)
+        add_point_button.place(x=670 * window_size_X, y=167 * window_size_Y, width=100 * window_size_X, height = 30 * window_size_Y)
 
         ## удалить точку
-        del_point_label.place(x=455, y=240, width=event.width/11, height=event.height/25)
-        del_point_num_label.place(x=455, y=270, width=event.width/12, height=event.height/25)
-        del_point_entry.place(x=650, y=272, width=event.width/29, height=event.height/36)
-        del_point_button.place(x=740, y=267,width=event.width/18, height=event.height/30)
+        del_point_label.place(x=400 * window_size_X, y=240 * window_size_Y)
+        del_point_num_label.place(x=400 * window_size_X, y=270 * window_size_Y)
+        del_point_entry.place(x=580 * window_size_X, y=270 * window_size_Y, width=50 * window_size_X)
+        del_point_button.place(x=670 * window_size_X, y=267 * window_size_Y, width=100 * window_size_X, height = 30 * window_size_Y)
 
         ## изменеть точку
-        change_point_label.place(x=455, y=325, width=event.width/10, height=event.height/25)
-        change_point_num_label.place(x=455, y=355, width=event.width/12, height=event.height/25)
-        change_point_entry.place(x=650, y=355, width=event.width/29, height=event.height/36)
+        change_point_label.place(x=400 * window_size_X, y=325 * window_size_Y)
+        change_point_num_label.place(x=400 * window_size_X, y=355 * window_size_Y)
+        change_point_entry.place(x=580 * window_size_X, y=355 * window_size_Y, width=50 * window_size_X)
 
-        change_coordinate_label_x.place(x=455, y=385, width=event.width/37, height=event.height/25)
-        change_coordinate_label_y.place(x=585, y=385, width=event.width/37, height=event.height/25)
+        change_coordinate_label_x.place(x=400 * window_size_X, y=385 * window_size_Y)
+        change_coordinate_label_y.place(x=540 * window_size_X, y=385 * window_size_Y)
 
-        change_point_entry_x.place(x=520, y=386, width=event.width/29, height=event.height/36)
-        change_point_entry_y.place(x=650, y=385, width=event.width/29, height=event.height/36)
+        change_point_entry_x.place(x=460 * window_size_X, y=386 * window_size_Y, width=50 * window_size_X)
+        change_point_entry_y.place(x=600 * window_size_X, y=385 * window_size_Y, width=50 * window_size_X)
 
-        change_point_button.place(x=740, y=385, width=event.width/18, height=event.height/30)
+        change_point_button.place(x=670 * window_size_X, y=385 * window_size_Y)
 
 
         ## Кнопочки
 
-        clean_button.place(x=455, y=450, width=event.width/6, height=event.height/30)
-        solve_button.place(x=455, y=500, width=event.width/10, height=event.height/30)
-        back_to_canva.place(x=650, y=500, width=event.width/8, height=event.height/30)
+        clean_button.place(x=400 * window_size_X, y=450 * window_size_Y, width=300 * window_size_X, height = 30 * window_size_Y)
+        solve_button.place(x=400 * window_size_X, y=500 * window_size_Y, width=180 * window_size_X, height = 30 * window_size_Y)
+        back_to_canva.place(x=595 * window_size_X, y=500 * window_size_Y, width=180 * window_size_X, height = 30 * window_size_Y)
 
         
-        back_button.place(x=455, y=550, width=event.width/10, height=event.height/30)
-        exit_button.place(x=650, y=550, width=event.width/8, height=event.height/30)
+        back_button.place(x=400 * window_size_X, y=550 * window_size_Y)
+        exit_button.place(x=595 * window_size_X, y=550 * window_size_Y)
 
         ## решение
-        solve_name_label.place(x=455, y=600, width=event.width/6, height=event.height/30)
-        solve_text.place(x=450, y=630, width=event.width/5, height=event.height/6)
+        solve_name_label.place(x=400 * window_size_X, y=600 * window_size_Y)
+        solve_text.place(x=405 * window_size_X, y= 630 * window_size_Y, height = 150 * window_size_Y)
 
-        canv.place(x = 1000, y = 150, width = event.width/2, height = event.height/2)
+        # draw.const = draw.const * window_size_X
+        draw.const_x
+        draw.const_y
 
-        
+        canv.place(x = 790 * window_size_X - 10, y = 180 * window_size_Y - 10, width = draw.const * 2 * window_size_X, height= draw.const * 2* window_size_Y)
+
 
         print(window_size_X, window_size_Y)
 
         
-
-
 
 window.bind("<Configure>", config)
 
@@ -134,7 +133,7 @@ tb.insert(INSERT, mytable)
 ##
 
 add_point_label=Label(font='Helvetica 12 bold', text='Добавить точку:')
-add_point_label.place(x=400, y=150)
+# add_point_label.place(x=400, y=150)
 
 coordinate_new_label_x=Label(font='Helvetica', text='X     =')
 # coordinate_new_label_x.place(x=450, y=180)
@@ -162,7 +161,7 @@ add_point_button=Button(font='Helvetica', text='Добавить', command=lambd
 del_point_label=Label(font='Helvetica 12 bold', text='Удалить точку:')
 # del_point_label.place(x=400, y=240)
 
-del_point_num_label=Label(font='Helvetica', text='Введите номер:')
+del_point_num_label=Label(font='Helvetica', text='Введите номер точки:')
 # del_point_num_label.place(x=400, y=270)
 
 del_point_entry=Entry(font='Helvetica')
@@ -178,7 +177,7 @@ del_point_button=Button(font='Helvetica', text='Удалить', command= lambda
 change_point_label=Label(font='Helvetica 12 bold', text='Изменить точку:')
 # change_point_label.place(x=400, y=325)
 
-change_point_num_label=Label(font='Helvetica', text='Введите номер:')
+change_point_num_label=Label(font='Helvetica', text='Введите номер точки:')
 # change_point_num_label.place(x=400, y=355)
 
 change_point_entry=Entry(font='Helvetica')
@@ -246,7 +245,7 @@ exit_button=Button(font='Helvetica 12 bold', text='Выход', command= lambda:
 
 
 canv = Canvas(window, bg = "white")
-canv.place(x = 750, y = 150, width = 640, height = 640)
+# canv.place(x = 750, y = 150, width = 640, height = 640)
 
 draw.input_points_canvas()
 

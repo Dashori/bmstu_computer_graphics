@@ -3,7 +3,6 @@ from tkinter import *
 from tkinter import messagebox
 import func
 import draw
-from prettytable import PrettyTable
 
 points=[]
 min_distance=[]
@@ -22,7 +21,6 @@ def add_point_field():
         messagebox.showerror('Ошибка','Координаты точки- вещественные числа')
         return 
     
-
     add_point(x, y)
     
 ## функция для добавления точки в таблицу
@@ -41,8 +39,12 @@ def add_point(x, y):
 
     if (abs(x) > 320 or abs(y) > 320):
         func.scale_axis()
-    
+
+    func.radius = -1
     draw.print_points()
+
+    
+
 
 ## функция для обновления таблицы
 def update_table():
@@ -98,6 +100,7 @@ def del_point(number):
 
     print("Точки после удаления", points)
     print("Расстояния после удаления", min_distance)
+    func.radius = -1
     draw.print_points()
     update_table()
 
@@ -119,6 +122,7 @@ def change_point(number):
 
     points[int(number) - 1] = [num_x, num_y]
 
+    func.radius = -1
     update_table()
     draw.print_points()
 
