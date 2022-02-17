@@ -3,30 +3,65 @@ import ui_func
 import ui
 import func
 
+const = 300
 const_x = 300
 const_y = 300
 const_circle = 300
 const_cutoff = 50
 
 def print_arrows():
-    ui.canv.create_line(const_circle,const_circle * 2,const_circle,0,width=2,arrow=LAST) 
-    ui.canv.create_line(0,const_circle,const_circle * 2,const_circle,width=2,arrow=LAST)
+    ui.canv.create_line(const_x, const_y * 2, const_x,0,width=2,arrow=LAST) 
+    ui.canv.create_line(0,const_y,const_x * 2,const_y,width=2,arrow=LAST)
 
-    for line in range(0, const_circle * 2 , const_cutoff):
-        ui.canv.create_line([(line, const_circle - 4), (line, const_circle + 4)], width = 3, fill='black')
+    ## x
+    for line in range(int(const_x), int(const_x) * 2 , const_cutoff):
+        ui.canv.create_line([(line, int(const_y) - 4), (line, int(const_y) + 4)], width = 3, fill='black')
+    for line in range(int(const_x), 0, -const_cutoff):
+        ui.canv.create_line([(line, int(const_y) - 4), (line, int(const_y) + 4)], width = 3, fill='black')
+    ## y
+    for line in range(int(const_y), int(const_y) * 2, const_cutoff):
+        ui.canv.create_line([(int(const_x) - 4, line), (int(const_x) + 4,line)], width = 3, fill='black')
+    for line in range(int(const_y), 0, -const_cutoff):
+        ui.canv.create_line([(int(const_x) - 4, line), (int(const_x) + 4,line)], width = 3, fill='black')
     
-    for line in range(0, const_circle * 2, const_cutoff):
-        ui.canv.create_line([(const_circle - 4, line), (const_circle + 4,line)], width = 3, fill='black')
 
-    for line in range(0, const_circle * 2, const_cutoff):
+    ## x +
+    for line in range(int(const_x), int(const_x) * 2, const_cutoff):
+        text_plus = int((line - const_x))
 
-        text = str(int((line * const)/const_circle - const))
+        if (text_plus == 0):
+            ui.canv.create_text(line + 10, const_y - 10, 
+            text=str(text_plus), justify=LEFT, font=('Helvetica 10'))
+            continue
 
-        ui.canv.create_text(line - 15, const_circle - 10, 
-        text=text, justify=LEFT, font=('Helvetica 10'))
+        ui.canv.create_text(line - 10, const_y - 10, 
+        text=str(text_plus), justify=LEFT, font=('Helvetica 10'))
+    ## x-
+    for line in range(int(const_x), 0, -const_cutoff):
+        text_plus = int((line - const_x))
+
+        ui.canv.create_text(line + 10, const_y - 10, 
+        text=str(int(text_plus)), justify=LEFT, font=('Helvetica 10'))
+
+
+    ## y+
+    for line in range(int(const_y), int(const_y) * 2, const_cutoff):
         
-        ui.canv.create_text(const_circle - 15,line - 10, 
-        text=text, justify=LEFT, font=('Helvetica 10'))
+        text = -int((line - const_y))
+        if (text == 0):
+            continue
+
+        ui.canv.create_text(const_x - 20, line, 
+        text=str(text), justify=LEFT, font=('Helvetica 10'))
+    ## y-
+    for line in range(int(const_y), 0, -const_cutoff):
+        
+        text = int((line - const_y))
+        if (text == 0):
+            continue
+
+        ui.canv.create_text(const_x - 20, line, 
+        text=str(text), justify=LEFT, font=('Helvetica 10'))
 
         
 def input_points(event):
@@ -36,7 +71,7 @@ def input_points(event):
     print(x,y)
 
     ui.canv.create_oval(x - 2.5, y - 2.5, x + 2.5, y + 2.5)
-    ui_func.add_point(float(x) - const, (-1)*(float(y) - const))
+    ui_func.add_point(float(x) - const_x, (-1)*(float(y) - const_y))
     
 
 def input_points_canvas():
@@ -46,9 +81,7 @@ def input_points_canvas():
     
 def print_res_text():
     ui.solve_text.config(state='normal')
-
     ui.solve_text.delete(0.0, END)
-    # ui.solve_text.delete(0,'end')
 
     text_1 = 'Построена окружность с радуисом ' + str(round(func.radius,2)) + '\n'
     text_1 += 'Проходящяя через точки \n(' + str(func.need_point_1[0]) + ',' + str (func.need_point_1[1]) + ')\n'
@@ -57,21 +90,18 @@ def print_res_text():
     text_1 += 'И с центром в точке (' + str(round(func.x,2)) + ',' + str(round(func.y,2)) + ')'
     ui.solve_text.insert(INSERT, text_1)
     ui.solve_text.config(state='disable')
-    # ui.solve_text.insert('end', text_2)
-
-    # ui.solve_text.config(state='disable')
 
 
 def print_points():
     ui.canv.delete("all")
     for i in range(ui_func.count):
-        x = (ui_func.points[i][0] + const) 
-        y = (-1)*(ui_func.points[i][1]) + const
+        x = ui_func.points[i][0] + const_x
+        y = (-1)*(ui_func.points[i][1]) + const_y
         ui.canv.create_oval(x - 2.5, y - 2.5, x + 2.5, y + 2.5, fill = 'red')
     print_arrows()
 
     if (func.radius > 0):
-        ui.canv.create_oval(func.x - func.radius + const, -func.y - func.radius + const, func.x + func.radius + const, -func.y + func.radius + const, outline = 'red')
+        ui.canv.create_oval(func.x - func.radius + const_x, -func.y - func.radius + const_y, func.x + func.radius + const_x, -func.y + func.radius + const_y, outline = 'red')
 
 
 
@@ -138,4 +168,3 @@ def scaling():
 
     ui.canv.create_text(const_circle - 10, const_circle - 10, text = text)
 
-    

@@ -55,8 +55,8 @@ def update_table():
     ui.mytable.field_names = [' Номер ', '     X     ', '     Y     ']
 
     for i in range(count):
-        x = str(points[i][0]) 
-        y = str(points[i][1])
+        x = str(round(points[i][0], 2)) 
+        y = str(round(points[i][1], 2))
         ui.mytable.add_row([str(i + 1), x, y])
 
     ui.tb.insert(INSERT, ui.mytable)
