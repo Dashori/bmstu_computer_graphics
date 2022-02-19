@@ -21,7 +21,7 @@ def config(event):
 
         ## условие
         task_label.place(x=20 * window_size_X, y=30 * window_size_Y)
-        task_text_label.place(x=20* window_size_X, y=60* window_size_Y)
+        task_text_label.place(x=20 * window_size_X, y=60* window_size_Y)
 
         ## примечаниe
         notice_name_label.place(x=750 * window_size_X, y=30 * window_size_Y) 
@@ -79,16 +79,26 @@ def config(event):
         draw.const_x = draw.const * window_size_X
         draw.const_y = draw.const * window_size_Y
 
-        print("draw x y", draw.const_x, draw.const_y)
+        # print("draw x y", draw.const_x, draw.const_y)
 
-        canv.place(x = 790 * window_size_X - 10, y = 180 * window_size_Y - 10, width = draw.const * 2 * window_size_X, height= draw.const * 2* window_size_Y)
+        canv.place(x = 790 * window_size_X - 10, y = 180 * window_size_Y - 10, width = draw.const * 2 * window_size_X, height= draw.const * 2 * window_size_Y)
         
-        draw.print_points()
+        # draw.print_arrows()
+        if (window_size_X < window_size_Y):
+            draw.const_circle = 290 * window_size_X
+        else:
+            draw.const_circle =  290 * window_size_Y
 
-        print(window_size_X, window_size_Y)
+        print("radius",draw.const_circle )
+
+        if (func.flag):
+            draw.scaling()
+        else:
+            draw.print_points()
+        
+        # print(window_size_X, window_size_Y)
 
         
-
 window.bind("<Configure>", config)
 
 ##
@@ -170,7 +180,7 @@ change_coordinate_label_y=Label(font='Helvetica', text='Y     =')
 change_point_entry_x=Entry(font='Helvetica')
 change_point_entry_y=Entry(font='Helvetica')
 
-change_point_button=Button(font='Helvetica', text='Изменить', command=lambda: ui_func.change_point(change_point_entry.get()))
+change_point_button=Button(font='Helvetica', text='Изменить', command=lambda: ui_func.change_point(change_point_entry.get(), change_point_entry_x.get(), change_point_entry_y.get()))
 
 ##
 ## Очистка множества точек
@@ -182,7 +192,7 @@ clean_button=Button(font='Helvetica 12 bold', text = 'Очистить множ�
 ## Откат назад
 ##
 
-back_button=Button(font='Helvetica 12 bold', text = 'Шаг назад', command= lambda:func.back())
+back_button=Button(font='Helvetica 12 bold', text = 'Шаг назад', command= lambda:ui_func.back())
 
 
 ##
@@ -206,7 +216,7 @@ solve_text.config(state='disable')
 ## Возврат на канву
 ##
 
-back_to_canva=Button(font='Helvetica 12 bold', text = 'Вернуться к канве', command= lambda: draw.print_points())
+back_to_canva=Button(font='Helvetica 12 bold', text = 'Вернуться к канве', command= lambda: draw.print_circle_canva())
 
 
 ##

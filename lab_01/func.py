@@ -2,6 +2,7 @@ from ctypes import pointer
 from math import sqrt
 from tkinter import messagebox
 import ui_func
+import ui
 import draw
 
 radius = -1
@@ -10,6 +11,7 @@ y = 0
 need_point_1 = []
 need_point_2 = []
 need_point_3 = []
+flag = 0
 
 
 def find_distance(point_1, point_2):
@@ -61,6 +63,8 @@ def find_center(x1, y1, x2, y2, x3, y3):
 
 
 def find_min_circle():
+    global flag
+    flag = 1
    
     if (ui_func.count < 3):
         messagebox.showerror("Ошибка", "Для решения задачи необходимо минимум 3 точки.")
@@ -116,8 +120,8 @@ def find_min_circle():
     else:
        draw.draw_circle()
 
-def back():
-    pass
+    text = "draw.print_points()"
+    ui_func.back_command.append(text)
 
 def scale_axis():
     pass

@@ -5,12 +5,14 @@ import func
 import draw
 
 points=[]
+back_points=[]
 min_distance=[]
 count = 0
 
 points_back=[]
 count_back=[]
 min_distance_back=[]
+back_command = []
 
 ## функция для считывания точки из полей ввода
 def add_point_field():
@@ -40,10 +42,12 @@ def add_point(x, y):
     if (abs(x) > 320 or abs(y) > 320):
         func.scale_axis()
 
+    global back_command
+    text = 'del_point(' + str(count) + ')'
+    back_command.append(text)
+
     func.radius = -1
     draw.print_points()
-
-    
 
 
 ## функция для обновления таблицы
@@ -84,15 +88,34 @@ def check_point(number):
     return 0
 
 
+def back_points_func():
+    global points, back_points, count
+    points = back_points.copy()
+    count += 1
+    update_table()
+    draw.print_points()
+    global min_distance
+    min_distance.append(0)
+    text = "print('!')"
+    back_command.append(text)
+
+
 ## фукция для удаления точки
 def del_point(number):
     if (check_point(number) == 1):
         return
     
+    global back_command
+    global points, back_points
+
+    if (len(back_points) < len(points)):
+        back_points = points.copy()
+    text = "back_points_func()"
+    back_command.append(text)
+
     global min_distance
     min_distance.pop(int(number) - 1)
 
-    global points
     points.pop(int(number) - 1)
 
     global count
@@ -105,13 +128,11 @@ def del_point(number):
     update_table()
 
 
+
 ## функция для изменения координат точки
-def change_point(number):
+def change_point(number, x, y):
     if (check_point(number) == 1):
         return
-    
-    x = ui.change_point_entry_x.get()
-    y = ui.change_point_entry_y.get()
 
     try:
         num_x = float(x)
@@ -119,6 +140,10 @@ def change_point(number):
     except:
         messagebox.showerror('Ошибка','Координаты точек- вещесвтенные числа.')
         return
+
+    global back_command
+    text = "change_point(" + str(number) +"," + str(points[int(number) - 1][0]) +',' + str(points[int(number) - 1][1]) + ')'
+    back_command.append(text)
 
     points[int(number) - 1] = [num_x, num_y]
 
@@ -161,3 +186,24 @@ def clean_all():
     ui.solve_text.config(state='normal')
     ui.solve_text.delete(0.0, END)
     ui.solve_text.config(state='disable')
+
+
+def back():
+    global back_command, count
+    global points, back_points
+    print(back_command)
+
+    if (len(back_command) == 0):
+        messagebox.showinfo("Информация", "Вы выполнили все обратные действия.")
+        return
+
+    eval(back_command[len(back_command) - 1])
+    back_command.pop(len(back_command) - 1)
+    back_command.pop(len(back_command) - 1)
+
+    print(back_command)
+
+    print("count", count)
+    print("back",back_points)
+
+    print("points",points)
