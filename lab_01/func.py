@@ -2,7 +2,6 @@ from ctypes import pointer
 from math import sqrt
 from tkinter import messagebox
 import ui_func
-import ui
 import draw
 
 radius = -1
@@ -120,20 +119,20 @@ def find_min_circle():
     else:
        draw.draw_circle()
 
-    text = "draw.print_points()"
+    text = "draw.back_solve(), "
     ui_func.back_command.append(text)
 
 def scale_axis():
-    pass
-    # max_x = abs(ui_func.points[0][0])
-    # max_y = abs(ui_func.points[0][1])
-    # for i in range(ui_func.count):
-    #     if (abs(ui_func.points[i][0]) > max_x):
-    #         max_x = abs(ui_func.points[i][0])
-    #     if (abs(ui_func.points[i][1] > max_y)):
-    #         max_y = abs(ui_func.points[i][1])
+    # pass
+    max_x = abs(ui_func.points[0][0])
+    max_y = abs(ui_func.points[0][1])
+    for i in range(ui_func.count):
+        if (abs(ui_func.points[i][0]) > max_x):
+            max_x = abs(ui_func.points[i][0])
+        if (abs(ui_func.points[i][1] > max_y)):
+            max_y = abs(ui_func.points[i][1])
 
-    # print(max_x, max_y)
+    print("max", max_x, max_y)
 
     # draw.const = max(int(max_x), int(max_y)) + 10
 

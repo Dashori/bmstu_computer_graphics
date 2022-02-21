@@ -9,7 +9,6 @@ back_points=[]
 min_distance=[]
 count = 0
 
-points_back=[]
 count_back=[]
 min_distance_back=[]
 back_command = []
@@ -88,14 +87,17 @@ def check_point(number):
     return 0
 
 
-def back_points_func():
-    global points, back_points, count
-    points = back_points.copy()
+def back_points_func(x, y, num):
+    global points, count
+   
+    points.insert(num - 1, [x,y])
     count += 1
+
     update_table()
     draw.print_points()
     global min_distance
     min_distance.append(0)
+
     text = "print('!')"
     back_command.append(text)
 
@@ -108,9 +110,7 @@ def del_point(number):
     global back_command
     global points, back_points
 
-    if (len(back_points) < len(points)):
-        back_points = points.copy()
-    text = "back_points_func()"
+    text = "back_points_func(" + str(points[int(number) - 1][0]) + ',' + str(points[int(number) - 1][1]) + ',' + str(int(number)) + ')'
     back_command.append(text)
 
     global min_distance
@@ -126,7 +126,6 @@ def del_point(number):
     func.radius = -1
     draw.print_points()
     update_table()
-
 
 
 ## функция для изменения координат точки
@@ -151,10 +150,26 @@ def change_point(number, x, y):
     update_table()
     draw.print_points()
 
+def return_points():
+    global points, back_points, count, min_distance
+    points = back_points.copy()
+    count = len(points)
+    min_distance = [0] * count
+
+    update_table()
+    draw.print_points()
+
+    text = "print('!')"
+    back_command.append(text)
 
 ## функция для очистки всех полей и массива
 def clean_all():
-    global points
+    global points, back_points
+    back_points = points.copy()
+    global back_command
+    text = "return_points()"
+    back_command.append(text)
+
     points.clear()
 
     global min_distance
@@ -190,7 +205,7 @@ def clean_all():
 
 def back():
     global back_command, count
-    global points, back_points
+    global points
     print(back_command)
 
     if (len(back_command) == 0):
@@ -204,6 +219,4 @@ def back():
     print(back_command)
 
     print("count", count)
-    print("back",back_points)
-
     print("points",points)

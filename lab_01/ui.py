@@ -43,13 +43,18 @@ def config(event):
 
         ## удалить точку
         del_point_label.place(x=400 * window_size_X, y=240 * window_size_Y)
+
         del_point_num_label.place(x=400 * window_size_X, y=270 * window_size_Y)
+
         del_point_entry.place(x=580 * window_size_X, y=270 * window_size_Y, width=50 * window_size_X)
+
         del_point_button.place(x=670 * window_size_X, y=267 * window_size_Y, width=100 * window_size_X, height = 30 * window_size_Y)
 
-        ## изменеть точку
+        ## изменить точку
         change_point_label.place(x=400 * window_size_X, y=325 * window_size_Y)
+
         change_point_num_label.place(x=400 * window_size_X, y=355 * window_size_Y)
+
         change_point_entry.place(x=580 * window_size_X, y=355 * window_size_Y, width=50 * window_size_X)
 
         change_coordinate_label_x.place(x=400 * window_size_X, y=385 * window_size_Y)
@@ -72,33 +77,25 @@ def config(event):
         exit_button.place(x=595 * window_size_X, y=550 * window_size_Y)
 
         ## решение
+
         solve_name_label.place(x=400 * window_size_X, y=600 * window_size_Y)
         solve_text.place(x=405 * window_size_X, y= 630 * window_size_Y, height = 150 * window_size_Y)
 
-        # draw.const = draw.const * window_size_X
         draw.const_x = draw.const * window_size_X
         draw.const_y = draw.const * window_size_Y
 
-        # print("draw x y", draw.const_x, draw.const_y)
-
         canv.place(x = 790 * window_size_X - 10, y = 180 * window_size_Y - 10, width = draw.const * 2 * window_size_X, height= draw.const * 2 * window_size_Y)
         
-        # draw.print_arrows()
         if (window_size_X < window_size_Y):
-            draw.const_circle = 290 * window_size_X
+            draw.const_circle = 280 * window_size_X
         else:
-            draw.const_circle =  290 * window_size_Y
-
-        print("radius",draw.const_circle )
+            draw.const_circle =  280 * window_size_Y
 
         if (func.flag):
-            draw.scaling()
+            draw.scaling_circle()
         else:
             draw.print_points()
-        
-        # print(window_size_X, window_size_Y)
 
-        
 window.bind("<Configure>", config)
 
 ##
@@ -120,8 +117,8 @@ notice_name_label=Label(font='Helvetica 12 bold', text='Примечание:')
 
 notice_text= '1. Синим выделена точка, у которой сумма всех расстояний до неё минимальна\n\
 2. Зелёным выделена новая точка- центр окружности\n\
-3. На канве можно "тыкнуть" точку в диапазоне [-320,320]\n\
-точки с координатами, не из этого диапазона следует вводить с клавиатуры'
+3. На канве можно "тыкнуть" точку в диапазоне [-350,350].Точки с координатами\n\
+не из этого диапазона следует вводить с клавиатуры и канва расширится'
 notice_text_label=Label(font='Helvetica', justify=LEFT, text=notice_text)
 
 ##
@@ -143,11 +140,9 @@ tb.insert(INSERT, mytable)
 add_point_label=Label(font='Helvetica 12 bold', text='Добавить точку:')
 
 coordinate_new_label_x=Label(font='Helvetica', text='X     =')
-
 coordinate_new_label_y=Label(font='Helvetica', text='Y     =')
 
 add_point_entry_x=Entry(font='Helvetica')
-
 add_point_entry_y=Entry(font='Helvetica')
 
 add_point_button=Button(font='Helvetica', text='Добавить', command=lambda: ui_func.add_point_field()) 
@@ -194,20 +189,17 @@ clean_button=Button(font='Helvetica 12 bold', text = 'Очистить множ�
 
 back_button=Button(font='Helvetica 12 bold', text = 'Шаг назад', command= lambda:ui_func.back())
 
-
 ##
 ## Решение
 ##
 
 solve_button=Button(font='Helvetica 12 bold', text = 'Решить задачу', command= lambda: func.find_min_circle())
 
-
 ##
 ## Вывод решения текстом
 ##
 
 solve_name_label=Label(font='Helvetica 12 bold', text='Результат решения задачи:')
-
 
 solve_text=Text(width=40, background='light grey')
 solve_text.config(state='disable')
@@ -218,18 +210,14 @@ solve_text.config(state='disable')
 
 back_to_canva=Button(font='Helvetica 12 bold', text = 'Вернуться к канве', command= lambda: draw.print_circle_canva())
 
-
 ##
 ## Выход
 ##
 
 exit_button=Button(font='Helvetica 12 bold', text='Выход', command= lambda: window.destroy())
 
-
 canv = Canvas(window, bg = "white")
-# canv.place(x = 750, y = 150, width = 640, height = 640)
 
 draw.input_points_canvas()
 
-# window.configure(bg = "white")
 window.mainloop()
