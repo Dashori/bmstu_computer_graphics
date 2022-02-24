@@ -4,6 +4,7 @@
 # множества минимальна.
 
 from tkinter import *
+import math
 import ui_func
 import func
 import draw
@@ -84,8 +85,23 @@ def config(event):
         draw.const_x = draw.const * window_size_X
         draw.const_y = draw.const * window_size_Y
 
+        print(draw.const_x)
+
+        draw.index_cutoff = int(draw.const_x / draw.const_cutoff)
+        print("INDEX ", draw.index_cutoff)
+
+        # draw.text_x = draw.const_x
+        # draw.text_x = draw.const_y
+
         canv.place(x = 790 * window_size_X - 10, y = 180 * window_size_Y - 10, width = draw.const * 2 * window_size_X, height= draw.const * 2 * window_size_Y)
         
+        # canv.scale("all", canv.canvasx(event.x), canv.canvasy(event.y), 1.5, 0.9)
+        # canv.configure(scrollregion=canv.bbox(ALL))
+
+        # scale_widget = tkinter.Scale(window, orient="horizontal", resolution=1, from_=0, to=100)
+
+        # scale_widget.place(x = 500 * window_size_X, y = 600 * window_size_Y)
+
         if (window_size_X < window_size_Y):
             draw.const_circle = 280 * window_size_X
         else:
@@ -217,6 +233,7 @@ back_to_canva=Button(font='Helvetica 12 bold', text = 'Вернуться к к�
 exit_button=Button(font='Helvetica 12 bold', text='Выход', command= lambda: window.destroy())
 
 canv = Canvas(window, bg = "white")
+# scale_widget = tkinter.Scale(canv, orient="horizontal", resolution=1, from_=0, to=100)
 
 draw.input_points_canvas()
 

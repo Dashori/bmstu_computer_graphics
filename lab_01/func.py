@@ -123,9 +123,9 @@ def find_min_circle():
     ui_func.back_command.append(text)
 
 def scale_axis():
-    # pass
-    max_x = abs(ui_func.points[0][0])
-    max_y = abs(ui_func.points[0][1])
+    max_x = draw.const_x
+    max_y = draw.const_y
+
     for i in range(ui_func.count):
         if (abs(ui_func.points[i][0]) > max_x):
             max_x = abs(ui_func.points[i][0])
@@ -133,7 +133,12 @@ def scale_axis():
             max_y = abs(ui_func.points[i][1])
 
     print("max", max_x, max_y)
-
+    if (max_x > max_y):
+        draw.text_y = max_x
+        draw.text_x = max_x
+    else:
+        draw.text_y = max_y
+        draw.text_x = max_y
     # draw.const = max(int(max_x), int(max_y)) + 10
 
     # print("draw const = ", draw.const)
