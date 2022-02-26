@@ -9,11 +9,13 @@ const_x = 300
 const_y = 300
 const_circle = 280
 const_cutoff = 50
-index_cutoff = 6
+index_cutoff_x = 6
+index_cutoff_y = 6
 
 text_y = 300
 text_x = 300
 
+flag_canva = 0
 
 def print_arrows():
     ui.canv.create_line(const_x, const_y * 2, const_x,0,width=2,arrow=LAST) 
@@ -37,11 +39,16 @@ def print_arrows():
 
     print(text_x)
 
-    ## текст
-    text_points = []
-    for i in range(1,index_cutoff + 2):
-        text_points.append(int(text_x * i/(index_cutoff)))
-    print(text_points)
+    ## текст x
+    text_points_x = []
+    for i in range(1,index_cutoff_x + 2):
+        text_points_x.append(int(text_x * i/(index_cutoff_x)))
+
+    text_points_y = []
+    for i in range(1,index_cutoff_y + 2):
+        text_points_y.append(int(text_y * i/(index_cutoff_y)))
+
+    # print(text_points)
     point_text = -2
 
     ## x +
@@ -53,7 +60,7 @@ def print_arrows():
             continue
 
         ui.canv.create_text(line - 10, const_y - 10, 
-        text=str(text_points[point_text]), justify=LEFT, font=('Helvetica 10'))
+        text=str(text_points_x[point_text]), justify=LEFT, font=('Helvetica 10'))
         
     ## x-
     point_text = -2
@@ -63,7 +70,7 @@ def print_arrows():
             continue
 
         ui.canv.create_text(line + 10, const_y - 10, 
-        text=str((-1) * text_points[point_text]), justify=LEFT, font=('Helvetica 10'))
+        text=str((-1) * text_points_x[point_text]), justify=LEFT, font=('Helvetica 10'))
 
 
     ## y+
@@ -74,7 +81,7 @@ def print_arrows():
             continue
 
         ui.canv.create_text(const_x - 20, line, 
-        text=str((-1) * text_points[point_text]), justify=LEFT, font=('Helvetica 10'))
+        text=str((-1) * text_points_y[point_text]), justify=LEFT, font=('Helvetica 10'))
 
     ## y-
     point_text = -2
@@ -84,7 +91,7 @@ def print_arrows():
             continue
 
         ui.canv.create_text(const_x - 20, line, 
-        text=str(text_points[point_text]), justify=LEFT, font=('Helvetica 10'))
+        text=str(text_points_y[point_text]), justify=LEFT, font=('Helvetica 10'))
 
         
 def input_points(event):
@@ -135,6 +142,8 @@ def print_points():
 
 def print_circle_canva():
 
+    global flag_canva
+    flag_canva = 1
     if (func.radius < 0):
         messagebox.showerror("Ошибка", "Вы уже на канве.")
         return
@@ -160,19 +169,28 @@ def draw_circle():
     print_points()
 
     ## точка с наим расстоянием до неё
-    ui.canv.create_oval(func.need_point_1[0] + const - 2.5, (-1)*(func.need_point_1[1]) + const - 2.5,
-    func.need_point_1[0] + const + 2.5, (-1)*(func.need_point_1[1]) + const + 2.5, fill = 'blue')
+    x1 = func.need_point_1[0] * const_x / text_x + const_x  
+    y1 = (-1)*(func.need_point_1[1]) * const_y / text_y + const_y 
+
+    ui.canv.create_oval(x1 - 2.5, y1 - 2.5,
+    x1 + 2.5, y1 + 2.5, fill = 'blue')
+
+    x2 = (func.x - func.radius) * const_x / text_x + const_x 
+    y2 = (-func.y - func.radius) * const_y / text_y + const_y 
+
+    x3 = (func.x + func.radius) * const_x / text_x + const_x
+    y3 = (-func.y + func.radius) * const_y / text_y + const_y 
 
     ## окружность
-    ui.canv.create_oval(func.x - func.radius + const_x, (-1)*(func.y) + func.radius + const_y,
-    func.x + func.radius + const_x, (-1)*(func.y) - func.radius + const_y, outline = 'red')
+    ui.canv.create_oval(x2, y2, x3, y3, outline = 'red')
 
-    ## центр окружности
-    ui.canv.create_oval(func.x  + const_x, (-1)*(func.y) + const_y,
-    func.x + 5 + const_x, (-1)*(func.y) + 5 + const_y, fill = 'green')
+    # ## центр окружности
+    x4 = func.x * const_x / text_x + const_x 
+    y4 = (-1)*(func.y) * const_y / text_y + const_y 
+    ui.canv.create_oval(x4, y4, x4 + 5, y4 + 5, fill = 'green')
 
     print_res_text()
-    scaling_circle()
+    # scaling_circle()
 
 def fix_points(new_point, color):
 
@@ -182,7 +200,7 @@ def fix_points(new_point, color):
 
     x = round(x,2)
     y = round(y,2)
-    ui.canv.create_oval(x - 2.5 + const_x, y - 2.5 + const_y, x + 2.5 + const_x, y + 2.5 + const_y, fill = 'red')
+    # ui.canv.create_oval(x - 2.5 + const_x, y - 2.5 + const_y, x + 2.5 + const_x, y + 2.5 + const_y, fill = 'red')
 
     ## растяжение окружности на большую с радиусом 300
     new_point_1 = [(x * const_circle)/func.radius, (y * const_circle)/func.radius] 
@@ -193,11 +211,12 @@ def fix_points(new_point, color):
     text = '(' + str(round(new_point[0],2)) + ',\n' + str(round(new_point[1],2)) + ')'
     ui.canv.create_text(new_point_1[0] - 5 + const_x, new_point_1[1] - 5 + const_y, text = text)
 
-
     return new_point
 
 
 def scaling_circle():
+
+    print("AAA")
 
     ui.canv.delete("all")
     difference_x = func.x 
@@ -207,6 +226,15 @@ def scaling_circle():
     fix_points(func.need_point_1, "blue")
     fix_points(func.need_point_2, "red")
     fix_points(func.need_point_3, "red") 
+
+    x2 = (func.x - func.radius)  + const_x 
+    y2 = (-func.y - func.radius) + const_y 
+
+    x3 = (func.x + func.radius)  + const_x
+    y3 = (-func.y + func.radius)  + const_y 
+
+    ## окружность
+    # ui.canv.create_oval(x2, y2, x3, y3, outline = 'red')
 
     ui.canv.create_oval(func.x - const_circle + const_x - difference_x, (-1)*(func.y) + const_circle + const_y - difference_y,
     func.x + const_circle + const_x - difference_x, (-1)*(func.y) - const_circle + const_y - difference_y, outline = 'black')

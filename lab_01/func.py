@@ -74,8 +74,8 @@ def find_min_circle():
     print(min_point)
     index = ui_func.min_distance.index(min_point) 
 
-    print("POINTS ",ui_func.points)
-    print("Min distance", ui_func.min_distance)
+    # print("POINTS ",ui_func.points)
+    # print("Min distance", ui_func.min_distance)
 
     ## для удобства ставим на 1 место точку, которая точно будет в окружности
 
@@ -83,8 +83,8 @@ def find_min_circle():
 
     ui_func.min_distance[0], ui_func.min_distance[index] = ui_func.min_distance[index], ui_func.min_distance[0] 
 
-    print("POINTS ",ui_func.points)
-    print("Min distance", ui_func.min_distance)
+    # print("POINTS ",ui_func.points)
+    # print("Min distance", ui_func.min_distance)
 
     global radius
     radius = -1
@@ -117,7 +117,7 @@ def find_min_circle():
     if (radius == -1):
         messagebox.showerror("Ошибка", "По данным точкам невозможно построить окружность.")
     else:
-       draw.draw_circle()
+       draw.scaling_circle()
 
     text = "draw.back_solve(), "
     ui_func.back_command.append(text)

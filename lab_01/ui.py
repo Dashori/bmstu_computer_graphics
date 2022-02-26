@@ -64,7 +64,7 @@ def config(event):
         change_point_entry_x.place(x=460 * window_size_X, y=386 * window_size_Y, width=50 * window_size_X)
         change_point_entry_y.place(x=600 * window_size_X, y=385 * window_size_Y, width=50 * window_size_X)
 
-        change_point_button.place(x=670 * window_size_X, y=385 * window_size_Y)
+        change_point_button.place(x=670 * window_size_X, y=385 * window_size_Y, width=100 * window_size_X, height = 30 * window_size_Y)
 
 
         ## Кнопочки
@@ -87,30 +87,31 @@ def config(event):
 
         print(draw.const_x)
 
-        draw.index_cutoff = int(draw.const_x / draw.const_cutoff)
-        print("INDEX ", draw.index_cutoff)
+        draw.index_cutoff_x = int(draw.const_x / draw.const_cutoff)
+        draw.index_cutoff_y = int(draw.const_y / draw.const_cutoff)
+        # print("INDEX ", draw.index_cutoff)
 
-        # draw.text_x = draw.const_x
-        # draw.text_x = draw.const_y
+        if (draw.const_x > draw.text_x):
+            draw.text_x = draw.const_x
+        if (draw.const_y > draw.text_y):
+            draw.text_x = draw.const_y
 
         canv.place(x = 790 * window_size_X - 10, y = 180 * window_size_Y - 10, width = draw.const * 2 * window_size_X, height= draw.const * 2 * window_size_Y)
-        
-        # canv.scale("all", canv.canvasx(event.x), canv.canvasy(event.y), 1.5, 0.9)
-        # canv.configure(scrollregion=canv.bbox(ALL))
-
-        # scale_widget = tkinter.Scale(window, orient="horizontal", resolution=1, from_=0, to=100)
-
-        # scale_widget.place(x = 500 * window_size_X, y = 600 * window_size_Y)
-
+    
         if (window_size_X < window_size_Y):
             draw.const_circle = 280 * window_size_X
         else:
             draw.const_circle =  280 * window_size_Y
 
+        draw.print_points()
+
         if (func.flag):
             draw.scaling_circle()
-        else:
+        if (draw.flag_canva):
             draw.print_points()
+            draw.draw_circle()
+
+    
 
 window.bind("<Configure>", config)
 
