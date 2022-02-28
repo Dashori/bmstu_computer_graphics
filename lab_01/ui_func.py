@@ -55,7 +55,7 @@ def update_table():
     ui.tb.config(state='normal')
     ui.tb.delete(0.0, END)
     ui.mytable.clear()
-    ui.mytable.field_names = [' Номер ', '     X     ', '     Y     ']
+    ui.mytable.field_names = [' Номер ', 'X', 'Y']
 
     for i in range(count):
         x = str(round(points[i][0], 2)) 

@@ -77,6 +77,10 @@ def config(event):
         back_button.place(x=400 * window_size_X, y=550 * window_size_Y)
         exit_button.place(x=595 * window_size_X, y=550 * window_size_Y)
 
+
+        ## масштаб
+        scale_plus_button.place(x=850 * window_size_X, y=130 * window_size_Y)
+        scale_minus_button.place(x=900 * window_size_X, y=130 * window_size_Y)
         ## решение
 
         solve_name_label.place(x=400 * window_size_X, y=600 * window_size_Y)
@@ -89,12 +93,13 @@ def config(event):
 
         draw.index_cutoff_x = int(draw.const_x / draw.const_cutoff)
         draw.index_cutoff_y = int(draw.const_y / draw.const_cutoff)
-        # print("INDEX ", draw.index_cutoff)
+        print("INDEX  X", draw.index_cutoff_x)
+        draw.print_points()
 
-        if (draw.const_x > draw.text_x):
-            draw.text_x = draw.const_x
-        if (draw.const_y > draw.text_y):
-            draw.text_x = draw.const_y
+        # if (draw.const_x > draw.text_x):
+        #     draw.text_x = draw.const_x
+        # if (draw.const_y > draw.text_y):
+        #     draw.text_y = draw.const_y
 
         canv.place(x = 790 * window_size_X - 10, y = 180 * window_size_Y - 10, width = draw.const * 2 * window_size_X, height= draw.const * 2 * window_size_Y)
     
@@ -103,7 +108,7 @@ def config(event):
         else:
             draw.const_circle =  280 * window_size_Y
 
-        draw.print_points()
+        
 
         if (func.flag):
             draw.scaling_circle()
@@ -134,7 +139,7 @@ notice_name_label=Label(font='Helvetica 12 bold', text='Примечание:')
 
 notice_text= '1. Синим выделена точка, у которой сумма всех расстояний до неё минимальна\n\
 2. Зелёным выделена новая точка- центр окружности\n\
-3. На канве можно "тыкнуть" точку в диапазоне [-350,350].Точки с координатами\n\
+3. Канву можно растягивать до большего размера.Точки с координатами\n\
 не из этого диапазона следует вводить с клавиатуры и канва расширится'
 notice_text_label=Label(font='Helvetica', justify=LEFT, text=notice_text)
 
@@ -146,6 +151,7 @@ mytable = PrettyTable()
 mytable.field_names = [' Номер ', '     X     ', '     Y     ']
 
 tb = Text(width=40, height=36, background='light grey')
+# tb = Listbox(window, background='light grey')
 tb.config(state='disable')
 tb.insert(INSERT, mytable)
 
@@ -232,6 +238,13 @@ back_to_canva=Button(font='Helvetica 12 bold', text = 'Вернуться к к�
 ##
 
 exit_button=Button(font='Helvetica 12 bold', text='Выход', command= lambda: window.destroy())
+
+##
+## Изменение масштаба
+##
+
+scale_plus_button=Button(font='Helvetica 12 bold', text = '+', command= lambda: func.scale_plus())
+scale_minus_button=Button(font='Helvetica 12 bold', text = '-', command= lambda: func.scale_minus())
 
 canv = Canvas(window, bg = "white")
 # scale_widget = tkinter.Scale(canv, orient="horizontal", resolution=1, from_=0, to=100)

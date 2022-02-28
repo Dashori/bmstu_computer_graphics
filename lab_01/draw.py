@@ -17,9 +17,16 @@ text_x = 300
 
 flag_canva = 0
 
+def round_numbers(num):
+    if (num < 5):
+        num = round(num,2)
+    else:
+        num = int(num)
+    return num
+
 def print_arrows():
-    ui.canv.create_line(const_x, const_y * 2, const_x,0,width=2,arrow=LAST) 
-    ui.canv.create_line(0,const_y,const_x * 2,const_y,width=2,arrow=LAST)
+    ui.canv.create_line(const_x, const_y * 2, const_x,0, width=2,arrow=LAST) 
+    ui.canv.create_line(0, const_y, const_x * 2, const_y, width=2,arrow=LAST)
 
     ## x
     for line in range(int(const_x), int(const_x) * 2 , const_cutoff):
@@ -33,20 +40,20 @@ def print_arrows():
         ui.canv.create_line([(int(const_x) - 4, line), (int(const_x) + 4,line)], width = 3, fill='black')
 
     global text_x
-    
-    if (const_x > text_x):
-        text_x = const_x
 
     print(text_x)
 
     ## текст x
     text_points_x = []
-    for i in range(1,index_cutoff_x + 2):
-        text_points_x.append(int(text_x * i/(index_cutoff_x)))
-
+    for i in range(1, index_cutoff_x + 2):
+        x = text_x * i/(index_cutoff_x)
+        text_points_x.append(round_numbers(x))
+        
+    ## текст y
     text_points_y = []
     for i in range(1,index_cutoff_y + 2):
-        text_points_y.append(int(text_y * i/(index_cutoff_y)))
+        y = text_y * i/(index_cutoff_y)
+        text_points_y.append(round_numbers(y))
 
     # print(text_points)
     point_text = -2

@@ -123,27 +123,37 @@ def find_min_circle():
     ui_func.back_command.append(text)
 
 def scale_axis():
-    max_x = draw.const_x
-    max_y = draw.const_y
+    pass
+    # max_x = draw.const_x
+    # max_y = draw.const_y
 
-    for i in range(ui_func.count):
-        if (abs(ui_func.points[i][0]) > max_x):
-            max_x = abs(ui_func.points[i][0])
-        if (abs(ui_func.points[i][1] > max_y)):
-            max_y = abs(ui_func.points[i][1])
+    # for i in range(ui_func.count):
+    #     if (abs(ui_func.points[i][0]) > max_x):
+    #         max_x = abs(ui_func.points[i][0])
+    #     if (abs(ui_func.points[i][1] > max_y)):
+    #         max_y = abs(ui_func.points[i][1])
 
-    print("max", max_x, max_y)
-    if (max_x > max_y):
-        draw.text_y = max_x
-        draw.text_x = max_x
-    else:
-        draw.text_y = max_y
-        draw.text_x = max_y
+    # print("max", max_x, max_y)
+    # if (max_x > max_y):
+    #     draw.text_y = max_x
+    #     draw.text_x = max_x
+    # else:
+    #     draw.text_y = max_y
+    #     draw.text_x = max_y
     # draw.const = max(int(max_x), int(max_y)) + 10
 
     # print("draw const = ", draw.const)
 
 
-
+def scale_plus():
+    draw.text_x = draw.text_x / 1.5
+    draw.text_y = draw.text_y / 1.5
+    draw.print_points()
     
+    
+def scale_minus():
+    draw.text_x = draw.text_x * 1.5
+    draw.text_y = draw.text_y * 1.5
+    draw.print_points()
+
     
