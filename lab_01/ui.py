@@ -25,8 +25,8 @@ def config(event):
         task_text_label.place(x=20 * window_size_X, y=60* window_size_Y)
 
         ## примечаниe
-        notice_name_label.place(x=750 * window_size_X, y=30 * window_size_Y) 
-        notice_text_label.place(x=750 * window_size_X, y=60 * window_size_Y)
+        notice_name_label.place(x=760 * window_size_X, y=30 * window_size_Y) 
+        notice_text_label.place(x=760 * window_size_X, y=60 * window_size_Y)
 
         ## таблица
         tb.place(x=20 * window_size_X, y=150 * window_size_Y, width=350 * window_size_X, height = 600 * window_size_Y)
@@ -68,7 +68,6 @@ def config(event):
 
 
         ## Кнопочки
-
         clean_button.place(x=400 * window_size_X, y=450 * window_size_Y, width=300 * window_size_X, height = 30 * window_size_Y)
         solve_button.place(x=400 * window_size_X, y=500 * window_size_Y, width=180 * window_size_X, height = 30 * window_size_Y)
         back_to_canva.place(x=595 * window_size_X, y=500 * window_size_Y, width=180 * window_size_X, height = 30 * window_size_Y)
@@ -81,8 +80,8 @@ def config(event):
         ## масштаб
         scale_plus_button.place(x=850 * window_size_X, y=130 * window_size_Y)
         scale_minus_button.place(x=900 * window_size_X, y=130 * window_size_Y)
-        ## решение
 
+        ## решение
         solve_name_label.place(x=400 * window_size_X, y=600 * window_size_Y)
         solve_text.place(x=405 * window_size_X, y= 630 * window_size_Y, height = 150 * window_size_Y)
 
@@ -97,18 +96,17 @@ def config(event):
         draw.print_points()
 
         # if (draw.const_x > draw.text_x):
-        #     draw.text_x = draw.const_x
+            # draw.text_x = draw.const_x
         # if (draw.const_y > draw.text_y):
-        #     draw.text_y = draw.const_y
+            # draw.text_y = draw.const_y
 
         canv.place(x = 790 * window_size_X - 10, y = 180 * window_size_Y - 10, width = draw.const * 2 * window_size_X, height= draw.const * 2 * window_size_Y)
     
-        if (window_size_X < window_size_Y):
-            draw.const_circle = 280 * window_size_X
-        else:
-            draw.const_circle =  280 * window_size_Y
+        # if (window_size_X < window_size_Y):
+        #     draw.const_circle = 280 * windo.w_size_X
+        # else:
+        #     draw.const_circle =  280 * window_size_Y
 
-        
 
         if (func.flag):
             draw.scaling_circle()
@@ -139,8 +137,7 @@ notice_name_label=Label(font='Helvetica 12 bold', text='Примечание:')
 
 notice_text= '1. Синим выделена точка, у которой сумма всех расстояний до неё минимальна\n\
 2. Зелёным выделена новая точка- центр окружности\n\
-3. Канву можно растягивать до большего размера.Точки с координатами\n\
-не из этого диапазона следует вводить с клавиатуры и канва расширится'
+3. Канву можно растягивать до большего размера с помощью этих кнопочек:\n'
 notice_text_label=Label(font='Helvetica', justify=LEFT, text=notice_text)
 
 ##
@@ -247,7 +244,6 @@ scale_plus_button=Button(font='Helvetica 12 bold', text = '+', command= lambda: 
 scale_minus_button=Button(font='Helvetica 12 bold', text = '-', command= lambda: func.scale_minus())
 
 canv = Canvas(window, bg = "white")
-# scale_widget = tkinter.Scale(canv, orient="horizontal", resolution=1, from_=0, to=100)
 
 draw.input_points_canvas()
 

@@ -92,7 +92,7 @@ def find_min_circle():
     global need_point_1, need_point_2, need_point_3
     need_point_1 = ui_func.points[0]
 
-    for i in range(1, ui_func.count):
+    for i in range(1, ui_func.count - 1):
         for j in range(i + 1, ui_func.count):
             a = find_distance(ui_func.points[0], ui_func.points[i])
             b = find_distance(ui_func.points[0], ui_func.points[j])
@@ -149,6 +149,9 @@ def scale_plus():
     draw.text_x = draw.text_x / 1.5
     draw.text_y = draw.text_y / 1.5
     draw.print_points()
+
+    text = "func.scale_minus()"
+    ui_func.back_command.append(text)
     
     
 def scale_minus():
@@ -156,4 +159,7 @@ def scale_minus():
     draw.text_y = draw.text_y * 1.5
     draw.print_points()
 
+    text = "func.scale_plus()"
+    ui_func.back_command.append(text)
+    
     
