@@ -22,8 +22,6 @@ def config(event):
 
         ui_func.table_width = 30 * window_size_X
 
-        print("table ", ui_func.table_width)
-
         ## условие
         task_label.place(x=20 * window_size_X, y=30 * window_size_Y)
         task_text_label.place(x=20 * window_size_X, y=60* window_size_Y)
@@ -106,7 +104,7 @@ def config(event):
 
         if (func.flag):
             draw.scaling_circle()
-            
+
         elif (draw.flag_canva and func.radius != -1):
             draw.print_points()
             draw.draw_circle()

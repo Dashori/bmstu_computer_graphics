@@ -129,11 +129,11 @@ def back_solve():
     ui.solve_text.config(state='normal')
     ui.solve_text.delete(0.0, END)
     ui.solve_text.config(state='disable')
+    func.radius = -1
     text = "print('!') "
     ui_func.back_command.append(text)
 
-    ui.scale_plus_button['state'] = 'normal'
-    ui.scale_minus_button['state'] = 'normal'
+    able_points_scale('normal')
 
 
 def print_points():
@@ -174,9 +174,8 @@ def print_circle_canva():
         x3 = func.x * const_x / text_x + const_x 
         y3 = (-1)*(func.y) * const_y / text_y + const_y 
         ui.canv.create_oval(x3, y3, x3 + 5, y3 + 5, fill = 'green')
-
-    ui.scale_plus_button['state'] = 'normal'
-    ui.scale_minus_button['state'] = 'normal'
+    
+    able_points_scale('normal')
 
 
 def draw_circle():
@@ -255,6 +254,16 @@ def scaling_circle():
     text = '(' + str(round(func.x,2)) + ',' + str(round(func.y,2)) + ')'
 
     ui.canv.create_text(const_x - 10, const_y - 10, text = text)
+    able_points_scale('disable')
 
-    ui.scale_plus_button['state'] = 'disabled'
-    ui.scale_minus_button['state'] = 'disabled'
+def able_points_scale(key):
+    ui.scale_plus_button['state'] = key
+    ui.scale_minus_button['state'] = key
+
+    ui.del_point_button['state'] = key
+    ui.change_point_button['state'] = key
+    ui.add_point_button['state'] = key
+
+    ui.clean_button['state'] = key
+    ui.solve_button['state'] = key
+    
