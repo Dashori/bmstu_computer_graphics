@@ -19,6 +19,8 @@ def config(event):
 
         window_size_X=window.winfo_width()/1400
         window_size_Y=window.winfo_height()/800
+        ui_func.table_width=350 * window_size_X
+        print("SIZE ", ui_func.table_width)
 
         ## условие
         task_label.place(x=20 * window_size_X, y=30 * window_size_Y)
@@ -29,7 +31,7 @@ def config(event):
         notice_text_label.place(x=760 * window_size_X, y=60 * window_size_Y)
 
         ## таблица
-        tb.place(x=20 * window_size_X, y=150 * window_size_Y, width=350 * window_size_X, height = 600 * window_size_Y)
+        tb.place(x = 20 * window_size_X, y=150 * window_size_Y, width=350 * window_size_X, height = 600 * window_size_Y)
         
         ## добавить точку
         add_point_label.place(x=400 * window_size_X, y=150 * window_size_Y)
@@ -47,7 +49,7 @@ def config(event):
 
         del_point_num_label.place(x=400 * window_size_X, y=270 * window_size_Y)
 
-        del_point_entry.place(x=580 * window_size_X, y=270 * window_size_Y, width=50 * window_size_X)
+        del_point_entry.place(x=600 * window_size_X, y=270 * window_size_Y, width=50 * window_size_X)
 
         del_point_button.place(x=670 * window_size_X, y=267 * window_size_Y, width=100 * window_size_X, height = 30 * window_size_Y)
 
@@ -56,7 +58,7 @@ def config(event):
 
         change_point_num_label.place(x=400 * window_size_X, y=355 * window_size_Y)
 
-        change_point_entry.place(x=580 * window_size_X, y=355 * window_size_Y, width=50 * window_size_X)
+        change_point_entry.place(x=600 * window_size_X, y=355 * window_size_Y, width=50 * window_size_X)
 
         change_coordinate_label_x.place(x=400 * window_size_X, y=385 * window_size_Y)
         change_coordinate_label_y.place(x=540 * window_size_X, y=385 * window_size_Y)
@@ -68,13 +70,13 @@ def config(event):
 
 
         ## Кнопочки
-        clean_button.place(x=400 * window_size_X, y=450 * window_size_Y, width=300 * window_size_X, height = 30 * window_size_Y)
+        clean_button.place(x=400 * window_size_X, y=450 * window_size_Y, width=375 * window_size_X, height = 30 * window_size_Y)
         solve_button.place(x=400 * window_size_X, y=500 * window_size_Y, width=180 * window_size_X, height = 30 * window_size_Y)
         back_to_canva.place(x=595 * window_size_X, y=500 * window_size_Y, width=180 * window_size_X, height = 30 * window_size_Y)
 
         
-        back_button.place(x=400 * window_size_X, y=550 * window_size_Y)
-        exit_button.place(x=595 * window_size_X, y=550 * window_size_Y)
+        back_button.place(x=400 * window_size_X, y=550 * window_size_Y, width=180 * window_size_X, height = 30 * window_size_Y)
+        exit_button.place(x=595 * window_size_X, y=550 * window_size_Y, width=180 * window_size_X, height = 30 * window_size_Y)
 
 
         ## масштаб
@@ -94,7 +96,7 @@ def config(event):
         draw.index_cutoff_y = int(draw.const_y / draw.const_cutoff)
         print("INDEX  X", draw.index_cutoff_x)
         draw.print_points()
-
+        ui_func.update_table()
         # if (draw.const_x > draw.text_x):
             # draw.text_x = draw.const_x
         # if (draw.const_y > draw.text_y):
@@ -145,7 +147,7 @@ notice_text_label=Label(font='Helvetica', justify=LEFT, text=notice_text)
 ##
 
 mytable = PrettyTable()
-mytable.field_names = [' Номер ', '     X     ', '     Y     ']
+# mytable.field_names = [' Номер ', '     X     ', '     Y     ']
 
 tb = Text(width=40, height=36, background='light grey')
 # tb = Listbox(window, background='light grey')

@@ -122,6 +122,8 @@ def find_min_circle():
     text = "draw.back_solve(), "
     ui_func.back_command.append(text)
 
+    draw.print_res_text()
+
 def scale_axis():
     pass
     # max_x = draw.const_x

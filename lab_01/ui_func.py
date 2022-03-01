@@ -13,6 +13,8 @@ count_back=[]
 min_distance_back=[]
 back_command = []
 
+table_width = 350
+
 ## функция для считывания точки из полей ввода
 def add_point_field():
     try:
@@ -51,12 +53,16 @@ def add_point(x, y):
 
 ## функция для обновления таблицы
 def update_table():
-    global count
+    global count, table_width
+
     ui.tb.config(state='normal')
     ui.tb.delete(0.0, END)
     ui.mytable.clear()
-    const = int(draw.index_cutoff_x/1.5)
-    ui.mytable.field_names = [' '*const + 'Номер' + ' '*const, ' '*const + 'X' + ' '*const, ' '*const +'Y' + ' '*const]
+    # const = int(draw.index_cutoff_x/1.5)
+    const = int(table_width/75)
+    print(const)
+
+    ui.mytable.field_names = [' ' * const + 'Номер' + ' '*const, ' '*const + 'X' + ' '*const, ' '*const +'Y' + ' '*const]
 
     for i in range(count):
         x = str(round(points[i][0], 2)) 
