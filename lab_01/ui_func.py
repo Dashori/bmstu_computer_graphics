@@ -25,7 +25,8 @@ def add_point_field():
         return 
     
     add_point(x, y)
-    
+
+
 ## функция для добавления точки в таблицу
 def add_point(x, y):
 
@@ -39,9 +40,6 @@ def add_point(x, y):
     update_table()
     print(points)
     print(count)
-
-    if (abs(x) > 320 or abs(y) > 320):
-        func.scale_axis()
 
     global back_command
     text = 'del_point(' + str(count) + ')'
@@ -58,11 +56,10 @@ def update_table():
     ui.tb.config(state='normal')
     ui.tb.delete(0.0, END)
     ui.mytable.clear()
-    # const = int(draw.index_cutoff_x/1.5)
-    const = int(table_width/75)
-    print(const)
 
-    ui.mytable.field_names = [' ' * const + 'Номер' + ' '*const, ' '*const + 'X' + ' '*const, ' '*const +'Y' + ' '*const]
+    const = int(table_width/75)
+
+    ui.mytable.field_names = [' '*const + 'Номер' + ' '*const, ' '*const + 'X' + ' '*const, ' '*const + 'Y' + ' '*const]
 
     for i in range(count):
         x = str(round(points[i][0], 2)) 
@@ -93,7 +90,7 @@ def check_point(number):
 
     return 0
 
-
+## функция для возврата точек
 def back_points_func(x, y, num):
     global points, count
    
@@ -120,16 +117,12 @@ def del_point(number):
     text = "back_points_func(" + str(points[int(number) - 1][0]) + ',' + str(points[int(number) - 1][1]) + ',' + str(int(number)) + ')'
     back_command.append(text)
 
-    global min_distance
+    global min_distance, count
     min_distance.pop(int(number) - 1)
 
     points.pop(int(number) - 1)
-
-    global count
     count -= 1
 
-    print("Точки после удаления", points)
-    print("Расстояния после удаления", min_distance)
     func.radius = -1
     draw.print_points()
     update_table()
@@ -157,7 +150,9 @@ def change_point(number, x, y):
     update_table()
     draw.print_points()
 
-def return_points():
+
+## обратная функция к очистке всего
+def return_points(radius = 0):
     global points, back_points, count, min_distance
     points = back_points.copy()
     count = len(points)
@@ -165,15 +160,22 @@ def return_points():
 
     update_table()
     draw.print_points()
-
+    print(radius)
+    # if (radius != 0):
+        # draw.print_circle_canva()
     text = "print('!')"
     back_command.append(text)
+
 
 ## функция для очистки всех полей и массива
 def clean_all():
     global points, back_points
     back_points = points.copy()
     global back_command
+    print(func.radius)
+    # if (func.radius != -1):
+    #     text = "return_points(" + str(func.radius) +")"
+    # else:
     text = "return_points()"
     back_command.append(text)
 
@@ -210,10 +212,10 @@ def clean_all():
     ui.solve_text.config(state='disable')
 
 
+## функция для обратного действия
 def back():
     global back_command, count
     global points
-    print(back_command)
 
     if (len(back_command) == 0):
         messagebox.showinfo("Информация", "Вы выполнили все обратные действия.")
@@ -222,8 +224,3 @@ def back():
     eval(back_command[len(back_command) - 1])
     back_command.pop(len(back_command) - 1)
     back_command.pop(len(back_command) - 1)
-
-    print(back_command)
-
-    print("count", count)
-    print("points",points)

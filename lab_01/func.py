@@ -18,21 +18,17 @@ def find_distance(point_1, point_2):
 
 
 def find_min_distance():
-    print(ui_func.count)
     for i in range(ui_func.count):
         ui_func.min_distance[i] = 0
         for j in range(ui_func.count):
             x = find_distance(ui_func.points[i], ui_func.points[j])
             ui_func.min_distance[i] += x 
-    print(ui_func.min_distance)
 
 
 def find_square(a,b,c):
     p = (a + b + c)/2
     square = sqrt(p*(p-a)*(p-b)*(p-c))
-    
-    print("SQUARE", square)
-    
+
     return square
 
 
@@ -46,19 +42,16 @@ def find_radius(a,b,c):
 
 
 def find_center(x1, y1, x2, y2, x3, y3):
-
     e = (x2**2 - x1**2) + (y2**2 - y1**2)
     f = (x3**2 - x1**2) + (y3**2 - y1**2)
     g = (x2-x1)*(y3-y1) - (x3-x1)*(y2-y1)
-    global x
+
+    global x, y
     x = (y3-y1)*e-(y2-y1)*f
     x /= (2*g)
 
-    global y
     y = (x2-x1)*f-(x3-x1)*e
     y /=(2*g)
-
-    print(x,y)
 
 
 def find_min_circle():
@@ -71,21 +64,11 @@ def find_min_circle():
         
     find_min_distance()
     min_point = min(ui_func.min_distance)
-    print(min_point)
     index = ui_func.min_distance.index(min_point) 
 
-    # print("POINTS ",ui_func.points)
-    # print("Min distance", ui_func.min_distance)
-
-    ## для удобства ставим на 1 место точку, которая точно будет в окружности
-
     ui_func.points[0], ui_func.points[index] = ui_func.points[index],ui_func.points[0]
-
     ui_func.min_distance[0], ui_func.min_distance[index] = ui_func.min_distance[index], ui_func.min_distance[0] 
-
-    # print("POINTS ",ui_func.points)
-    # print("Min distance", ui_func.min_distance)
-
+    
     global radius
     radius = -1
 
@@ -97,12 +80,9 @@ def find_min_circle():
             a = find_distance(ui_func.points[0], ui_func.points[i])
             b = find_distance(ui_func.points[0], ui_func.points[j])
             c = find_distance(ui_func.points[i], ui_func.points[j])
-            print("точки", ui_func.points[0], ui_func.points[i], ui_func.points[j])
 
-            print("стороны ",a,b,c)
             r = find_radius(a,b,c)
-            print(r)
-            print("\n")
+
             if (r > 0 and (radius == -1 or r < radius)):
                 need_point_2 = ui_func.points[i]
                 need_point_3 = ui_func.points[j]
@@ -110,56 +90,40 @@ def find_min_circle():
 
     if (radius > 0):
         find_center(need_point_1[0], need_point_1[1], need_point_2[0], need_point_2[1], need_point_3[0], need_point_3[1])
-        global x, y
-        print("Center ", x, y)
 
-    print("Radius", radius)
+    # print("Radius", radius)
     if (radius == -1):
         messagebox.showerror("Ошибка", "По данным точкам невозможно построить окружность.")
     else:
-       draw.scaling_circle()
+        draw.scaling_circle()
+        draw.print_res_text()
 
     text = "draw.back_solve(), "
     ui_func.back_command.append(text)
 
-    draw.print_res_text()
 
-def scale_axis():
-    pass
-    # max_x = draw.const_x
-    # max_y = draw.const_y
-
-    # for i in range(ui_func.count):
-    #     if (abs(ui_func.points[i][0]) > max_x):
-    #         max_x = abs(ui_func.points[i][0])
-    #     if (abs(ui_func.points[i][1] > max_y)):
-    #         max_y = abs(ui_func.points[i][1])
-
-    # print("max", max_x, max_y)
-    # if (max_x > max_y):
-    #     draw.text_y = max_x
-    #     draw.text_x = max_x
-    # else:
-    #     draw.text_y = max_y
-    #     draw.text_x = max_y
-    # draw.const = max(int(max_x), int(max_y)) + 10
-
-    # print("draw const = ", draw.const)
-
-
+## фунция для изменение масштаба по х
 def scale_plus():
     draw.text_x = draw.text_x / 1.5
     draw.text_y = draw.text_y / 1.5
     draw.print_points()
 
+    if (draw.flag_canva and radius != -1):
+       draw.draw_circle()
+
     text = "func.scale_minus()"
     ui_func.back_command.append(text)
-    
-    
+
+
+## фунция для изменение масштаба по у    
 def scale_minus():
     draw.text_x = draw.text_x * 1.5
     draw.text_y = draw.text_y * 1.5
     draw.print_points()
+
+    if (draw.flag_canva and radius != -1):
+       draw.draw_circle()
+
 
     text = "func.scale_plus()"
     ui_func.back_command.append(text)

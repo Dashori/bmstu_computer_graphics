@@ -20,7 +20,6 @@ def config(event):
         window_size_X=window.winfo_width()/1400
         window_size_Y=window.winfo_height()/800
         ui_func.table_width=350 * window_size_X
-        print("SIZE ", ui_func.table_width)
 
         ## условие
         task_label.place(x=20 * window_size_X, y=30 * window_size_Y)
@@ -85,38 +84,30 @@ def config(event):
 
         ## решение
         solve_name_label.place(x=400 * window_size_X, y=600 * window_size_Y)
-        solve_text.place(x=405 * window_size_X, y= 630 * window_size_Y, height = 150 * window_size_Y)
+        solve_text.place(x=405 * window_size_X, y= 630 * window_size_Y, height = 125 * window_size_Y)
 
         draw.const_x = draw.const * window_size_X
         draw.const_y = draw.const * window_size_Y
 
-        print(draw.const_x)
+        if (window_size_X < window_size_Y):
+            draw.const_circle = 280 * window_size_X
+        else:
+            draw.const_circle = 280 * window_size_Y
 
         draw.index_cutoff_x = int(draw.const_x / draw.const_cutoff)
         draw.index_cutoff_y = int(draw.const_y / draw.const_cutoff)
-        print("INDEX  X", draw.index_cutoff_x)
+
         draw.print_points()
         ui_func.update_table()
-        # if (draw.const_x > draw.text_x):
-            # draw.text_x = draw.const_x
-        # if (draw.const_y > draw.text_y):
-            # draw.text_y = draw.const_y
 
         canv.place(x = 790 * window_size_X - 10, y = 180 * window_size_Y - 10, width = draw.const * 2 * window_size_X, height= draw.const * 2 * window_size_Y)
-    
-        # if (window_size_X < window_size_Y):
-        #     draw.const_circle = 280 * windo.w_size_X
-        # else:
-        #     draw.const_circle =  280 * window_size_Y
-
 
         if (func.flag):
             draw.scaling_circle()
-        if (draw.flag_canva):
+            
+        if (draw.flag_canva and func.radius != -1):
             draw.print_points()
             draw.draw_circle()
-
-    
 
 window.bind("<Configure>", config)
 
@@ -147,10 +138,7 @@ notice_text_label=Label(font='Helvetica', justify=LEFT, text=notice_text)
 ##
 
 mytable = PrettyTable()
-# mytable.field_names = [' Номер ', '     X     ', '     Y     ']
-
 tb = Text(width=40, height=36, background='light grey')
-# tb = Listbox(window, background='light grey')
 tb.config(state='disable')
 tb.insert(INSERT, mytable)
 

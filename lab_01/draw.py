@@ -41,8 +41,6 @@ def print_arrows():
 
     global text_x
 
-    print(text_x)
-
     ## текст x
     text_points_x = []
     for i in range(1, index_cutoff_x + 2):
@@ -54,8 +52,6 @@ def print_arrows():
     for i in range(1,index_cutoff_y + 2):
         y = text_y * i/(index_cutoff_y)
         text_points_y.append(round_numbers(y))
-
-    # print(text_points)
     point_text = -2
 
     ## x +
@@ -105,8 +101,6 @@ def input_points(event):
     x = event.x
     y = event.y
 
-    print(x,y)
-
     x = (float(x) - const_x) * text_x / const_x 
     y = (-1)*(float(y) - const_y) * text_y / const_y
     ui_func.add_point(x, y)
@@ -129,6 +123,7 @@ def print_res_text():
     ui.solve_text.insert(INSERT, text_1)
     ui.solve_text.config(state='disable')
 
+
 def back_solve():
     print_points()
     ui.solve_text.config(state='normal')
@@ -147,13 +142,15 @@ def print_points():
         ui.canv.create_oval(x - 2.5, y - 2.5, x + 2.5, y + 2.5, fill = 'red')
     print_arrows()
 
-def print_circle_canva():
 
+def print_circle_canva():
     global flag_canva
     flag_canva = 1
+
     if (func.radius < 0):
         messagebox.showerror("Ошибка", "Вы уже на канве.")
         return
+
     text = "func.find_min_circle()"
     ui_func.back_command.append(text)
 
@@ -169,6 +166,14 @@ def print_circle_canva():
         y1 = (-func.y - func.radius) * const_y / text_y + const_y 
         y2 = (-func.y + func.radius) * const_y / text_y + const_y 
         ui.canv.create_oval(x1, y1, x2, y2, outline = 'red')
+
+        x3 = func.x * const_x / text_x + const_x 
+        y3 = (-1)*(func.y) * const_y / text_y + const_y 
+        ui.canv.create_oval(x3, y3, x3 + 5, y3 + 5, fill = 'green')
+
+    ui.scale_plus_button['state'] = 'normal'
+    ui.scale_minus_button['state'] = 'normal'
+
 
 
 def draw_circle():
@@ -197,7 +202,7 @@ def draw_circle():
     ui.canv.create_oval(x4, y4, x4 + 5, y4 + 5, fill = 'green')
 
     print_res_text()
-    # scaling_circle()
+
 
 def fix_points(new_point, color):
 
@@ -207,7 +212,6 @@ def fix_points(new_point, color):
 
     x = round(x,2)
     y = round(y,2)
-    # ui.canv.create_oval(x - 2.5 + const_x, y - 2.5 + const_y, x + 2.5 + const_x, y + 2.5 + const_y, fill = 'red')
 
     ## растяжение окружности на большую с радиусом 300
     new_point_1 = [(x * const_circle)/func.radius, (y * const_circle)/func.radius] 
@@ -222,9 +226,6 @@ def fix_points(new_point, color):
 
 
 def scaling_circle():
-
-    print("AAA")
-
     ui.canv.delete("all")
     difference_x = func.x 
     difference_y = (-1)*func.y
@@ -241,7 +242,6 @@ def scaling_circle():
     y3 = (-func.y + func.radius)  + const_y 
 
     ## окружность
-    # ui.canv.create_oval(x2, y2, x3, y3, outline = 'red')
 
     ui.canv.create_oval(func.x - const_circle + const_x - difference_x, (-1)*(func.y) + const_circle + const_y - difference_y,
     func.x + const_circle + const_x - difference_x, (-1)*(func.y) - const_circle + const_y - difference_y, outline = 'black')
@@ -253,3 +253,5 @@ def scaling_circle():
 
     ui.canv.create_text(const_x - 10, const_y - 10, text = text)
 
+    ui.scale_plus_button['state'] = 'disabled'
+    ui.scale_minus_button['state'] = 'disabled'
