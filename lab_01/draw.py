@@ -132,6 +132,9 @@ def back_solve():
     text = "print('!') "
     ui_func.back_command.append(text)
 
+    ui.scale_plus_button['state'] = 'normal'
+    ui.scale_minus_button['state'] = 'normal'
+
 
 def print_points():
     ui.canv.delete("all")
@@ -146,6 +149,7 @@ def print_points():
 def print_circle_canva():
     global flag_canva
     flag_canva = 1
+    func.flag = 0
 
     if (func.radius < 0):
         messagebox.showerror("Ошибка", "Вы уже на канве.")
@@ -173,7 +177,6 @@ def print_circle_canva():
 
     ui.scale_plus_button['state'] = 'normal'
     ui.scale_minus_button['state'] = 'normal'
-
 
 
 def draw_circle():

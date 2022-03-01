@@ -55,12 +55,12 @@ def find_center(x1, y1, x2, y2, x3, y3):
 
 
 def find_min_circle():
-    global flag
-    flag = 1
-   
     if (ui_func.count < 3):
         messagebox.showerror("Ошибка", "Для решения задачи необходимо минимум 3 точки.")
         return
+    
+    global flag
+    flag = 1
         
     find_min_distance()
     min_point = min(ui_func.min_distance)
@@ -91,14 +91,13 @@ def find_min_circle():
     if (radius > 0):
         find_center(need_point_1[0], need_point_1[1], need_point_2[0], need_point_2[1], need_point_3[0], need_point_3[1])
 
-    # print("Radius", radius)
     if (radius == -1):
         messagebox.showerror("Ошибка", "По данным точкам невозможно построить окружность.")
     else:
         draw.scaling_circle()
         draw.print_res_text()
 
-    text = "draw.back_solve(), "
+    text = "draw.back_solve()"
     ui_func.back_command.append(text)
 
 
@@ -124,8 +123,6 @@ def scale_minus():
     if (draw.flag_canva and radius != -1):
        draw.draw_circle()
 
-
     text = "func.scale_plus()"
-    ui_func.back_command.append(text)
-    
+    ui_func.back_command.append(text)    
     

@@ -19,7 +19,10 @@ def config(event):
 
         window_size_X=window.winfo_width()/1400
         window_size_Y=window.winfo_height()/800
-        ui_func.table_width=350 * window_size_X
+
+        ui_func.table_width = 30 * window_size_X
+
+        print("table ", ui_func.table_width)
 
         ## условие
         task_label.place(x=20 * window_size_X, y=30 * window_size_Y)
@@ -77,7 +80,6 @@ def config(event):
         back_button.place(x=400 * window_size_X, y=550 * window_size_Y, width=180 * window_size_X, height = 30 * window_size_Y)
         exit_button.place(x=595 * window_size_X, y=550 * window_size_Y, width=180 * window_size_X, height = 30 * window_size_Y)
 
-
         ## масштаб
         scale_plus_button.place(x=850 * window_size_X, y=130 * window_size_Y)
         scale_minus_button.place(x=900 * window_size_X, y=130 * window_size_Y)
@@ -105,7 +107,7 @@ def config(event):
         if (func.flag):
             draw.scaling_circle()
             
-        if (draw.flag_canva and func.radius != -1):
+        elif (draw.flag_canva and func.radius != -1):
             draw.print_points()
             draw.draw_circle()
 
@@ -138,7 +140,7 @@ notice_text_label=Label(font='Helvetica', justify=LEFT, text=notice_text)
 ##
 
 mytable = PrettyTable()
-tb = Text(width=40, height=36, background='light grey')
+tb = Text(background='light grey')
 tb.config(state='disable')
 tb.insert(INSERT, mytable)
 

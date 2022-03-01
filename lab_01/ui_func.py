@@ -46,6 +46,7 @@ def add_point(x, y):
     back_command.append(text)
 
     func.radius = -1
+    clean_res_text()
     draw.print_points()
 
 
@@ -57,9 +58,9 @@ def update_table():
     ui.tb.delete(0.0, END)
     ui.mytable.clear()
 
-    const = int(table_width/75)
-
-    ui.mytable.field_names = [' '*const + 'Номер' + ' '*const, ' '*const + 'X' + ' '*const, ' '*const + 'Y' + ' '*const]
+    const = round(table_width/6)
+    
+    ui.mytable.field_names = [' '*const + '№' + ' '*const, ' '*const + 'X' + ' '*const, ' '*const + 'Y' + ' '*const]
 
     for i in range(count):
         x = str(round(points[i][0], 2)) 
@@ -124,6 +125,7 @@ def del_point(number):
     count -= 1
 
     func.radius = -1
+    clean_res_text()
     draw.print_points()
     update_table()
 
@@ -147,6 +149,7 @@ def change_point(number, x, y):
     points[int(number) - 1] = [num_x, num_y]
 
     func.radius = -1
+    clean_res_text()
     update_table()
     draw.print_points()
 
@@ -166,6 +169,11 @@ def return_points(radius = 0):
     text = "print('!')"
     back_command.append(text)
 
+
+def clean_res_text():
+    ui.solve_text.config(state='normal')
+    ui.solve_text.delete(0.0, END)
+    ui.solve_text.config(state='disable')
 
 ## функция для очистки всех полей и массива
 def clean_all():
@@ -204,12 +212,13 @@ def clean_all():
     ui.mytable.clear()
     ui.tb.config(state='disable')
 
+    clean_res_text()
+
     ui.canv.delete("all")
+    
     draw.print_arrows()
     
-    ui.solve_text.config(state='normal')
-    ui.solve_text.delete(0.0, END)
-    ui.solve_text.config(state='disable')
+    
 
 
 ## функция для обратного действия
