@@ -4,7 +4,6 @@
 # множества минимальна.
 
 from tkinter import *
-import math
 import ui_func
 import func
 import draw
@@ -86,6 +85,7 @@ def config(event):
         solve_name_label.place(x=400 * window_size_X, y=600 * window_size_Y)
         solve_text.place(x=405 * window_size_X, y= 630 * window_size_Y, height = 125 * window_size_Y)
 
+        ## изменение констант для рисования
         draw.const_x = draw.const * window_size_X
         draw.const_y = draw.const * window_size_Y
 

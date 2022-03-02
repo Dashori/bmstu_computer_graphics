@@ -17,13 +17,8 @@ text_x = 300
 
 flag_canva = 0
 
-def round_numbers(num):
-    if (num < 5):
-        num = round(num,2)
-    else:
-        num = int(num)
-    return num
 
+## функция для прорисовки осей
 def print_arrows():
     ui.canv.create_line(const_x, const_y * 2, const_x,0, width=2,arrow=LAST) 
     ui.canv.create_line(0, const_y, const_x * 2, const_y, width=2,arrow=LAST)
@@ -45,13 +40,13 @@ def print_arrows():
     text_points_x = []
     for i in range(1, index_cutoff_x + 2):
         x = text_x * i/(index_cutoff_x)
-        text_points_x.append(round_numbers(x))
+        text_points_x.append(func.round_numbers(x))
         
     ## текст y
     text_points_y = []
     for i in range(1,index_cutoff_y + 2):
         y = text_y * i/(index_cutoff_y)
-        text_points_y.append(round_numbers(y))
+        text_points_y.append(func.round_numbers(y))
     point_text = -2
 
     ## x +
@@ -96,7 +91,8 @@ def print_arrows():
         ui.canv.create_text(const_x - 20, line, 
         text=str(text_points_y[point_text]), justify=LEFT, font=('Helvetica 10'))
 
-        
+
+## функция для получения координат натыканных точек        
 def input_points(event):
     x = event.x
     y = event.y
@@ -104,13 +100,15 @@ def input_points(event):
     x = (float(x) - const_x) * text_x / const_x 
     y = (-1)*(float(y) - const_y) * text_y / const_y
     ui_func.add_point(x, y)
-    
 
+
+## функция для тыканья точек
 def input_points_canvas():
     ui.canv.bind('<Button - 1>', input_points)
     print_arrows()
 
-    
+
+## функция для печати результирующего текста   
 def print_res_text():
     ui.solve_text.config(state='normal')
     ui.solve_text.delete(0.0, END)
@@ -124,6 +122,7 @@ def print_res_text():
     ui.solve_text.config(state='disable')
 
 
+## функция для возврата всех точек
 def back_solve():
     print_points()
     ui.solve_text.config(state='normal')
@@ -136,6 +135,7 @@ def back_solve():
     able_points_scale('normal')
 
 
+## функция для отрисовки точек
 def print_points():
     ui.canv.delete("all")
 
@@ -146,6 +146,7 @@ def print_points():
     print_arrows()
 
 
+## функция для возврата на канву
 def print_circle_canva():
     global flag_canva
     flag_canva = 1
@@ -178,6 +179,7 @@ def print_circle_canva():
     able_points_scale('normal')
 
 
+## функция для отрисовки окружности на канве
 def draw_circle():
     ui.canv.delete("all")
     print_points()
@@ -205,7 +207,7 @@ def draw_circle():
 
     print_res_text()
 
-
+## функция для отрисовки точек при решении
 def fix_points(new_point, color):
 
     ## перенос окружности в центр 0 0 
@@ -227,6 +229,7 @@ def fix_points(new_point, color):
     return new_point
 
 
+## функция для отрисовки окружности при решении
 def scaling_circle():
     ui.canv.delete("all")
     difference_x = func.x 
@@ -237,14 +240,7 @@ def scaling_circle():
     fix_points(func.need_point_2, "red")
     fix_points(func.need_point_3, "red") 
 
-    x2 = (func.x - func.radius)  + const_x 
-    y2 = (-func.y - func.radius) + const_y 
-
-    x3 = (func.x + func.radius)  + const_x
-    y3 = (-func.y + func.radius)  + const_y 
-
     ## окружность
-
     ui.canv.create_oval(func.x - const_circle + const_x - difference_x, (-1)*(func.y) + const_circle + const_y - difference_y,
     func.x + const_circle + const_x - difference_x, (-1)*(func.y) - const_circle + const_y - difference_y, outline = 'black')
 
@@ -256,6 +252,8 @@ def scaling_circle():
     ui.canv.create_text(const_x - 10, const_y - 10, text = text)
     able_points_scale('disable')
 
+
+## функция для изменения стейта точек
 def able_points_scale(key):
     ui.scale_plus_button['state'] = key
     ui.scale_minus_button['state'] = key
