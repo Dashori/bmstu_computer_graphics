@@ -1,6 +1,7 @@
 
 from tkinter import *
-import func, draw
+import func
+import draw
 
 window=Tk()
 window.title('Lab 2 Chepigo Darya IU7-44B')
@@ -32,15 +33,12 @@ def config(event):
 
         canv.place(x=80*window_size_X, y=100*window_size_Y - 10, width=650*window_size_X, height=650*window_size_Y)
 
-        draw.print_rabbit()
         
 window.bind("<Configure>", config)
 
 ##
 ## Изменение масштаба
 ##
-
-canv = Canvas(window, bg = "white")
 
 
 scale_button=Button(font='Helvetica 12 bold', text = 'Изменить масштаб')
@@ -79,6 +77,7 @@ exit_button=Button(font='Helvetica 12 bold', text='Выход', command= lambda:
 
 
 # canv = Canvas(window, bg = "light grey")
+canv = Canvas(window, bg = "white")
 
-
+draw.print_rabbit()
 window.mainloop()
