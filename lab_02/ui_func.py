@@ -2,8 +2,13 @@ from tkinter import *
 from tkinter import messagebox
 from math import sin, cos, pi
 import ui, draw
+import copy
 
 back_command = []
+copy_contour_rabbit = []
+flag = 0
+
+EPSI = 1e-6
 
 ## функция для считывания координа х и у из полей ввода
 def input_coor(input_x, input_y):
@@ -44,10 +49,10 @@ def rotate_rabbit(xc, yc, angle):
         draw.contour_rabbit[i][0] = new_coor[0]
         draw.contour_rabbit[i][1] = new_coor[1]
 
+    draw.print_rabbit(xc,yc)
+
     text="rotate_rabbit(" + str(xc) + "," + str(yc) + "," + str((-1)*angle) + ")"
     back_command.append(text)
-
-    draw.print_rabbit(xc,yc)
 
 
 ## функция функция для считывания угла и центра поворота
@@ -116,11 +121,10 @@ def move_rabbit(x, y):
         draw.contour_rabbit[i][0] += x
         draw.contour_rabbit[i][1] += y
 
+    draw.print_rabbit()
 
     text="move_rabbit(" + str(-x) + "," + str(-y) + ")"
     back_command.append(text)
-
-    draw.print_rabbit()
 
 
 ## функция для обработки введённых координат перемещения
@@ -165,13 +169,47 @@ def move_window():
     window_move.mainloop()
 
 
+## функция для нахождения обратных коэффициентов масштабирования
+def reverse_k(k):
+    if (abs(k) < EPSI):
+        return(0)
+    
+    return(1/k)
+    
+
+## функция для обратного масштабировани    
+def back_scale(xc, xy, kx, ky):
+    global copy_contour_rabbit, flag
+
+    if (flag):
+        draw.contour_rabbit = copy.deepcopy(copy_contour_rabbit)
+        draw.print_rabbit()
+    else:
+        scale_rabbit(xc, xy, kx, ky)
+
+
 ## функция для изменения координат при масштабировании
 def scale_rabbit(xc, yc, kx, ky):
+    global copy_contour_rabbit, flag
+    
+    if (abs(kx) < EPSI or abs(ky) < EPSI):
+        copy_contour_rabbit = copy.deepcopy(draw.contour_rabbit)
+        flag = 1
+    else:
+        flag  = 0
+    print(copy_contour_rabbit)
+    
     for i in range(len(draw.contour_rabbit)):
         draw.contour_rabbit[i][0] = xc + kx*(draw.contour_rabbit[i][0]-xc)
         draw.contour_rabbit[i][1] = yc + ky*(draw.contour_rabbit[i][1]-yc)
 
     draw.print_rabbit()
+
+    kx_reverse=reverse_k(kx)
+    ky_reverse=reverse_k(ky)
+
+    text="back_scale(" + str(xc) + "," + str(yc) + "," + str(kx_reverse) + "," + str(ky_reverse) + ")"
+    back_command.append(text)
 
 
 ## функция для обработки параметров для масштабирования
@@ -232,9 +270,9 @@ def scale_window():
     window_scale.attributes("-topmost", True)
     window_scale.mainloop()
     
-def back():
-    global back_command
 
+## функция для осуществления обратного действия    
+def back():    
     if (len(back_command) == 0):
         messagebox.showinfo("Информация", "Вы выполнили все обратные действия.")
         return

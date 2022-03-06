@@ -27,9 +27,6 @@ const_cutoff = 65
 index_cutoff_x = 5
 index_cutoff_y = 5
 
-text_y = 325
-text_x = 325
-
 ## функция для прорисовки осей
 def print_arrows():
     ui.canv.create_line(const_x, const_y*2, const_x, 0, width=2, arrow=LAST, fill='grey') 
@@ -49,13 +46,13 @@ def print_arrows():
     ## текст x
     text_points_x = []
     for i in range(1, index_cutoff_x + 2):
-        x = text_x * i/(index_cutoff_x)
+        x = const_x * i/(index_cutoff_x)
         text_points_x.append(my_func.round_numbers(x))
         
     ## текст y
     text_points_y = []
     for i in range(1,index_cutoff_y + 2):
-        y = text_y * i/(index_cutoff_y)
+        y = const_y * i/(index_cutoff_y)
         text_points_y.append(my_func.round_numbers(y))
     point_text = -2
 

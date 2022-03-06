@@ -31,10 +31,7 @@ def config(event):
         exit_button.place(x=680*window_size_X, y=760*window_size_Y, width=100*window_size_X, height=30*window_size_Y)
 
         draw.const_x = draw.const * window_size_X
-        draw.text_x = draw.const_x
-        
         draw.const_y = draw.const * window_size_Y
-        draw.text_y = draw.const_y
 
         draw.index_cutoff_x = int(draw.const_x / draw.const_cutoff)
         draw.index_cutoff_y = int(draw.const_y / draw.const_cutoff)
