@@ -29,7 +29,7 @@ def input_coor(input_x, input_y):
 ## функция для закрытие окошка и возврата кнопки в состояние нормал
 def exit_window(root, button):
     root.destroy()
-    button.config(state='normal')
+    # button.config(state='normal')
 
 
 ## функция для изменения координат точки во время поворота
@@ -63,7 +63,9 @@ def input_rotate(input_angle_entry, input_x, input_y):
     if (angle == None or center == None):
         return
 
-    x,y = center[0] + draw.const_x - draw.center_x, -center[1] + draw.const_y - draw.center_y
+    x = center[0] * draw.const_x/draw.text_x + draw.const_x - draw.center_x
+    y = (-center[1]) * draw.const_y/draw.text_y + draw.const_y - draw.center_y 
+
     rotate_rabbit(x, y, angle)
 
 
@@ -118,8 +120,8 @@ def rotate_window():
 ## функция для изменения координат кролика во время перемещения
 def move_rabbit(x, y):
     for i in range(len(draw.contour_rabbit)):
-        draw.contour_rabbit[i][0] += x
-        draw.contour_rabbit[i][1] += y
+        draw.contour_rabbit[i][0] = draw.contour_rabbit[i][0] + x*draw.const_x/draw.text_x
+        draw.contour_rabbit[i][1] = draw.contour_rabbit[i][1] + y*draw.const_y/draw.text_y
 
     draw.print_rabbit()
 
@@ -133,6 +135,9 @@ def input_transfer_count(input_x, input_y):
 
     if (center == None):
         return
+
+    x = center[0] #* draw.const_x/draw.text_x  #+ draw.const_x - draw.center_x
+    y = (-center[1])# * draw.const_y/draw.text_y #+ draw.const_y - draw.center_y 
 
     x,y = center[0], -center[1]
     move_rabbit(x, y)
@@ -188,6 +193,11 @@ def back_scale(xc, xy, kx, ky):
         scale_rabbit(xc, xy, kx, ky)
 
 
+def fix_coor_scale(xc, yc, kx, ky):
+    for i in range(len(draw.contour_rabbit)):
+        draw.contour_rabbit[i][0] = xc + kx*(draw.contour_rabbit[i][0]-xc)
+        draw.contour_rabbit[i][1] = yc + ky*(draw.contour_rabbit[i][1]-yc)
+
 ## функция для изменения координат при масштабировании
 def scale_rabbit(xc, yc, kx, ky):
     global copy_contour_rabbit, flag
@@ -195,13 +205,8 @@ def scale_rabbit(xc, yc, kx, ky):
     if (abs(kx) < EPSI or abs(ky) < EPSI):
         copy_contour_rabbit = copy.deepcopy(draw.contour_rabbit)
         flag = 1
-    else:
-        flag  = 0
-    print(copy_contour_rabbit)
-    
-    for i in range(len(draw.contour_rabbit)):
-        draw.contour_rabbit[i][0] = xc + kx*(draw.contour_rabbit[i][0]-xc)
-        draw.contour_rabbit[i][1] = yc + ky*(draw.contour_rabbit[i][1]-yc)
+ 
+    fix_coor_scale(xc, yc, kx, ky)
 
     draw.print_rabbit()
 
@@ -280,3 +285,25 @@ def back():
     eval(back_command[len(back_command) - 1])
     back_command.pop(len(back_command) - 1)
     back_command.pop(len(back_command) - 1)
+
+## фунция для изменение масштаба по х
+def scale_plus():
+    draw.text_x = draw.text_x / 1.5
+    draw.text_y = draw.text_y / 1.5
+    fix_coor_scale(draw.const_x - draw.center_x, draw.const_y - draw.center_y, 1.5, 1.5)
+    draw.print_rabbit()
+
+    text = "scale_minus()"
+    back_command.append(text)
+
+
+## фунция для изменение масштаба по у    
+def scale_minus():
+    draw.text_x = draw.text_x * 1.5
+    draw.text_y = draw.text_y * 1.5
+    
+    fix_coor_scale(draw.const_x - draw.center_x, draw.const_y - draw.center_y, 1/1.5, 1/1.5)
+    draw.print_rabbit()
+
+    text = "scale_plus()"
+    back_command.append(text) 

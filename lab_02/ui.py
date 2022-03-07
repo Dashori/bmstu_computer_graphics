@@ -24,6 +24,10 @@ def config(event):
         ## шаг назад 
         back_button.place(x=600*window_size_X, y=30*window_size_Y, width=120*window_size_X, height=30*window_size_Y)
 
+        ## масштаб канвы
+        scale_plus_button.place(x=460 * window_size_X, y=760 * window_size_Y, width=30*window_size_X, height=30*window_size_Y)
+        scale_minus_button.place(x=500 * window_size_X, y=760 * window_size_Y, width=30*window_size_X, height=30*window_size_Y)
+
         ## о программе
         info_button.place(x=550*window_size_X, y=760*window_size_Y, width=120*window_size_X, height=30*window_size_Y)
 
@@ -33,11 +37,14 @@ def config(event):
         draw.const_x = draw.const * window_size_X
         draw.const_y = draw.const * window_size_Y
 
+        draw.text_x = draw.const_x
+        draw.text_y = draw.const_y
+
         draw.index_cutoff_x = int(draw.const_x / draw.const_cutoff)
         draw.index_cutoff_y = int(draw.const_y / draw.const_cutoff)
 
-        draw.center_x=draw.const_x - 200
-        draw.center_y=draw.const_y - 270
+        draw.center_x=(draw.const_x - 200) #* draw.const_x/draw.text_x
+        draw.center_y=(draw.const_y - 270) #* draw.const_y/draw.text_y
 
         draw.print_rabbit()
 
@@ -73,18 +80,23 @@ rotate_button_main=Button(font='Helvetica 12 bold', text = 'Повернуть',
 back_button=Button(font='Helvetica 12 bold', text = 'Шаг назад', command= lambda: ui_func.back())
 
 ##
+## Изменение масштаба канвы
+##
+
+scale_plus_button=Button(font='Helvetica 12 bold', text = '+', command= lambda: ui_func.scale_plus())
+scale_minus_button=Button(font='Helvetica 12 bold', text = '-', command= lambda: ui_func.scale_minus())
+
+
+##
 ## Инфо
 ##
 
 info_button=Button(font='Helvetica 12 bold', text = 'О программе', command= lambda: my_func.info_programm())
-
 
 ##
 ## Выход
 ##
 
 exit_button=Button(font='Helvetica 12 bold', text='Выход', command= lambda: window.destroy())
-
-window.protocol('WM_DELETE_WINDOW', print("A"))
 
 window.mainloop()

@@ -23,6 +23,9 @@ const = 325
 const_x = 325
 const_y = 325
 
+text_x = 325
+text_y = 325
+
 const_cutoff = 65
 index_cutoff_x = 5
 index_cutoff_y = 5
@@ -46,13 +49,13 @@ def print_arrows():
     ## текст x
     text_points_x = []
     for i in range(1, index_cutoff_x + 2):
-        x = const_x * i/(index_cutoff_x)
+        x = text_x * i/(index_cutoff_x)
         text_points_x.append(my_func.round_numbers(x))
         
     ## текст y
     text_points_y = []
     for i in range(1,index_cutoff_y + 2):
-        y = const_y * i/(index_cutoff_y)
+        y = text_y * i/(index_cutoff_y)
         text_points_y.append(my_func.round_numbers(y))
     point_text = -2
 
@@ -103,7 +106,6 @@ def print_arrows():
 def print_rabbit(x = const_x - center_x, y = const_x - center_y):
     ui.canv.delete("all")
     print_arrows()
-
     for i in range(28):
         x1 = contour_rabbit[i][0] + center_x 
         y1 = contour_rabbit[i][1] + center_y
@@ -124,4 +126,4 @@ def print_rabbit(x = const_x - center_x, y = const_x - center_y):
 
         ui.canv.create_line(x1, y1, x2, y2, width=2)
 
-    ui.canv.create_oval(x + center_x, y + center_y, x + center_x + 4, y + center_y + 4, fill='grey')
+    ui.canv.create_oval(x + center_x, y + center_y, x + center_x + 4, y + center_y + 4, fill='red')
