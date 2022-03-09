@@ -46,6 +46,8 @@ def config(event):
         draw.center_x=(draw.const_x - 200) #* draw.const_x/draw.text_x
         draw.center_y=(draw.const_y - 270) #* draw.const_y/draw.text_y
 
+        print("center", draw.center_x, draw.center_y)
+
         draw.print_rabbit()
 
         canv.place(x=80*window_size_X, y=100*window_size_Y, width=650*window_size_X, height=650*window_size_Y)

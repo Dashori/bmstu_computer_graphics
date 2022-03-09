@@ -95,11 +95,11 @@ def rotate_window():
 которой поворачивать кролика:'
     input_coord_lable=Label(window_rotate, font='Helvetica 12 bold', text = text, justify=LEFT).place(x=30, y=70)
 
-    input_x_label=Label(window_rotate, font='Helvetica 12', text='X =').place(x=30, y=125)
+    input_x_label=Label(window_rotate, font='Helvetica 12', text='Xc =').place(x=30, y=125)
     input_x=Entry(window_rotate, width=7)
     input_x.place(x=65, y=122)
 
-    input_y_label=Label(window_rotate, font='Helvetica 12', text='Y =').place(x=210, y=125)
+    input_y_label=Label(window_rotate, font='Helvetica 12', text='Yc =').place(x=205, y=125)
     input_y=Entry(window_rotate, width=7)
     input_y.place(x=240, y=122)
 
@@ -152,11 +152,11 @@ def move_window():
     text='Введите смещение кролика:'
     input_coord_lable=Label(window_move, font='Helvetica 12 bold', text = text, justify=LEFT).place(x=30, y=30)
 
-    input_x_label=Label(window_move, font='Helvetica 12', text='X  =').place(x=30, y=70)
+    input_x_label=Label(window_move, font='Helvetica 12', text='dx  =').place(x=30, y=70)
     input_x=Entry(window_move, width=7)
     input_x.place(x=80, y=65)
 
-    input_y_label=Label(window_move, font='Helvetica 12', text='Y  =').place(x=210, y=70)
+    input_y_label=Label(window_move, font='Helvetica 12', text='dy  =').place(x=210, y=70)
     input_y=Entry(window_move, width=7)
     input_y.place(x=260, y=65)
 
@@ -240,11 +240,11 @@ def scale_window():
 которой масштабировать кролика:'
     input_center_lable=Label(window_scale, font='Helvetica 12 bold', text = text, justify=LEFT).place(x=30, y=10)
 
-    input_x_center_label=Label(window_scale, font='Helvetica 12', text='X  =').place(x=30, y=65)
+    input_x_center_label=Label(window_scale, font='Helvetica 12', text='Xc  =').place(x=30, y=65)
     input_x_center=Entry(window_scale, width=7)
     input_x_center.place(x=80, y=65)
 
-    input_y_center_label=Label(window_scale, font='Helvetica 12', text='Y  =').place(x=210, y=65)
+    input_y_center_label=Label(window_scale, font='Helvetica 12', text='Yc  =').place(x=210, y=65)
     input_y_center=Entry(window_scale, width=7)
     input_y_center.place(x=260, y=65)
 
@@ -252,11 +252,11 @@ def scale_window():
 масштабирования:'
     input_coord_lable=Label(window_scale, font='Helvetica 12 bold', text = text, justify=LEFT).place(x=30, y=110)
 
-    input_x_label=Label(window_scale, font='Helvetica 12', text='X  =').place(x=30, y=155)
+    input_x_label=Label(window_scale, font='Helvetica 12', text='Kx  =').place(x=30, y=155)
     input_kx=Entry(window_scale, width=7)
     input_kx.place(x=80, y=152)
 
-    input_y_label=Label(window_scale, font='Helvetica 12', text='Y  =').place(x=210, y=155)
+    input_y_label=Label(window_scale, font='Helvetica 12', text='Ky  =').place(x=210, y=155)
     input_ky=Entry(window_scale, width=7)
     input_ky.place(x=260, y=152)
 
