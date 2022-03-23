@@ -96,9 +96,6 @@ window.bind("<Configure>", config)
 ##
 
 canv = Canvas(window, bg = "white")
-
-
-# colorchooser.askcolor()
        
 
 ##
@@ -181,8 +178,8 @@ command= lambda: draw.parse_spektr(option.get(), const_draw))
 
 b_add_point_entry_xn.insert("end", "100")
 b_add_point_entry_yn.insert("end", "100")
-b_len.insert("end", "30")
-b_step.insert("end", "300")
+b_len.insert("end", "10")
+b_step.insert("end", "250")
 
 
 ##

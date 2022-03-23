@@ -81,9 +81,7 @@ def parse_methods(xn, yn, xk, yk, option, color, draw = True):
 def draw_line(dots):
 
     for dot in dots:
-        # print("dot", dot[2])
         col= rgb2hex(dot[2][0], dot[2][1], dot[2][2])
-        # print("col", col)
         ui.canv.create_line(dot[0], dot[1], dot[0] + 1, dot[1], fill=col)
 
 
@@ -337,7 +335,6 @@ def bresenham_smooth(x1, y1, x2, y2, color, step_count = False):
 
 
 def choose_color(color, intens):
-    print(color)
     return color + (intens, intens, intens)
 
 def wu(x1, y1, x2, y2, color, step_count = False):
@@ -455,7 +452,6 @@ def parse_spektr(option, option_color):
         spin += radians(angle_spin)
 
 
-
 ##analysis
 
 def time_measure():
@@ -519,7 +515,6 @@ def time_measure():
 
     plt.xticks(positions, methods)
     plt.ylabel("Время")
-    #time_mes[1] = 0.75 * time_mes[4]
     plt.bar(positions, time_mes, align = "center", alpha = 1)
 
     plt.show()
