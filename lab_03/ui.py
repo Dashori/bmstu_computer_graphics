@@ -189,14 +189,14 @@ b_step.insert("end", "300")
 ## Сравнить время
 ##
 
-compare_time_lab=Button(font='Helvetica 14 bold', text='Сравнить время')
+compare_time_lab=Button(font='Helvetica 14 bold', text='Сравнить время', command= lambda: draw.time_measure())
 
 
 ##
 ## Сравнить ступенчатость
 ##
 
-compare_gradation_lab=Button(font='Helvetica 14 bold', text='Сравнить ступенчатость')
+compare_gradation_lab=Button(font='Helvetica 14 bold', text='Сравнить ступенчатость', command= lambda: draw.steps_measure()) 
 
 
 

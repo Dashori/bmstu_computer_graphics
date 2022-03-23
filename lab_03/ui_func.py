@@ -1,15 +1,9 @@
-from curses import color_content
 from tkinter import *
 from tkinter import messagebox
 from math import sin, cos, pi
 import ui, draw
 from tkinter import colorchooser
 
-back_command = []
-copy_contour_rabbit = []
-flag = 0
-
-EPSI = 1e-6
 
 def task_programm():
     messagebox.showinfo("Информация",
