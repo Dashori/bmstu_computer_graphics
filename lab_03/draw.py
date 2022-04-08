@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 from colormap import rgb2hex
 from math import fabs, floor, pi, cos, sin, radians
 
-const_x = 450
-const_y = 400
+const_x = 400
+const_y = 350
 
 def add_point_field_int(field_x, field_y):
     try:
@@ -160,11 +160,8 @@ def bresenham_int(x1, y1, x2, y2, color, step_count = False):
         swaped = 0
 
     e = 2 * dy - dx
-
     i = 1
-
     dots = []
-
     steps = 0
 
     while (i <= dx + 1):
@@ -481,7 +478,7 @@ def time_measure():
     for i in range(1, 6):
         res_time = 0
 
-        for _ in range(20):
+        for _ in range(500):
             time_start = 0
             time_end = 0
 

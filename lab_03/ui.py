@@ -34,9 +34,9 @@ def config(event):
 
         method_wu.place(x=300, y=105)
         method_cda.place(x=300, y=70)
-        method_bresenhem_float.place(x=30, y = 70)
-        method_bresenhem_int.place(x=30, y = 105)
-        method_bresenhem_smooth.place(x=30, y = 140)
+        method_bresenhem_float.place(x=30, y=70)
+        method_bresenhem_int.place(x=30, y=105)
+        method_bresenhem_smooth.place(x=30, y=140)
 
 
         ## отрезок
