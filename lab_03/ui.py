@@ -1,6 +1,6 @@
 
 from tkinter import *
-import ui_func, draw, analysis
+import main, draw, analysis
 
 const_bg = "#ffffff"
 const_draw = (0,0,0)
@@ -86,7 +86,6 @@ def config(event):
         color_bg.place(x=40, y=200, width=185*window_size_X, height=30*window_size_Y)
         color_draw.place(x=40, y=250, width=185*window_size_X, height=30*window_size_Y)
 
- 
         
 window.bind("<Configure>", config)
 
@@ -116,14 +115,14 @@ method_bresenhem_smooth = Radiobutton(text = "Брезенхем (сглажив
 ## Выбрать цвет фона
 ##
 
-color_bg=Button(text='Выбрать цвет фона',font = 'Helvetica 14 bold', command = lambda: ui_func.change_bg())
+color_bg=Button(text='Выбрать цвет фона',font = 'Helvetica 14 bold', command = lambda: main.change_bg())
 
 
 ##
 ## Выбрать цвет рисования
 ##
 
-color_draw=Button(text='Выбрать цвет для отрисовки',font = 'Helvetica 14 bold',  command = lambda: ui_func.change_draw())
+color_draw=Button(text='Выбрать цвет для отрисовки',font = 'Helvetica 14 bold',  command = lambda: main.change_draw())
 
 ##
 ## Построение отрезка
@@ -187,14 +186,11 @@ b_step.insert("end", "250")
 
 compare_time_lab=Button(font='Helvetica 14 bold', text='Сравнить время', command= lambda: analysis.time_measure())
 
-
 ##
 ## Сравнить ступенчатость
 ##
 
 compare_gradation_lab=Button(font='Helvetica 14 bold', text='Сравнить ступенчатость', command= lambda: analysis.steps_measure()) 
-
-
 
 ##
 ## Очистить канвас
@@ -202,14 +198,13 @@ compare_gradation_lab=Button(font='Helvetica 14 bold', text='Сравнить с
 
 clean_canvas_but=Button(font='Helvetica 14 bold', text = 'Очистить канвас', command= lambda: canv.delete("all"))
 
-
 ##
-## Инфо
+## Инфо и условие
 ##
 
-task_button=Button(font='Helvetica 14 bold', text = 'Условие', command= lambda: ui_func.task_programm())
+task_button=Button(font='Helvetica 14 bold', text = 'Условие', command= lambda: main.task_programm())
 
-info_button=Button(font='Helvetica 14 bold', text = 'О программе', command= lambda: ui_func.info_programm())
+info_button=Button(font='Helvetica 14 bold', text = 'О программе', command= lambda: main.info_programm())
 
 
 ##
@@ -217,9 +212,5 @@ info_button=Button(font='Helvetica 14 bold', text = 'О программе', com
 ##
 
 exit_button=Button(font='Helvetica 14 bold', text='Выход', command= lambda: window.destroy())
-
-
-# canv = Canvas(window, bg = "light grey")
-
 
 window.mainloop()

@@ -9,6 +9,7 @@ def sign(difference):
     else:
         return 1
 
+
 def cda_method(x1, y1, x2, y2, color, step_count = False):
 
     if (x2 - x1 == 0) and (y2 - y1 == 0):
@@ -51,7 +52,8 @@ def cda_method(x1, y1, x2, y2, color, step_count = False):
         return steps
     else:
         return dots
-        
+
+
 def bresenham_int(x1, y1, x2, y2, color, step_count = False):
 
     if (x2 - x1 == 0) and (y2 - y1 == 0):
@@ -111,6 +113,7 @@ def bresenham_int(x1, y1, x2, y2, color, step_count = False):
         return steps
     else:
         return dots
+
 
 def bresenham_float(x1, y1, x2, y2, color, step_count = False):
     if (x2 - x1 == 0) and (y2 - y1 == 0):
@@ -175,6 +178,7 @@ def bresenham_float(x1, y1, x2, y2, color, step_count = False):
     else:
         return dots
 
+
 def bresenham_smooth(x1, y1, x2, y2, color, step_count = False):
     if (x2 - x1 == 0) and (y2 - y1 == 0):
         return [[x1, y1, color]]
@@ -205,9 +209,7 @@ def bresenham_smooth(x1, y1, x2, y2, color, step_count = False):
     w = intens - m
 
     dots = [[x, y, draw.choose_color(color, round(e))]]
-
     i = 1
-
     steps = 0
 
     while (i <= dx):
@@ -242,6 +244,7 @@ def bresenham_smooth(x1, y1, x2, y2, color, step_count = False):
     else:
         return dots
 
+
 def wu(x1, y1, x2, y2, color, step_count = False):
     if (x2 - x1 == 0) and (y2 - y1 == 0):
         return [[x1, y1, color]]
@@ -253,9 +256,7 @@ def wu(x1, y1, x2, y2, color, step_count = False):
     m = 1
     step = 1
     intens = 255
-
     dots = []
-
     steps = 0
 
     if (fabs(dy) > fabs(dx)):
