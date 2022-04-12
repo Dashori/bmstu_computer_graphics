@@ -1,9 +1,6 @@
 from tkinter import *
-from tkinter import messagebox
-from math import sin, cos, pi
-import ui, draw
-from tkinter import colorchooser
-
+from tkinter import messagebox, colorchooser
+import ui
 
 def task_programm():
     messagebox.showinfo("Информация",
@@ -15,15 +12,13 @@ def task_programm():
 -Брезенхем действительные числа
 -Брезенхем целые числа
 -Брезенхем с устранением ступенчатости
--ВУ
-''')
-
+-ВУ''')
 
 def info_programm():
     messagebox.showinfo("Информация","Лабораторна работа №3. Чепиго Дарья ИУ7-44Б")
 
 
-## функция для считывания координа х и у из полей ввода
+## функция для считывания координат х и у из полей ввода
 def input_coor(input_x, input_y):
     x=input_x.get()
     y=input_y.get()
@@ -56,4 +51,4 @@ def change_bg():
 def change_draw():
     a = colorchooser.askcolor()
     ui.const_draw = a[0]
-    print(ui.const_draw)
+    
