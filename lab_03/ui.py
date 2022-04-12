@@ -1,6 +1,6 @@
 
 from tkinter import *
-import ui_func, draw
+import ui_func, draw, analysis
 
 const_bg = "#ffffff"
 const_draw = (0,0,0)
@@ -15,6 +15,8 @@ def config(event):
         window_size_X=window.winfo_width()/800
         window_size_Y=window.winfo_height()/800
 
+        canv.place(x=250*window_size_X, y=40*window_size_Y-10, width=530*window_size_X, height=700*window_size_Y)
+
         ## условие
         task_button.place(x=400*window_size_X, y=750*window_size_Y, width=120*window_size_X, height=30*window_size_Y)
 
@@ -26,8 +28,6 @@ def config(event):
 
         ## выход 
         exit_button.place(x=680*window_size_X, y=750*window_size_Y, width=100*window_size_X, height=30*window_size_Y)
-
-        canv.place(x=250*window_size_X, y=40*window_size_Y - 10, width=530*window_size_X, height=700*window_size_Y)
 
         ## методы
         alg_choose_label.place(x=40, y = 30)
@@ -42,50 +42,49 @@ def config(event):
         ## отрезок
         draw_segment_lab.place(x=40, y=300)
 
-        coordinate_new_label_xn.place(x=25 * window_size_X, y=300*window_size_Y)
-        coordinate_new_label_yn.place(x=120 * window_size_X, y=300*window_size_Y)
+        coordinate_new_label_xn.place(x=25*window_size_X, y=300*window_size_Y)
+        coordinate_new_label_yn.place(x=120*window_size_X, y=300*window_size_Y)
 
-        add_point_entry_xn.place(x=55 * window_size_X, y=300*window_size_Y, width=50 * window_size_X)
-        add_point_entry_yn.place(x=150 * window_size_X, y=300*window_size_Y, width=50 * window_size_X)
-
-
-        coordinate_new_label_xk.place(x=25 * window_size_X, y=350*window_size_Y)
-        coordinate_new_label_yk.place(x=120 * window_size_X, y=350*window_size_Y)
-
-        add_point_entry_xk.place(x=55 * window_size_X, y=350*window_size_Y, width=50 * window_size_X)
-        add_point_entry_yk.place(x=150 * window_size_X, y=350*window_size_Y, width=50 * window_size_X)
+        add_point_entry_xn.place(x=57*window_size_X, y=297*window_size_Y, width=50*window_size_X, height=22*window_size_Y)
+        add_point_entry_yn.place(x=152*window_size_X, y=297*window_size_Y, width=50*window_size_X, height=22*window_size_Y)
 
 
-        draw_segment_but.place(x=40, y=480)
+        coordinate_new_label_xk.place(x=25*window_size_X, y=350*window_size_Y, height=22*window_size_Y)
+        coordinate_new_label_yk.place(x=120*window_size_X, y=350*window_size_Y, height=22*window_size_Y)
+
+        add_point_entry_xk.place(x=57*window_size_X, y=347*window_size_Y, width=50*window_size_X, height=22*window_size_Y)
+        add_point_entry_yk.place(x=152*window_size_X, y=347*window_size_Y, width=50*window_size_X, height=22*window_size_Y)
+
+
+        draw_segment_but.place(x=40, y=480, width=185*window_size_X, height=27*window_size_Y)
 
         ##пучок
 
         draw_bundle_lab.place(x=40, y=550)
 
-        b_coordinate_new_label_xn.place(x=25 * window_size_X, y=510*window_size_Y)
-        b_coordinate_new_label_yn.place(x=120 * window_size_X, y=510*window_size_Y)
+        b_coordinate_new_label_xn.place(x=25*window_size_X, y=510*window_size_Y)
+        b_coordinate_new_label_yn.place(x=120*window_size_X, y=510*window_size_Y)
 
-        b_add_point_entry_xn.place(x=55 * window_size_X, y=510*window_size_Y, width=50 * window_size_X)
-        b_add_point_entry_yn.place(x=160 * window_size_X, y=510*window_size_Y, width=50 * window_size_X)
+        b_add_point_entry_xn.place(x=55*window_size_X, y=507*window_size_Y, width=50*window_size_X, height=22*window_size_Y)
+        b_add_point_entry_yn.place(x=160*window_size_X, y=507*window_size_Y, width=50*window_size_X, height=22*window_size_Y)
 
 
-        b_step_lab.place(x=25 * window_size_X, y=560*window_size_Y)
-        b_len_lab.place(x=120 * window_size_X, y=560*window_size_Y)
+        b_step_lab.place(x=25*window_size_X, y=560*window_size_Y)
+        b_len_lab.place(x=120*window_size_X, y=560*window_size_Y)
 
-        b_len.place(x=55 * window_size_X, y=560*window_size_Y, width=50 * window_size_X)
-        b_step.place(x=160 * window_size_X, y=560*window_size_Y, width=50 * window_size_X)
+        b_len.place(x=55*window_size_X, y=557*window_size_Y, width=50*window_size_X, height=22*window_size_Y)
+        b_step.place(x=160*window_size_X, y=557*window_size_Y,width=50*window_size_X, height=22*window_size_Y)
 
-        draw_bundle_but.place(x=40, y=730)
+        draw_bundle_but.place(x=40, y=730, width=185*window_size_X, height=27*window_size_Y)
 
         ##сравнение
 
-        compare_time_lab.place(x=40, y= 800)
+        compare_time_lab.place(x=40, y=795, width=185*window_size_X, height=30*window_size_Y)
 
-        compare_gradation_lab.place(x=40, y= 860)
+        compare_gradation_lab.place(x=40, y=860, width=185*window_size_X, height=30*window_size_Y)
 
-
-        color_bg.place(x=40, y=200)
-        color_draw.place(x=40, y=250)
+        color_bg.place(x=40, y=200, width=185*window_size_X, height=30*window_size_Y)
+        color_draw.place(x=40, y=250, width=185*window_size_X, height=30*window_size_Y)
 
  
         
@@ -132,14 +131,14 @@ color_draw=Button(text='Выбрать цвет для отрисовки',font 
 
 draw_segment_lab=Label(text='Построение одиночного отрезка',font = 'Helvetica 14 bold')
 
-coordinate_new_label_xn=Label(font='Helvetica', text='Xn     =')
-coordinate_new_label_yn=Label(font='Helvetica', text='Yn     =')
+coordinate_new_label_xn=Label(font='Helvetica', text='Xn    =')
+coordinate_new_label_yn=Label(font='Helvetica', text='Yn    =')
 
 add_point_entry_xn=Entry(font='Helvetica')
 add_point_entry_yn=Entry(font='Helvetica')
 
-coordinate_new_label_xk=Label(font='Helvetica', text='Xk     =')
-coordinate_new_label_yk=Label(font='Helvetica', text='Yk     =')
+coordinate_new_label_xk=Label(font='Helvetica', text='Xk    =')
+coordinate_new_label_yk=Label(font='Helvetica', text='Yk    =')
 
 add_point_entry_xk=Entry(font='Helvetica')
 add_point_entry_yk=Entry(font='Helvetica')
@@ -186,14 +185,14 @@ b_step.insert("end", "250")
 ## Сравнить время
 ##
 
-compare_time_lab=Button(font='Helvetica 14 bold', text='Сравнить время', command= lambda: draw.time_measure())
+compare_time_lab=Button(font='Helvetica 14 bold', text='Сравнить время', command= lambda: analysis.time_measure())
 
 
 ##
 ## Сравнить ступенчатость
 ##
 
-compare_gradation_lab=Button(font='Helvetica 14 bold', text='Сравнить ступенчатость', command= lambda: draw.steps_measure()) 
+compare_gradation_lab=Button(font='Helvetica 14 bold', text='Сравнить ступенчатость', command= lambda: analysis.steps_measure()) 
 
 
 
