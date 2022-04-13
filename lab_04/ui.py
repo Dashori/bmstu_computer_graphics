@@ -1,5 +1,6 @@
 
 from tkinter import *
+from tkinter.tix import MAIN
 import main, draw, analysis
 
 const_bg = "#ffffff"
@@ -60,7 +61,6 @@ def config(event):
         draw_figure_but.place(x=40, y=455, width=185*window_size_X, height=27*window_size_Y)
 
         ## спектр
-
         spectrum_label.place(x=40, y=500)
 
         step_label.place(x=25*window_size_X, y=460*window_size_Y)
@@ -73,13 +73,13 @@ def config(event):
         
         ## изменение цвета
         
-        color_bg.place(x=40, y=700, width=185*window_size_X, height=30*window_size_Y)
-        color_draw.place(x=40, y=750, width=185*window_size_X, height=30*window_size_Y)
+        color_bg.place(x=40, y=705, width=185*window_size_X, height=30*window_size_Y)
+        color_draw.place(x=40, y=765, width=185*window_size_X, height=30*window_size_Y)
 
         ##сравнение
 
-        compare_time_lab.place(x=40, y=800, width=185*window_size_X, height=30*window_size_Y)
-        compare_gradation_lab.place(x=40, y=850, width=185*window_size_X, height=30*window_size_Y)
+        compare_time_lab.place(x=40, y=825, width=185*window_size_X, height=30*window_size_Y)
+        # compare_gradation_lab.place(x=40, y=890, width=185*window_size_X, height=30*window_size_Y)
 
         change_figure(choose_figure_but.get())
         change_state(extra.get())
@@ -112,7 +112,6 @@ def change_state(option):
         spectrum_radius_start_entry.config(state='normal')
         spectrum_radius_end_entry.config(state='readonly')
 
-    
 
 ## изменение канвы в зависимости от фигуры
 def change_figure(option):
@@ -142,7 +141,7 @@ def change_figure(option):
         extra_r_start.place(x=5*window_size_X, y=507*window_size_Y) 
         extra_r_end.place(x=110*window_size_X, y=507*window_size_Y)
 
-    elif (option==2):
+    elif (option==2): ## эллипс
         radius_label.place_forget()
         radius_entry.place_forget()
         spectrum_radius_start_label.place_forget()
@@ -238,29 +237,14 @@ radius_1_entry=Entry(font='Helvetica')
 radius_2_entry=Entry(font='Helvetica')
 
 draw_figure_but=Button(text='Построить фигуру',font = 'Helvetica 14 bold',
- command = lambda: draw.create_segment(option.get(), const_draw))
+command = lambda: main.parse_figure(option.get(), const_draw, choose_figure_but.get()))
 
+## начальные условия для удобства
 
-# add_point_entry_xn.insert("end", "-100")
-# add_point_entry_yn.insert("end", "-100")
+add_point_entry_xc.insert("end", "200")
+add_point_entry_yc.insert("end", "200")
+radius_entry.insert("end", "100")
 
-# add_point_entry_xk.insert("end", "50")
-# add_point_entry_yk.insert("end", "100")
-
-##
-## Построение спектра
-##
-
-spectrum_label=Label(text='Построение спектра',font = 'Helvetica 14 bold')
-
-count_label=Label(font='Helvetica', text='N      =')
-step_label=Label(font='Helvetica', text='Шаг  =')
-
-count=Entry(font='Helvetica')
-step=Entry(font='Helvetica')
-
-draw_spectrum_but=Button(text='Построить спектр',font = 'Helvetica 14 bold', 
-command= lambda: draw.parse_spektr(option.get(), const_draw))
 
 ## для эллипса
 spectrum_radius_1_label=Label(font='Helvetica', text='R_1   =')
@@ -286,6 +270,22 @@ extra_r_start = Radiobutton(variable = extra, value = 3, command=lambda: change_
 extra_r_end = Radiobutton(variable = extra, value = 4, command=lambda: change_state(extra.get()))
 
 
+##
+## Построение спектра
+##
+
+spectrum_label=Label(text='Построение спектра',font = 'Helvetica 14 bold')
+
+count_label=Label(font='Helvetica', text='N      =')
+step_label=Label(font='Helvetica', text='Шаг  =')
+
+count=Entry(font='Helvetica')
+step=Entry(font='Helvetica')
+
+draw_spectrum_but=Button(text='Построить спектр',font = 'Helvetica 14 bold', 
+command = lambda: main.choose_spektr(option.get(), const_draw, choose_figure_but.get(), extra.get()))
+
+
 
 # len.insert("end", "10")
 # step.insert("end", "250")
@@ -295,7 +295,7 @@ extra_r_end = Radiobutton(variable = extra, value = 4, command=lambda: change_st
 ## Сравнить время
 ##
 
-compare_time_lab=Button(font='Helvetica 14 bold', text='Сравнить время', command= lambda: analysis.time_measure())
+compare_time_lab=Button(font='Helvetica 14 bold', text='Сравнить время', command= lambda: analysis.time_measure(choose_figure_but.get()))
 
 ##
 ## Сравнить ступенчатость
