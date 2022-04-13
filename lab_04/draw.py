@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
-import ui
+import ui, main
 from colormap import rgb2hex
 from math import pi, cos, sin, radians
 
@@ -16,64 +16,6 @@ def add_point_field_int(field_x, field_y):
         messagebox.showerror('Ошибка','Координаты точки- целые числа')
         return -1
     
-    
-def create_segment(option, color):
-    rc_1 = add_point_field_int(ui.add_point_entry_xn, ui.add_point_entry_yn)
-    
-    if (rc_1 != -1):
-        xn, yn = rc_1[0], rc_1[1]
-    else:
-        return
-
-    rc_2 = add_point_field_int(ui.add_point_entry_xk, ui.add_point_entry_yk)
-    
-    if (rc_2 != -1):
-        xk, yk = rc_2[0], rc_2[1]
-    else:
-        return
-
-    xn += const_x
-    xk += const_x
-
-    yn += const_y
-    yk += const_y
-
-    parse_methods(xn, yn, xk, yk, option, color)
-
-
-def parse_methods(xn, yn, xk, yk, option, color, draw = True):
-    if (option == 1):
-        dots = methods_circle.cda_method(xn, yn, xk, yk, color)
-        
-        if draw:
-            draw_line(dots)
-
-    elif (option == 2):
-        dots = methods_circle.bresenham_int(xn, yn, xk, yk, color)
-
-        if draw:
-            draw_line(dots)
-
-    elif (option == 3):
-        dots = methods_circle.bresenham_float(xn, yn, xk, yk, color)
-        
-        if draw:
-            draw_line(dots)
-
-    elif (option == 4):
-        dots = methods_circle.wu(xn, yn, xk, yk, color)
-        
-        if draw:
-            draw_line(dots)
-
-    elif (option == 5):
-        dots = methods_circle.bresenham_smooth(xn, yn, xk, yk, color)
-        
-        if draw:
-            draw_line(dots)
-    else:
-        messagebox.showerror("Ошибка", "Неизвестный алгоритм")
-
 
 def draw_line(dots):
     for dot in dots:
@@ -114,7 +56,7 @@ def parse_spektr(option, option_color):
 
         p2 = [x2, y2]
 
-        parse_methods(x, y, p2[0], p2[1], option, option_color)
+        main.parse_methods(x, y, p2[0], p2[1], option, option_color)
 
         spin += radians(angle_spin)
 
@@ -128,8 +70,6 @@ def draw_line(dots):
 def draw_pixel(canv, dot):
     col= rgb2hex(dot[2][0], dot[2][1], dot[2][2])
     canv.create_line(dot[0], dot[1], dot[0] + 1, dot[1], fill=col)
-    # for dot in dots:
-    #    canvas_win.create_line(dot[0], dot[1], dot[0] + 1, dot[1], fill = dot[2].hex)
 
 
 def draw_dots_circle(canvas_win, dot_c, dot_dif, color):

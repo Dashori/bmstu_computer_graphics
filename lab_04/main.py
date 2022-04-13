@@ -56,16 +56,15 @@ def change_draw():
 
 
 def parse_spektr_circle(option, option_color, option_figure, option_spektr_crcl):
-    # try:
-    #     rad_step = float(ui.step.get())
-    #     amount = int(ui.count.get())
-    #     rad_begin = float(ui.spectrum_radius_start_entry.get())
-    #     rad_end = float(ui.spectrum_radius_end_entry.get())
-    # except:
-    #     messagebox.showerror("Ошибка", "Неверно введены координаты")
-    #     return
-
     # Choose combination
+
+    try:
+        x = float(ui.add_point_entry_xc.get())
+        y = float(ui.add_point_entry_yc.get())
+    except:
+        messagebox.showerror("Ошибка", "Неверно введены координаты центра")
+        return
+
 
     if (option_spektr_crcl == 1):
         try:
@@ -119,7 +118,7 @@ def parse_spektr_circle(option, option_color, option_figure, option_spektr_crcl)
     r_a = rad_begin
     r_b = rad_begin
 
-    dot_c = [800 // 2, 800 // 2]
+    dot_c = [x, y]
 
     index = 0
 
@@ -149,8 +148,6 @@ def parse_figure(option, option_color, option_figure):
         messagebox.showerror("Ошибка", "Неверно введены координаты")
         return
 
-    print(" WE HERE")
-
     dot_c = [x_c, y_c]
     rad = [r_a, r_b]
 
@@ -163,6 +160,9 @@ def parse_spektr_ellips(option, option_color, option_figure):
 
         r_a = float(ui.spectrum_radius_1_entry.get())
         r_b = float(ui.spectrum_radius_2_entry.get())
+
+        x = float(ui.add_point_entry_xc.get())
+        y = float(ui.add_point_entry_yc.get())
     except:
         messagebox.showerror("Ошибка", "Неверно введены координаты")
         return
@@ -175,7 +175,7 @@ def parse_spektr_ellips(option, option_color, option_figure):
         messagebox.showerror("Ошибка", "Количество должно быть больше нуля")
         return
 
-    dot_c = [800 // 2, 800 // 2]
+    dot_c = [x, y]
     index = 0
     koef = r_b / r_a
 
@@ -189,7 +189,6 @@ def parse_spektr_ellips(option, option_color, option_figure):
         
         index += 1
 
-        
 
 def choose_spektr(option, option_color, option_figure, option_spektr_crcl):
     if (option_figure == 1):
