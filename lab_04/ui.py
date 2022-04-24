@@ -230,8 +230,8 @@ add_point_entry_yc=Entry(font='Helvetica')
 radius_label=Label(font='Helvetica', text='R    =')
 radius_entry=Entry(font='Helvetica')
 
-radius_1_label=Label(font='Helvetica', text='R_1   =')
-radius_2_label=Label(font='Helvetica', text='R_2   =')
+radius_1_label=Label(font='Helvetica', text='R_1(a)')
+radius_2_label=Label(font='Helvetica', text='R_2(b)')
 
 radius_1_entry=Entry(font='Helvetica')
 radius_2_entry=Entry(font='Helvetica')
@@ -247,8 +247,8 @@ radius_entry.insert("end", "100")
 
 
 ## для эллипса
-spectrum_radius_1_label=Label(font='Helvetica', text='R_1   =')
-spectrum_radius_2_label=Label(font='Helvetica', text='R_2   =')
+spectrum_radius_1_label=Label(font='Helvetica', text='R_1(a) =')
+spectrum_radius_2_label=Label(font='Helvetica', text='R_2(b) =')
 
 spectrum_radius_1_entry=Entry(font='Helvetica')
 spectrum_radius_2_entry=Entry(font='Helvetica')

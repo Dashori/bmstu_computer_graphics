@@ -51,9 +51,7 @@ def canon_circle(canvas_win, dot_c, radius, color, draw_flag):
     y_c = dot_c[1]
 
     edge = round(radius / sqrt(2))
-
     double_radius = radius * radius
-
     x = 0
 
     while (x <= edge):
