@@ -50,11 +50,10 @@ def input_points(event):
     print(x, y)
 
     x = float(x) # - const_x) * text_x / const_x 
-    y = (-1)*float(y)# - const_y) * text_y / const_y
+    y = float(y)# - const_y) * text_y / const_y
 
     add_point(x, y)
     
-
 
 ## функция для добавления точки в таблицу
 def add_point(x, y):
@@ -72,10 +71,10 @@ def print_edges():
 
     for i in range(len(points) - 1):
         x_1 = points[i][0] 
-        y_1 = (-1)*(points[i][1])
+        y_1 = points[i][1]
 
         x_2 = points[i + 1][0] 
-        y_2 = (-1)*(points[i + 1][1])
+        y_2 = points[i + 1][1]
 
         ui.canv.create_line(x_1, y_1, x_2, y_2)
 
@@ -83,10 +82,10 @@ def print_edges():
 def lock_edge():
     try:
         x_1 = points[0][0] 
-        y_1 = (-1)*(points[0][1])
+        y_1 = points[0][1]
 
         x_2 = points[len(points) - 1][0] 
-        y_2 = (-1)*(points[len(points) - 1][1])
+        y_2 = points[len(points) - 1][1]
 
         ui.canv.create_line(x_1, y_1, x_2, y_2)
     except:
@@ -130,6 +129,23 @@ def clean():
     ui.tb.config(state='disable')
     
 
+## ищем макс x, min y, max y чтоб докрашивать до правой границы фигуры  
+def find_right_edge():
+    max_x = points[0][0]
+    min_y = points[0][1]
+    max_y = points[0][1]
+
+    for i in range(len(points)):
+        if (points[i][0] > max_x):
+            max_x = points[i][0]
+        if (points[i][1] > max_y):
+            max_y = points[i][1]
+        if (points[i][1] < min_y):
+            min_y = points[1][1]
+
+    return max_x, min_y, max_y
+
+
 def fill_figure():
     global points
 
@@ -137,3 +153,9 @@ def fill_figure():
         messagebox.showerror("Ошибка", "Недостаточно ребер для закраски.")
         return
     
+    max_x, min_y, max_y  = find_right_edge()
+
+    print(max_x, min_y, max_y)
+    ui.canv.create_line(max_x, min_y, max_x, max_y)
+
+
