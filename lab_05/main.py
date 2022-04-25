@@ -1,33 +1,21 @@
 from tkinter import *
 from tkinter import messagebox, colorchooser
-import ui
+import ui, draw
+
+
+points=[]
 
 def task_programm():
-    messagebox.showinfo("Условие",
-'''Данная программа реализует и исследует
+    messagebox.showinfo(
+        "Условие",
+        """Данная программа реализует и исследует
 алгоритмы растрового заполнения сплошных областей.
 Алгоритм заполнения: по ребрам.
-''')
+""")
 
 
 def info_programm():
-    messagebox.showinfo("Информация","Лабораторна работа №5. Чепиго Дарья ИУ7-44Б")
-
-
-## функция для считывания координат х и у из полей ввода
-def input_coor(input_x, input_y):
-    x=input_x.get()
-    y=input_y.get()
-
-    try:
-        x=float(input_x.get())
-        y=float(input_y.get())
-        return x,y
-    except:
-        messagebox.showerror("Ошибка","Неправильно ввёдены числовые значения.")
-        input_x.delete(0,'end')
-        input_y.delete(0,'end')
-        return 
+    messagebox.showinfo("Информация", "Лабораторна работа №5. Чепиго Дарья ИУ7-44Б")
 
 
 ## функция для закрытие окошка и возврата кнопки в состояние нормал
