@@ -9,6 +9,8 @@ const_draw = (0, 0, 0)
 window_size_X = 800
 window_size_Y = 800
 
+width_but = 200
+
 window = Tk()
 window.title("Lab 4 Chepigo Darya IU7-44B")
 window.geometry("1400x1000")
@@ -16,7 +18,7 @@ window.geometry("1400x1000")
 
 def config(event):
     if event.widget == window:
-        global window_size_X, window_size_Y
+        global window_size_X, window_size_Y, width_but
 
         window_size_X = window.winfo_width() / 800
         window_size_Y = window.winfo_height() / 800
@@ -42,16 +44,16 @@ def config(event):
         ## таблица точек
         table_lab.place(x=x_but, y=40 * window_size_Y, width=width_but, height=height_but)
 
-        tb.place(x=20 * window_size_X,y=70 * window_size_Y,width=200 * window_size_X,height=380 * window_size_Y,)
+        tb.place(x=20 * window_size_X,y=70 * window_size_Y,width=width_but,height=380 * window_size_Y,)
 
         ## добавить
-        add_but.place(x=x_but,y=470 * window_size_Y,width=60 * window_size_X,height=30 * window_size_Y,)
+        add_but.place(x=x_but,y=470 * window_size_Y,width=100 * window_size_X, height=30 * window_size_Y,)
 
         ## удалить
-        del_but.place(x=90 * window_size_X,y=470 * window_size_Y,width=60 * window_size_X,height=30 * window_size_Y,)
+        del_but.place(x=120 * window_size_X, y=470 * window_size_Y,width=100 * window_size_X,height=30 * window_size_Y,)
 
-        ## изменить
-        fix_but.place(x=160 * window_size_X,y=470 * window_size_Y,width=60 * window_size_X,height=30 * window_size_Y,)
+        # ## изменить
+        # fix_but.place(x=160 * window_size_X,y=470 * window_size_Y,width=60 * window_size_X,height=30 * window_size_Y,)
 
         ## задержка
         is_delay_check.place(x=x_but - 15,y=510 * window_size_Y,width=80 * window_size_X,height=height_but,)
@@ -89,20 +91,20 @@ tb.insert(INSERT, mytable)
 ## добавить точку
 ##
 
-add_but = Button(text="Добавить", font="Helvetica 13 bold")
+add_but = Button(text="Добавить", font="Helvetica 13 bold", command= lambda: draw.add_point_window())
 
 ##
 ## удалить точку
 ##
 
-del_but = Button(text="Удалить", font="Helvetica 13 bold")
+del_but = Button(text="Удалить", font="Helvetica 13 bold", command= lambda: draw.del_point_window() )
 
 
 ##
 ## изменить точку
 ##
 
-fix_but = Button(text="Изменить", font="Helvetica 13 bold")
+fix_but = Button(text="Изменить", font="Helvetica 13 bold", command= lambda: draw.change_point_window())
 
 
 ##
@@ -143,12 +145,6 @@ color_bg = Button(text="Выбрать цвет фона", font="Helvetica 14 bo
 ##
 
 color_draw = Button(text="Выбрать цвет для заполнения",font="Helvetica 14 bold",command=lambda: main.change_draw(),)
-
-##
-## Построение фигуры
-##
-
-draw_figure_label = Label(text="Построение фигуры", font="Helvetica 14 bold")
 
 ##
 ## Очистить канвас
