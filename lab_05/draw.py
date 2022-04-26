@@ -49,8 +49,8 @@ def input_points(event):
 
     print(x, y)
 
-    x = float(x) # - const_x) * text_x / const_x 
-    y = float(y)# - const_y) * text_y / const_y
+    x = float(x)
+    y = float(y)
 
     add_point(x, y)
     
@@ -157,5 +157,3 @@ def fill_figure():
 
     print(max_x, min_y, max_y)
     ui.canv.create_line(max_x, min_y, max_x, max_y)
-
-
