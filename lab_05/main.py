@@ -1,9 +1,5 @@
-from tkinter import *
 from tkinter import messagebox, colorchooser
-import ui, draw
-
-
-points=[]
+import ui
 
 def task_programm():
     messagebox.showinfo(

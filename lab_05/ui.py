@@ -13,7 +13,7 @@ window_size_Y = 800
 width_but = 200
 
 window = Tk()
-window.title("Lab 4 Chepigo Darya IU7-44B")
+window.title("Lab 5 Chepigo Darya IU7-44B")
 window.geometry("1400x1000")
 
 
@@ -49,12 +49,6 @@ def config(event):
 
         ## добавить
         add_but.place(x=x_but,y=470 * window_size_Y,width=width_but, height=30 * window_size_Y,)
-
-        ## удалить
-        # del_but.place(x=120 * window_size_X, y=470 * window_size_Y,width=100 * window_size_X,height=30 * window_size_Y,)
-
-        # ## изменить
-        # fix_but.place(x=160 * window_size_X,y=470 * window_size_Y,width=60 * window_size_X,height=30 * window_size_Y,)
 
         ## задержка
         is_delay_check.place(x=x_but - 15,y=510 * window_size_Y,width=80 * window_size_X,height=height_but,)
@@ -94,19 +88,6 @@ tb.insert(INSERT, mytable)
 ##
 
 add_but = Button(text="Добавить точку", font="Helvetica 13 bold", command= lambda: draw.add_point_window())
-
-##
-## удалить точку
-##
-
-del_but = Button(text="Удалить", font="Helvetica 13 bold", command= lambda: draw.del_point_window() )
-
-
-##
-## изменить точку
-##
-
-fix_but = Button(text="Изменить", font="Helvetica 13 bold", command= lambda: draw.change_point_window())
 
 
 ##

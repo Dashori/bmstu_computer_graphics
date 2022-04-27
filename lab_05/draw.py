@@ -1,9 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 import time, copy
-import ui, main
-
-from colormap import rgb2hex
+import ui
 
 points = []
 edges = []
@@ -220,57 +218,6 @@ def add_point_window():
 
     add_window.mainloop()
 
-## функция для удаления точки через поля ввода
-def del_point_window():
-    del_window=Tk()
-    del_window.title('Удаление')
-    del_window.geometry('300x150')
-
-    text='Введите номер точки:'
-    input_center_lable=Label(del_window, font='Helvetica 12 bold', text = text, justify=LEFT).place(x=30, y=10)
-
-    input_num_lab=Label(del_window, font='Helvetica 12', text='N  =').place(x=30, y=52)
-    input_num=Entry(del_window, width=7)
-    input_num.place(x=80, y=50)
-
-    del_button=Button(del_window, font='Helvetica 12', text='Удалить точку', command= lambda:del_point(input_num.get()))
-    del_button.place(x=30, y=100)
-
-    exit_button=Button(del_window, font='Helvetica 12', text='Закрыть', command= lambda:exit_window(del_window))
-    exit_button.place(x=180, y=100)
-
-    del_window.mainloop()
-
-
-## функция для изменения точки через поля ввода
-def change_point_window():
-    change_window=Tk()
-    change_window.title('Изменение')
-    change_window.geometry('350x150')
-
-    text='Введите номер точки:'
-    input_center_lable=Label(change_window, font='Helvetica 12 bold', text = text, justify=LEFT).place(x=30, y=10)
-
-    input_num=Entry(change_window, width=7)
-    input_num.place(x=260, y=10)
-
-    input_x_label=Label(change_window, font='Helvetica 12', text='X  =').place(x=30, y=52)
-    input_x=Entry(change_window, width=7)
-    input_x.place(x=80, y=50)
-
-    input_y_label=Label(change_window, font='Helvetica 12', text='Y  =').place(x=210, y=52)
-    input_y=Entry(change_window, width=7)
-    input_y.place(x=260, y=50)
-    
-    change_button=Button(change_window, font='Helvetica 12', text='Изменить точку')#, command= lambda:del_point(input_num.get()))
-    change_button.place(x=80, y=100)
-
-    exit_button=Button(change_window, font='Helvetica 12', text='Закрыть', command= lambda:exit_window(change_window))
-    exit_button.place(x=250, y=100)
-
-    change_window.mainloop()
-
-
 
 ## ищем макс x, min y, max y чтоб докрашивать до правой границы фигуры  
 def find_right_edge():
@@ -297,6 +244,8 @@ def find_right_edge():
     max_y = int(max_y)
     min_y = int(min_y)
 
+
+## определение начала сканирования
 def find_scan_edges(edge):
     if edge[1] > edge[3]:
             edge[1], edge[3] = edge[3], edge[1]
@@ -309,6 +258,8 @@ def find_scan_edges(edge):
 
     return y, end_y, dx, start_x
 
+
+## изменение цвета пикселя
 def fill_pixel(x, y):
     global min_x, min_y
     global pixel_state
@@ -327,6 +278,8 @@ def fill_pixel(x, y):
         ui.canv.update()
         time.sleep(0.00005)
 
+
+## алгоритм закрашивания для одного ребра
 def fill_edge(edge):
     global min_x, max_x, min_y, max_y
 
@@ -341,6 +294,8 @@ def fill_edge(edge):
         start_x += dx
         y += 1
 
+## эта функция была написана на случай, когда у нас увеличивается окошко для рисования
+## и нужно перенести данные из старого окошка сюда
 def fix_pixel_flags():
     pass
     # global pixel_state
@@ -372,7 +327,7 @@ def fix_pixel_flags():
     #         pixel_state[i + k_x][j + k_y] = old_pixel_state[i][j]
 
 
-
+## делаем массив для цветов флага
 def pixel_flag():
     global pixel_state
     global min_x, max_x, min_y, max_y
@@ -385,9 +340,9 @@ def pixel_flag():
     for i in range(0, max_x - min_x, 1):
         for j in range(0, max_y - min_y, 1):
             pixel_state[i][j] = 0
-        
-    # print(pixel_state)
 
+
+## алгоритм закрашивания
 def fill_figure():
     global edges, EPS, flag_draw
 
@@ -407,7 +362,7 @@ def fill_figure():
     flag_draw = 1
 
     for i in range (len(edges)):
-        if abs(edges[i][1] - edges[i][3]) < EPS: ## горизонт ребро
+        if abs(edges[i][1] - edges[i][3]) < EPS: ## горизонтальное ребро
             continue
         fill_edge(edges[i])
         
