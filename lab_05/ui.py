@@ -1,3 +1,4 @@
+from re import I
 from tkinter import *
 from tkinter.tix import MAIN
 import main, draw
@@ -113,6 +114,7 @@ fix_but = Button(text="Изменить", font="Helvetica 13 bold", command= lam
 ##
 
 is_delay = IntVar()
+is_delay.set(0)
 is_delay_check = Checkbutton(text="Задержка", font="Helvetica 16", variable=is_delay)
 
 ##

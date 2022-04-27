@@ -305,7 +305,7 @@ def find_scan_edges(edge):
     y = edge[1]
     end_y = edge[3]
     dx = (edge[2] - edge[0]) / (edge[3] - edge[1])
-    start_x = edge[0]+ dx
+    start_x = edge[0] + dx
 
     return y, end_y, dx, start_x
 
@@ -323,6 +323,10 @@ def fill_pixel(x, y):
         ui.canv.create_oval(x, y, x + 1, y + 1, fill = ui.const_bg, outline = ui.const_bg)
         pixel_state[x - min_x][y - min_y] = 0
 
+    if ui.is_delay.get() == 1:
+        ui.canv.update()
+        time.sleep(0.00005)
+
 def fill_edge(edge):
     global min_x, max_x, min_y, max_y
 
@@ -338,29 +342,34 @@ def fill_edge(edge):
         y += 1
 
 def fix_pixel_flags():
-    global pixel_state
-    global min_x, max_x, min_y, max_y
-    old_min_x = min_x ## сохранили старые значения
-    old_max_x = max_x
-    old_min_y = min_y
-    old_max_y = max_y
+    pass
+    # global pixel_state
+    # global min_x, max_x, min_y, max_y
+    # old_min_x = min_x ## сохранили старые значения
+    # old_max_x = max_x
+    # old_min_y = min_y
+    # old_max_y = max_y
 
-    find_right_edge() ## сделали новые максимумы минимумы
-    old_pixel_state = copy.deepcopy(pixel_state)
+    # find_right_edge() ## сделали новые максимумы минимумы
+    # old_pixel_state = copy.deepcopy(pixel_state)
+    # k_x = 0
+    # k_y = 0
 
-    for i in range(max_x - min_x):
-        pixel_state.append([0]*(max_y - min_y))
+    # if (min_x < old_min_x or min_y < old_min_y): 
+    #     k_x = old_min_x - min_x
+    #     k_y = old_min_y - min_y
+    #     print(" JOPA")
+    # else:
+    #     return
 
-    k_x = 0
-    k_y = 0
-    if (min_x < old_min_x or min_y < old_min_y): 
-        k_x = old_min_x - min_x
-        k_y = old_min_y - min_y
-        print(" JOPA")
+    # for i in range(max_x - min_x):
+    #     pixel_state.append([0]*(max_y - min_y))
 
-    for i in range(0, old_max_x - old_min_x, 1):
-        for j in range(0, old_max_y - old_min_y, 1):
-            pixel_state[i + k_x][j + k_y] = old_pixel_state[i][j]
+    
+
+    # for i in range(0, old_max_x - old_min_x, 1):
+    #     for j in range(0, old_max_y - old_min_y, 1):
+    #         pixel_state[i + k_x][j + k_y] = old_pixel_state[i][j]
 
 
 
