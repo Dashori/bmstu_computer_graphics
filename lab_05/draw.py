@@ -1,6 +1,10 @@
-from os import curdir
+from gettext import find
+from os import POSIX_FADV_RANDOM
 from tkinter import *
 from tkinter import messagebox
+from turtle import color
+import pyautogui
+
 import ui, main
 from colormap import rgb2hex
 from math import pi, cos, sin, radians
@@ -12,6 +16,9 @@ points = []
 edges = []
 first_point = None
 cur_point = None
+
+pixel_state = []
+EPS = 1e-6
 
 ## функция для считывания координат х и у из полей ввода
 def input_coor(input_x, input_y):
@@ -93,13 +100,8 @@ def update_table():
 
 ## функция для получения координат натыканных точек        
 def input_points(event):
-    x = event.x
-    y = event.y
-
-    print(x, y)
-
-    x = float(x)
-    y = float(y)
+    x = float(event.x)
+    y = float(event.y)
 
     add_point(x, y)
     
@@ -163,27 +165,6 @@ def lock_edge():
         return
 
 
-def draw_line(dots):
-    for dot in dots:
-        col= rgb2hex(dot[2][0], dot[2][1], dot[2][2])
-        ui.canv.create_line(dot[0], dot[1], dot[0] + 1, dot[1], fill=col)
-
-
-def choose_color(color, intens):
-    return color + (intens, intens, intens)
-
-
-def draw_line(dots):
-    for dot in dots:
-        col= rgb2hex(dot[2][0], dot[2][1], dot[2][2])
-        ui.canv.create_line(dot[0], dot[1], dot[0] + 1, dot[1], fill=col)
-
-
-def draw_pixel(canv, dot):
-    col= rgb2hex(dot[2][0], dot[2][1], dot[2][2])
-    canv.create_line(dot[0], dot[1], dot[0] + 1, dot[1], fill=col)
-
-
 ## функция для тыканья точек
 def input_points_canvas():
     ui.canv.bind('<Button - 1>', input_points)
@@ -192,9 +173,13 @@ def input_points_canvas():
 ## функция для очистки всего
 def clean():
     ui.canv.delete("all")
-    global points, num
-    points = [[]]
-    num = 0
+    global points, edges
+    global cur_point, first_point
+
+    points = []
+    edges = []
+    cur_point = None
+    first_point = None
 
     ui.tb.config(state='normal')
     ui.tb.delete(0.0, END)
@@ -289,10 +274,13 @@ def change_point_window():
 ## ищем макс x, min y, max y чтоб докрашивать до правой границы фигуры  
 def find_right_edge():
     max_x = points[0][0]
+    min_x = points[0][0]
     min_y = points[0][1]
     max_y = points[0][1]
 
     for i in range(len(points)):
+        if (points[i][0] < min_x):
+            min_x = points[i][0]
         if (points[i][0] > max_x):
             max_x = points[i][0]
         if (points[i][1] > max_y):
@@ -300,19 +288,75 @@ def find_right_edge():
         if (points[i][1] < min_y):
             min_y = points[i][1]
 
-    return max_x, min_y, max_y
+    return int(min_x), int(max_x), int(min_y), int(max_y)
 
+def find_scan_edges(edge):
+    if edge[1] > edge[3]:
+            edge[1], edge[3] = edge[3], edge[1]
+            edge[0], edge[2] = edge[2], edge[0]  
+
+    y = edge[1]
+    end_y = edge[3]
+    dx = (edge[2] - edge[0]) / (edge[3] - edge[1])
+    start_x = edge[0]+ dx
+
+    return y, end_y, dx, start_x
+
+def fill_pixel(x, y, min_x, min_y):
+    global pixel_state
+
+    x = int(x)
+    y = int(y)
+
+    if (pixel_state[x - min_x][y - min_y] == 0):
+        ui.canv.create_oval(x, y, x + 1, y + 1, fill = '#12d9d9', outline = '#12d9d9')
+        pixel_state[x - min_x][y - min_y] = 1
+    else:
+        ui.canv.create_oval(x, y, x + 1, y + 1, fill = '#ffffff', outline = '#ffffff')
+        pixel_state[x - min_x][y - min_y] = 0
+
+def fill_edge(edge, min_x, min_y, max_x):
+    y, end_y, dx, start_x = find_scan_edges(edge)
+    
+    while y < end_y:
+        x = start_x
+        while x < max_x:
+            fill_pixel(x, y, min_x, min_y)
+            x += 1
+
+        start_x += dx
+        y += 1
+
+def pixel_flag(min_x, min_y, max_x, max_y):
+    global pixel_state
+
+    print(min_x, max_x, min_y, max_y)
+
+    for i in range(max_x - min_x):
+        pixel_state.append([0]*(max_y - min_y))
+
+    for i in range(0, max_x - min_x, 1):
+        for j in range(0, max_y - min_y, 1):
+            pixel_state[i][j] = 0
+        
+    # print(pixel_state)
 
 def fill_figure():
-    global points
+    global edges, EPS
 
-    print(" POINTS \n")
-    print(points)
-
-    if (len(points) < 3):
+    if (len(edges) < 3):
         messagebox.showerror("Ошибка", "Недостаточно ребер для закраски.")
         return
     
-    max_x, min_y, max_y  = find_right_edge()
+    min_x, max_x, min_y, max_y  = find_right_edge()
+    pixel_flag(min_x, max_x, min_y, max_y)
 
     ui.canv.create_line(max_x, min_y, max_x, max_y)
+
+    print(" FILL edges ", edges)
+
+    for i in range (len(edges)):
+        if abs(edges[i][1] - edges[i][3]) < EPS: ## горизонт ребро
+            continue
+        fill_edge(edges[i], min_x, min_y, max_x)
+        

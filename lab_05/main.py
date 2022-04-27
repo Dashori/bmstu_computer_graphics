@@ -30,8 +30,10 @@ def change_window_canv():
 def change_bg():
     ui.const_bg = colorchooser.askcolor()
     change_window_canv()
+    print(ui.const_bg[1])
 
 
 def change_draw():
     a = colorchooser.askcolor()
-    ui.const_draw = a[0]
+    ui.const_draw = a[1]
+    print(ui.const_draw)

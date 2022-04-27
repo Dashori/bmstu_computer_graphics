@@ -4,7 +4,7 @@ import main, draw, analysis
 from prettytable import PrettyTable
 
 const_bg = "#ffffff"
-const_draw = (0, 0, 0)
+const_draw = "#000000"
 
 window_size_X = 800
 window_size_Y = 800
@@ -74,6 +74,7 @@ def config(event):
 
 window.bind("<Configure>", config)
 canv = Canvas(window, bg="white")
+canv.create_rectangle(0, 0, 1000, 900)
 
 
 ##
@@ -144,7 +145,7 @@ color_bg = Button(text="Выбрать цвет фона", font="Helvetica 14 bo
 ## Выбрать цвет заполнения
 ##
 
-color_draw = Button(text="Выбрать цвет для заполнения",font="Helvetica 14 bold",command=lambda: main.change_draw(),)
+color_draw = Button(text="Выбрать цвет для заполнения",font="Helvetica 14 bold",command=lambda: main.change_draw())
 
 ##
 ## Очистить канвас
