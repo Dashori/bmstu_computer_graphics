@@ -1,10 +1,10 @@
 from tkinter import *
 from tkinter.tix import MAIN
-import main, draw, analysis
+import main, draw
 from prettytable import PrettyTable
 
 const_bg = "#ffffff"
-const_draw = "#000000"
+const_draw ='#12d9d9'
 
 window_size_X = 800
 window_size_Y = 800
@@ -47,10 +47,10 @@ def config(event):
         tb.place(x=20 * window_size_X,y=70 * window_size_Y,width=width_but,height=380 * window_size_Y,)
 
         ## добавить
-        add_but.place(x=x_but,y=470 * window_size_Y,width=100 * window_size_X, height=30 * window_size_Y,)
+        add_but.place(x=x_but,y=470 * window_size_Y,width=width_but, height=30 * window_size_Y,)
 
         ## удалить
-        del_but.place(x=120 * window_size_X, y=470 * window_size_Y,width=100 * window_size_X,height=30 * window_size_Y,)
+        # del_but.place(x=120 * window_size_X, y=470 * window_size_Y,width=100 * window_size_X,height=30 * window_size_Y,)
 
         # ## изменить
         # fix_but.place(x=160 * window_size_X,y=470 * window_size_Y,width=60 * window_size_X,height=30 * window_size_Y,)
@@ -92,7 +92,7 @@ tb.insert(INSERT, mytable)
 ## добавить точку
 ##
 
-add_but = Button(text="Добавить", font="Helvetica 13 bold", command= lambda: draw.add_point_window())
+add_but = Button(text="Добавить точку", font="Helvetica 13 bold", command= lambda: draw.add_point_window())
 
 ##
 ## удалить точку

@@ -1,16 +1,9 @@
-from gettext import find
-from os import POSIX_FADV_RANDOM
 from tkinter import *
 from tkinter import messagebox
-from turtle import color
-import pyautogui
-
+import time, copy
 import ui, main
-from colormap import rgb2hex
-from math import pi, cos, sin, radians
 
-const_x = 400
-const_y = 350
+from colormap import rgb2hex
 
 points = []
 edges = []
@@ -19,6 +12,12 @@ cur_point = None
 
 pixel_state = []
 EPS = 1e-6
+
+flag_draw = 0
+min_x = 0
+max_x = 0
+min_y = 0
+max_y  = 0
 
 ## функция для считывания координат х и у из полей ввода
 def input_coor(input_x, input_y):
@@ -130,7 +129,7 @@ def add_point(x, y):
 def print_edges():
     global edges
 
-    ui.canv.delete("all")
+    # ui.canv.delete("all")
 
     for i in range(len(edges)):
         x1 = edges[i][0]
@@ -173,13 +172,15 @@ def input_points_canvas():
 ## функция для очистки всего
 def clean():
     ui.canv.delete("all")
-    global points, edges
+    global points, edges, pixel_state, flag_draw
     global cur_point, first_point
 
     points = []
     edges = []
     cur_point = None
     first_point = None
+    pixel_state = []
+    flag_draw = 0
 
     ui.tb.config(state='normal')
     ui.tb.delete(0.0, END)
@@ -273,6 +274,9 @@ def change_point_window():
 
 ## ищем макс x, min y, max y чтоб докрашивать до правой границы фигуры  
 def find_right_edge():
+    global points
+    global min_x, max_x, min_y, max_y
+
     max_x = points[0][0]
     min_x = points[0][0]
     min_y = points[0][1]
@@ -288,7 +292,10 @@ def find_right_edge():
         if (points[i][1] < min_y):
             min_y = points[i][1]
 
-    return int(min_x), int(max_x), int(min_y), int(max_y)
+    max_x = int(max_x)
+    min_x = int(min_x)
+    max_y = int(max_y)
+    min_y = int(min_y)
 
 def find_scan_edges(edge):
     if edge[1] > edge[3]:
@@ -302,33 +309,64 @@ def find_scan_edges(edge):
 
     return y, end_y, dx, start_x
 
-def fill_pixel(x, y, min_x, min_y):
+def fill_pixel(x, y):
+    global min_x, min_y
     global pixel_state
 
     x = int(x)
     y = int(y)
 
     if (pixel_state[x - min_x][y - min_y] == 0):
-        ui.canv.create_oval(x, y, x + 1, y + 1, fill = '#12d9d9', outline = '#12d9d9')
+        ui.canv.create_oval(x, y, x + 1, y + 1, fill = ui.const_draw, outline = ui.const_draw)
         pixel_state[x - min_x][y - min_y] = 1
     else:
-        ui.canv.create_oval(x, y, x + 1, y + 1, fill = '#ffffff', outline = '#ffffff')
+        ui.canv.create_oval(x, y, x + 1, y + 1, fill = ui.const_bg, outline = ui.const_bg)
         pixel_state[x - min_x][y - min_y] = 0
 
-def fill_edge(edge, min_x, min_y, max_x):
+def fill_edge(edge):
+    global min_x, max_x, min_y, max_y
+
     y, end_y, dx, start_x = find_scan_edges(edge)
-    
+
     while y < end_y:
         x = start_x
         while x < max_x:
-            fill_pixel(x, y, min_x, min_y)
+            fill_pixel(x, y)
             x += 1
 
         start_x += dx
         y += 1
 
-def pixel_flag(min_x, min_y, max_x, max_y):
+def fix_pixel_flags():
     global pixel_state
+    global min_x, max_x, min_y, max_y
+    old_min_x = min_x ## сохранили старые значения
+    old_max_x = max_x
+    old_min_y = min_y
+    old_max_y = max_y
+
+    find_right_edge() ## сделали новые максимумы минимумы
+    old_pixel_state = copy.deepcopy(pixel_state)
+
+    for i in range(max_x - min_x):
+        pixel_state.append([0]*(max_y - min_y))
+
+    k_x = 0
+    k_y = 0
+    if (min_x < old_min_x or min_y < old_min_y): 
+        k_x = old_min_x - min_x
+        k_y = old_min_y - min_y
+        print(" JOPA")
+
+    for i in range(0, old_max_x - old_min_x, 1):
+        for j in range(0, old_max_y - old_min_y, 1):
+            pixel_state[i + k_x][j + k_y] = old_pixel_state[i][j]
+
+
+
+def pixel_flag():
+    global pixel_state
+    global min_x, max_x, min_y, max_y
 
     print(min_x, max_x, min_y, max_y)
 
@@ -342,21 +380,29 @@ def pixel_flag(min_x, min_y, max_x, max_y):
     # print(pixel_state)
 
 def fill_figure():
-    global edges, EPS
+    global edges, EPS, flag_draw
 
     if (len(edges) < 3):
         messagebox.showerror("Ошибка", "Недостаточно ребер для закраски.")
         return
-    
-    min_x, max_x, min_y, max_y  = find_right_edge()
-    pixel_flag(min_x, max_x, min_y, max_y)
 
-    ui.canv.create_line(max_x, min_y, max_x, max_y)
+    time_start = time.time()
 
-    print(" FILL edges ", edges)
+    find_right_edge()
+
+    if (flag_draw == 1):
+        fix_pixel_flags()
+    else:
+        pixel_flag()
+
+    flag_draw = 1
 
     for i in range (len(edges)):
         if abs(edges[i][1] - edges[i][3]) < EPS: ## горизонт ребро
             continue
-        fill_edge(edges[i], min_x, min_y, max_x)
+        fill_edge(edges[i])
         
+    time_end = time.time()
+    text = "Время выполнения: " + str(round(time_end - time_start, 2))  + 'c'
+
+    messagebox.showinfo("Время", text)

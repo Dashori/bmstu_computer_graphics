@@ -24,13 +24,12 @@ def exit_window(root, button):
 
 
 def change_window_canv():
-    ui.canv.config(bg=ui.const_bg[1])
+    ui.canv.config(bg=ui.const_bg)
 
 
 def change_bg():
-    ui.const_bg = colorchooser.askcolor()
+    ui.const_bg = colorchooser.askcolor()[1]
     change_window_canv()
-    print(ui.const_bg[1])
 
 
 def change_draw():
