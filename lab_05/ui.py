@@ -57,13 +57,10 @@ def config(event):
         lock_but.place(x=x_but, y=550 * window_size_Y, width=width_but, height=height_but)
 
         ## закрасить
-        fill_but.place(x=x_but, y=600 * window_size_Y, width=width_but, height=height_but)
-
-        ## время
-        time_but.place(x=x_but, y=650 * window_size_Y, width=width_but, height=height_but)
+        fill_but.place(x=x_but, y=620 * window_size_Y, width=width_but, height=height_but)
 
         ## цвет
-        color_bg.place(x=x_but, y=700 * window_size_Y, width=width_but, height=height_but)
+        color_bg.place(x=x_but, y=690 * window_size_Y, width=width_but, height=height_but)
         color_draw.place(x=x_but, y=750 * window_size_Y, width=width_but, height=height_but)
 
 
@@ -109,13 +106,6 @@ lock_but = Button(text="Замкнуть", font="Helvetica 14 bold", command= la
 ##
 
 fill_but = Button(text="Закрасить", font="Helvetica 14 bold", command = lambda: draw.fill_figure())
-
-
-##
-## время
-##
-
-time_but = Button(text="Измерить время", font="Helvetica 14 bold")
 
 ##
 ## Выбрать цвет фонa
