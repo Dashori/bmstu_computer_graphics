@@ -402,8 +402,6 @@ def fill_figure():
         color_hex = rgb2hex(color[0], color[1], color[2])
         color_hex = color_hex.lower()
 
-        # print("2", color_hex, ui.const_line, ui.const_draw)
-
         while (color_hex != ui.const_line and color_hex != ui.const_draw):
             ui.image_canvas.put(ui.const_draw, (x, y))
             x = x - 1
@@ -526,7 +524,7 @@ def fill_figure():
         if ui.is_delay.get() == 1:
             ui.canv.update()
             # time.sleep(0.00000000005)
-            time.sleep(0.0005)
+            time.sleep(0.005)
 
     
     time_end = time.time()
