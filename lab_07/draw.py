@@ -196,11 +196,9 @@ def cutoff_line(line):
 
     # для каждой стороны окна
     for i in range(4):
-        print(" HERE ")
         vis = is_visible(line)
         if vis == VISIBLE:
             ui.canv.create_line(line[0], line[1], line[2], line[3], fill='green')
-            print(" VISIBLE ")
             return
         elif vis == INVISIBLE:
             return
@@ -209,7 +207,7 @@ def cutoff_line(line):
         code1 = get_code(line[0], line[1])
         code2 = get_code(line[2], line[3])
 
-        if code1[i] == code2[i]:
+        if code1[i] == code2[i]: ## и если так, то это 0, так как если 1=1, то он тривиально невидимый
             continue
 
         # проверка нахождения Р1 вне окна; если Р1 внутри окна, то Р2 и Р1 поменять местами
