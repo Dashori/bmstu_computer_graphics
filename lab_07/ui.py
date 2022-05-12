@@ -84,20 +84,25 @@ def config(event):
         ## отсечь
         cutoff_but.place(x=x_but, y=520 * window_size_Y, width=width_but, height=height_but)
 
-        ## закрасить
-        # fill_but.place(x=x_but, y=640 * window_size_Y, width=width_but, height=height_but)
-
-        ## цвет
-        # color_bg.place(x=x_but, y=750 * window_size_Y, width=width_but, height=height_but)
-        # color_draw.place(x=x_but, y=690 * window_size_Y, width=width_but, height=height_but)
-
+        empty.place(x=x_but, y=560 * window_size_Y)
         canv.place(x=250 * window_size_X,y=40 * window_size_Y, width=530 * window_size_X,height=700 * window_size_Y)
-
-        image_canvas = PhotoImage(width = window.winfo_width(), height = window.winfo_height())
-        canv.create_image((window.winfo_width() / 2, window.winfo_height() / 2), image = image_canvas, state = "normal")
 
 window.bind("<Configure>", config)
 canv = Canvas(window, bg="white")
+
+##
+## лишнее место
+##
+
+text_empty = '''
+Здесь можно добавить ещё
+какие-то функции, например, 
+менять цвет фона и объектов
+но я хотела спать и уже 
+не стала это фиксить.'''
+
+
+empty=Label(font='Helvetica 20', text=text_empty, justify=LEFT)
 
 ##
 ## добавить отрезок
@@ -155,31 +160,6 @@ draw_rect_but = Button(text="Нарисовать отсекатель", font="H
 cutoff_but = Button(text='Отсечь', font="Helvetica 13 bold", command= lambda: draw.cutoff())
 
 ##
-## замкнуть
-##
-
-lock_but = Button(text="Замкнуть", font="Helvetica 14 bold", command= lambda: draw.lock_edge())
-
-##
-## закрасить
-##
-
-fill_but = Button(text="Закрасить", font="Helvetica 14 bold", command = lambda: draw.fill_figure())
-
-##
-## Выбрать цвет фонa
-##
-
-color_bg = Button(text="Выбрать цвет фона", font="Helvetica 14 bold", command=lambda: main.change_bg())
-
-
-##
-## Выбрать цвет заполнения
-##
-
-color_draw = Button(text="Выбрать цвет для заполнения",font="Helvetica 14 bold",command=lambda: main.change_draw())
-
-##
 ## Очистить канвас
 ##
 
@@ -201,7 +181,4 @@ info_button = Button(font="Helvetica 14 bold", text="О программе", com
 exit_button = Button(font="Helvetica 14 bold", text="Выход", command=lambda: window.destroy())
 
 
-
-
-draw.input_points_canvas()
 window.mainloop()

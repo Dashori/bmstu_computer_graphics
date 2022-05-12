@@ -28,5 +28,3 @@ def change_bg():
 
 def change_draw():
     ui.const_draw = colorchooser.askcolor()[1]
-    # ui.const_draw = a[1]
-    # # print(ui.const_draw)

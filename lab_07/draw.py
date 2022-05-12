@@ -1,16 +1,9 @@
 from tkinter import *
 from tkinter import messagebox
-import time
+
 import ui
-from colormap import rgb2hex
 
 lines = []
-
-flag_draw = 0
-min_x = 0
-max_x = 0
-min_y = 0
-max_y  = 0
 
 rect = None
 old_coor_rect = None
@@ -50,12 +43,11 @@ def input_line(input_x1, input_y1, input_x2, input_y2):
 
     add_line(x1, y1, x2, y2)
 
+
 def add_line(x1, y1, x2, y2):
     global lines
 
     lines.append([x1, y1, x2, y2])
-
-    print(lines)
 
     ui.canv.create_line(x1, y1, x2, y2, fill='orange')
 
@@ -116,9 +108,11 @@ def input_rect_bind(event):
         ui.canv.create_rectangle(rect[0], rect[1], rect[2], rect[3], outline='red')
         old_coor_rect = None
 
+
 ## функция для тыканья отсекателя
 def input_rect_canvas():
     ui.canv.bind('<Button - 1>', input_rect_bind)
+
 
 ## функция для очистки всего
 def clean():
@@ -128,11 +122,12 @@ def clean():
     lines = []
     rect = None
 
-
+## функция для получения кода точки
 def get_code(x, y):
     global rect
 
     code = [0, 0, 0, 0]
+
     if x < rect[0]:
         code[0] = 1
     if x > rect[1]:
@@ -143,6 +138,7 @@ def get_code(x, y):
         code[3] = 1
 
     return code
+
 
 def log_prod(code1, code2):
     p = 0
@@ -169,7 +165,7 @@ def is_visible(line):
     if not s1 and not s2:
         vis = VISIBLE
     else:
-        # проверка тривиальной невидимости отрезка
+        # проверка тривиальной невидимости отрезка, тут либо тривиально невидим либо частично
         l = log_prod(get_code(line[0], line[1]), get_code(line[2], line[3]))
         if l != 0:
             vis = INVISIBLE
@@ -177,10 +173,10 @@ def is_visible(line):
     return vis
 
 
+## проверяем каждую линию
 def cutoff_line(line):
     global rect
 
-    print("IN FUNC", line, rect)
     # инициализация флага
     flag = 1 # общего положения
     t = 1
@@ -207,7 +203,8 @@ def cutoff_line(line):
         code1 = get_code(line[0], line[1])
         code2 = get_code(line[2], line[3])
 
-        if code1[i] == code2[i]: ## и если так, то это 0, так как если 1=1, то он тривиально невидимый
+        if code1[i] == code2[i]: ## и если так, то это ==0 и можно уходить, ибо точки пересечения нет
+            ##так как если 1=1, то он тривиально невидимый
             continue
 
         # проверка нахождения Р1 вне окна; если Р1 внутри окна, то Р2 и Р1 поменять местами
@@ -224,7 +221,7 @@ def cutoff_line(line):
                 continue
             else:
                 line[0] = (1 / t) * (rect[i] - line[1]) + line[0]
-
+        
         line[1] = rect[i]
 
     ui.canv.create_line(line[0], line[1], line[2], line[3], fill='green')
