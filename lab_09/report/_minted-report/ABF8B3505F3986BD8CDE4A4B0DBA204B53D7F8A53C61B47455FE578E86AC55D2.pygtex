@@ -1,0 +1,71 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{k}{def} \PYG{n+nf}{sazerland\PYGZus{}hodjmen\PYGZus{}alg}\PYG{p}{():}
+	\PYG{n}{cutter} \PYG{o}{=} \PYG{n}{wind}\PYG{o}{.}\PYG{n}{cutter}
+	\PYG{n}{polygon} \PYG{o}{=} \PYG{n}{wind}\PYG{o}{.}\PYG{n}{polygon}
+	
+	\PYG{c+c1}{\PYGZsh{} Проверка на замкнутость полигона}
+	\PYG{k}{if} \PYG{o+ow}{not} \PYG{n}{end\PYGZus{}polygon\PYGZus{}}\PYG{p}{:}
+		\PYG{n}{end\PYGZus{}polygon}\PYG{p}{()}
+	
+	\PYG{n}{add\PYGZus{}polygon}\PYG{p}{(}\PYG{n}{cutter}\PYG{p}{,} \PYG{n}{wind}\PYG{o}{.}\PYG{n}{pen\PYGZus{}cutter}\PYG{p}{)}
+	
+	\PYG{n}{count\PYGZus{}sides} \PYG{o}{=} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{cutter}\PYG{p}{)}
+	
+	\PYG{c+c1}{\PYGZsh{} Цикл по сторонам отсекателя}
+	\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{count\PYGZus{}sides}  \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{2}\PYG{p}{):}
+		\PYG{c+c1}{\PYGZsh{} Вычисление вектора внутренней нормали к очередной}
+		\PYG{c+c1}{\PYGZsh{} i\PYGZhy{}ой стороне отсекателя \PYGZhy{} N\PYGZus{}вi}
+		\PYG{n}{norm} \PYG{o}{=} \PYG{n}{normal}\PYG{p}{(}\PYG{n}{cutter}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],} \PYG{n}{cutter}\PYG{p}{[}\PYG{n}{i} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{],} \PYG{n}{cutter}\PYG{p}{[}\PYG{n}{i} \PYG{o}{+} \PYG{l+m+mi}{2}\PYG{p}{])}
+		\PYG{c+c1}{\PYGZsh{} полигон, отсеченный текущей стороной}
+		\PYG{n}{cutted\PYGZus{}polygon} \PYG{o}{=} \PYG{p}{[]}
+	
+		\PYG{c+c1}{\PYGZsh{} цикл по сторонам полигона}
+		\PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{polygon}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{):}
+			\PYG{n}{p1}\PYG{p}{,} \PYG{n}{p2} \PYG{o}{=} \PYG{n}{polygon}\PYG{p}{[}\PYG{n}{j}\PYG{p}{],} \PYG{n}{polygon}\PYG{p}{[}\PYG{n}{j} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{]}
+			\PYG{c+c1}{\PYGZsh{} Вычисление вектора W\PYGZus{}i=P\PYGZus{}1\PYGZhy{}f\PYGZus{}i (f\PYGZus{}i берем за вершины стороны)}
+			\PYG{n}{w1} \PYG{o}{=} \PYG{p}{[}\PYG{n}{p1}\PYG{o}{.}\PYG{n}{x}\PYG{p}{()} \PYG{o}{\PYGZhy{}} \PYG{n}{cutter}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{x}\PYG{p}{(),} \PYG{n}{p1}\PYG{o}{.}\PYG{n}{y}\PYG{p}{()} \PYG{o}{\PYGZhy{}} \PYG{n}{cutter}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{y}\PYG{p}{()]}
+			\PYG{n}{w2} \PYG{o}{=} \PYG{p}{[}\PYG{n}{p2}\PYG{o}{.}\PYG{n}{x}\PYG{p}{()} \PYG{o}{\PYGZhy{}} \PYG{n}{cutter}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{x}\PYG{p}{(),} \PYG{n}{p2}\PYG{o}{.}\PYG{n}{y}\PYG{p}{()} \PYG{o}{\PYGZhy{}} \PYG{n}{cutter}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{y}\PYG{p}{()]}
+	
+			\PYG{n}{w1\PYGZus{}scal} \PYG{o}{=} \PYG{n}{scalar\PYGZus{}mult}\PYG{p}{(}\PYG{n}{w1}\PYG{p}{,} \PYG{n}{norm}\PYG{p}{)}
+			\PYG{n}{w2\PYGZus{}scal} \PYG{o}{=} \PYG{n}{scalar\PYGZus{}mult}\PYG{p}{(}\PYG{n}{w2}\PYG{p}{,} \PYG{n}{norm}\PYG{p}{)}
+			
+			\PYG{k}{if} \PYG{n}{w1\PYGZus{}scal} \PYG{o}{\PYGZlt{}} \PYG{l+m+mi}{0} \PYG{o+ow}{and} \PYG{n}{w2\PYGZus{}scal} \PYG{o}{\PYGZlt{}} \PYG{l+m+mi}{0}\PYG{p}{:}
+			\PYG{c+c1}{\PYGZsh{}  отрезок вне видимой области}
+				\PYG{k}{continue}
+			\PYG{k}{elif} \PYG{n}{w1\PYGZus{}scal} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0} \PYG{o+ow}{and} \PYG{n}{w2\PYGZus{}scal} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0}\PYG{p}{:}
+				\PYG{c+c1}{\PYGZsh{} отрезок полностью в видимой области}
+				\PYG{c+c1}{\PYGZsh{} p1 была занесена в результат на предыдущем шаге}
+				\PYG{n}{cutted\PYGZus{}polygon}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{p2}\PYG{p}{)}
+				\PYG{k}{continue}
+				
+		\PYG{c+c1}{\PYGZsh{} отрезок пересекает сторону отсекателя}
+		
+		\PYG{c+c1}{\PYGZsh{} Вычисление директрисы отрезка:}
+		\PYG{c+c1}{\PYGZsh{} D = P\PYGZus{}2\PYGZhy{}P\PYGZus{}1}
+		\PYG{n}{d} \PYG{o}{=} \PYG{p}{[}\PYG{n}{p2}\PYG{o}{.}\PYG{n}{x}\PYG{p}{()} \PYG{o}{\PYGZhy{}} \PYG{n}{p1}\PYG{o}{.}\PYG{n}{x}\PYG{p}{(),} \PYG{n}{p2}\PYG{o}{.}\PYG{n}{y}\PYG{p}{()} \PYG{o}{\PYGZhy{}} \PYG{n}{p1}\PYG{o}{.}\PYG{n}{y}\PYG{p}{()]}
+		
+		\PYG{n}{d\PYGZus{}scal} \PYG{o}{=} \PYG{n}{scalar\PYGZus{}mult}\PYG{p}{(}\PYG{n}{d}\PYG{p}{,} \PYG{n}{norm}\PYG{p}{)}
+		\PYG{k}{if} \PYG{n}{d\PYGZus{}scal} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{:}
+			\PYG{k}{if} \PYG{n}{w2\PYGZus{}scal} \PYG{o}{\PYGZlt{}} \PYG{l+m+mi}{0}\PYG{p}{:}
+				\PYG{n}{cutted\PYGZus{}polygon}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{p2}\PYG{p}{)}
+			\PYG{k}{continue}
+	
+		\PYG{c+c1}{\PYGZsh{} Находим коэф пересечения.}
+		\PYG{n}{t} \PYG{o}{=} \PYG{o}{\PYGZhy{}}\PYG{n}{w1\PYGZus{}scal} \PYG{o}{/} \PYG{n}{d\PYGZus{}scal}
+		\PYG{c+c1}{\PYGZsh{} Точка пересечения}
+		\PYG{n}{pt} \PYG{o}{=} \PYG{n}{QPoint}\PYG{p}{(}\PYG{n+nb}{round}\PYG{p}{(}\PYG{n}{lerp}\PYG{p}{(}\PYG{n}{p1}\PYG{o}{.}\PYG{n}{x}\PYG{p}{(),} \PYG{n}{p2}\PYG{o}{.}\PYG{n}{x}\PYG{p}{(),} \PYG{n}{t}\PYG{p}{)),}
+			\PYG{n+nb}{round}\PYG{p}{(}\PYG{n}{lerp}\PYG{p}{(}\PYG{n}{p1}\PYG{o}{.}\PYG{n}{y}\PYG{p}{(),} \PYG{n}{p2}\PYG{o}{.}\PYG{n}{y}\PYG{p}{(),} \PYG{n}{t}\PYG{p}{)))}
+		
+		\PYG{k}{if} \PYG{n}{w1\PYGZus{}scal} \PYG{o}{\PYGZlt{}} \PYG{l+m+mi}{0}\PYG{p}{:}
+		\PYG{c+c1}{\PYGZsh{} отрезок направлен в сторону внутренней области отсекателя}
+			\PYG{n}{cutted\PYGZus{}polygon}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{pt}\PYG{p}{)}
+			\PYG{n}{cutted\PYGZus{}polygon}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{p2}\PYG{p}{)}
+		\PYG{k}{else}\PYG{p}{:}
+			\PYG{c+c1}{\PYGZsh{} отрезок направлен от внутренней области отсекателя}
+			\PYG{c+c1}{\PYGZsh{} p1 была занесена в результат на предыдущем шаге}
+			\PYG{n}{cutted\PYGZus{}polygon}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{pt}\PYG{p}{)}
+		
+	\PYG{n}{polygon} \PYG{o}{=} \PYG{n}{cutted\PYGZus{}polygon}
+	
+	\PYG{n}{add\PYGZus{}polygon}\PYG{p}{(}\PYG{n}{polygon}\PYG{p}{,} \PYG{n}{wind}\PYG{o}{.}\PYG{n}{pen\PYGZus{}res}\PYG{p}{)}
+\end{Verbatim}
