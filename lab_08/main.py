@@ -517,7 +517,7 @@ def cyrus_beck_alg():
 
     # Проверка отсекателя на выпуклость.
     if not is_convex(cutter):
-        QMessageBox.warning(wind, "Ошибка!", "Отсекатель невыпусклый!")
+        QMessageBox.warning(wind, "Ошибка!", "Отсекатель невыпуклый!")
         return
 
     add_polygon()
