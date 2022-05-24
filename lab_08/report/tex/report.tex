@@ -1,4 +1,5 @@
 \documentclass[a4paper,12pt]{article}
+\usepackage{cmap}
 \usepackage[T1,T2A]{fontenc}  % кодировка
 \usepackage[utf8]{inputenc}   % кодировка исходного текста
 \usepackage[english,russian]{babel} % локализация и переносы
@@ -7,9 +8,9 @@
 \usepackage{minted}
 \usepackage{graphics}
 \usepackage{graphicx}
+
 \renewcommand\maketitlehooka{\null\mbox{}\vfill}
 \renewcommand\maketitlehookd{\vfill\null}
-
 
 % геометрия
 \geometry{pdftex, left = 2cm, right = 2cm, top = 2.5cm, bottom = 2.5cm}
@@ -45,12 +46,12 @@
 	Отметим форму, в которой описываются отрезки в данном алгоритме (параметрическая форма задания отрезка):
 	
 	\[P(t) = P1 + (P2  - P1) * t\]
-	где t - параметр $(0 <= t <= 1)$.\\
+%	где t - параметр $(0 <= t <= 1)$.\\
 	
 	Это векторное уравнение, которое в двумерной графике можно свести к двум одномерным параметрическим уравнениям следующего вида:
 	
 	\[Px(t) = P1.x + (P2.x  - P1.x) * t\]
-	\[Py(t) = P1.y+ (P2.y  - P1.y) * t\]
+	%\[Py(t) = P1.y+ (P2.y  - P1.y) * t\]
 	параметр t так же принадлежит [0, 1]\\
 	
 	Если значение параметра t лежит вне [0, 1], то пересечение происходит с продолжением отрезка (получается, что его нет). Такие пересечения отвергаются.\\
@@ -174,7 +175,7 @@
 			break
 	
 	# Проверка фактической видимости отсечённого отрезка.
-	# Если t_н≤t_в, то изобразить отрезок в  интервале от P(t_н ) до P(t_в ).
+	# Если t_н<=t_в, то изобразить отрезок в  интервале от P(t_н ) до P(t_в ).
 	if top <= bottom:
 		return QLine(round(line.x1() + d.x() * top), round(line.y1() + d.y() * top),
 		round(line.x1() + d.x() * bottom), round(line.y1() + d.y() * bottom))
